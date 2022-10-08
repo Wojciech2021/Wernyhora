@@ -1,0 +1,10 @@
+{% if app.user %}
+    <div class="d-flex">
+        <div class="col-6 justify-content-start m">
+            <a href="{{ path('app_manage_projects') }}">WERNYHORA</a>
+        </div>
+        <div class="col-6 mb-3 text-end">
+            Jesteś zalogowany jako {{ app.user.getEmail }}, <a href="{{ path('app_logout') }}">Wyloguj</a>
+        </div>
+    </div>
+{% endif %}

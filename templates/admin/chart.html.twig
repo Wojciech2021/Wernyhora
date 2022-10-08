@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wykres{% endblock %}
+
+{% block body %}
+    <div class="position-relative">
+        <div class="position-absolute top-50 start-50 translate-middle" style="width: 75%; height: 75%">
+            {{ render_chart(chart) }}
+        </div>
+    </div>
+
+
+
+{#    {{ render_chart(chart, {'class': 'my-chart'}) }}#}
+
+{% endblock %}

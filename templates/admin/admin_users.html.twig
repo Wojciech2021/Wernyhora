@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administracja{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Email</th>
+                <th>Rola</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if users  is defined %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td><td>{{ user.email }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            [{{ role }}]
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary"><a href="/admin/users/{{ user.id }}" class="text-white text-decoration-none">Przydziel role</a></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+    <button type="button" class="btn btn-primary"><a href="{{ path('app_admin')}}" class="text-white text-decoration-none">Wstecz</a></button>
+{% endblock %}
