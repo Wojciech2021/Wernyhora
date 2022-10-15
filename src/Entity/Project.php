@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -15,6 +16,10 @@ class Project
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(unique: true, length: 255)]
+    #[Slug(fields: ['name'])]
+    private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -47,6 +52,16 @@ class Project
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     public function getName(): ?string

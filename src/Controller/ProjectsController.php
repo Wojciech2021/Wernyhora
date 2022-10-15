@@ -45,12 +45,12 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/edit/{id}', name: 'app_edit_project')]
+    #[Route('/projects/edit/{slug}', name: 'app_edit_project')]
     public function editProject(Request $request,
-                                int $id,
+                                Project $project,
                                 ProjectsService $projectsService)
     {
-        $project = $projectsService->getProject($id);
+        //$project = $projectsService->getProject($id);
 
         $form = $this->createForm(EditProjectType::class, $project);
 
