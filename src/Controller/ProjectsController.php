@@ -6,6 +6,8 @@ use App\Entity\Project;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
 use App\Form\CriteriesVariantsValuesType;
+use App\Form\CireriesCollectionType;
+use App\Form\VariantsCollectionType;
 use App\Service\ProjectsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +54,10 @@ class ProjectsController extends AbstractController
 
         $form = $this->createForm(EditProjectType::class, $project);
 
-        $form1 = $this->createForm(CriteriesVariantsValuesType::class);
+        //$form1 = $this->createForm(CriteriesVariantsValuesType::class);
+        $form1 = $this->createForm(CireriesCollectionType::class);
+        $form2 = $this->createForm(VariantsCollectionType::class);
+        $form3 = $this->createForm(CriteriesVariantsValuesType::class);
 
         //dd($form1);
 
@@ -69,6 +74,8 @@ class ProjectsController extends AbstractController
             'form' => $form->createView(),
             'project' => $project,
             'form1' => $form1->createView(),
+            'form2' => $form2->createView(),
+            'form3' => $form3->createView(),
         ]);
     }
 }

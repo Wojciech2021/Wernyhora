@@ -36,6 +36,39 @@
     </div>
     {{ form_end(form) }}
 
-    {{ form_start(form1) }}
-    {{ form_end(form1) }}
+{#    {{ dump(form_widget(form1.criteries.vars.prototype)) }}#}
+{#    {{ dump('dupa') }}#}
+
+    <div class="row js-criteries-wrapper"
+         data-prototype="<div class='js-critery-item'>{{ form_widget(form3.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
+         data-index="{{ form3.criteriesCollection.criteries|length }}"
+    >
+
+        {% for criteriesForm in form3.criteriesCollection.criteries %}
+            <div class="js-critery-item">
+                {{ form_row(criteriesForm.name) }}
+                {{ form_row(criteriesForm.unit) }}
+                {{ form_row(criteriesForm.weight) }}
+                {{ form_row(criteriesForm.removeCritery) }}
+            </div>
+        {% endfor %}
+
+        {{ form_row(form3.criteriesCollection.addCritery) }}
+    </div>
+
+    <div class="row js-variants-wrapper"
+         data-prototype="<div class='js-variant-item'>{{ form_widget(form3.variantsCollection.variants.vars.prototype)|e('html_attr') }}</div>"
+         data-index="{{ form3.variantsCollection.variants|length }}"
+    >
+
+        {% for variantsForm in form3.variantsCollection.variants %}
+            <div class="js-variant-item">
+                {{ form_row(variantsForm.name) }}
+                {{ form_row(variantsForm.removeVariant) }}
+            </div>
+        {% endfor %}
+
+        {{ form_row(form3.variantsCollection.addVariant) }}
+    </div>
+
 {% endblock %}
