@@ -1,5 +1,7 @@
 jQuery(document).ready(function () {
     var $wrapperCriteries = $('.js-criteries-wrapper');
+    var $wrapperVariants = $('.js-variants-wrapper');
+    var $wrapperVariantsValues = $('.js-variants-values-wrapper');
 
     $wrapperCriteries.on('click', '.js-criterry-add', function(e) {
         e.preventDefault();
@@ -27,8 +29,6 @@ jQuery(document).ready(function () {
         $(this).before(newForm);
     });
 
-    var $wrapperVariants = $('.js-variants-wrapper');
-
     $wrapperVariants.on('click', '.js-variant-add', function(e) {
         e.preventDefault();
 
@@ -51,8 +51,16 @@ jQuery(document).ready(function () {
         // increase the index with one for the next item
         $wrapperVariants.data('index', index + 1);
 
+        //$(this).closest('.js-variant-item').after(newForm)
+        // var closest = $(this).closest('.js-variant-item');
+        // closest.after(newForm);
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).before(newForm);
+        // var child = $(this).parentNode;
+        // //var parent = $(this).parentNode.parentNode;
+        //
+        // $(this).parentNode.parentNodeinsertBefore(newForm, child);
+        console.log( $(this).parent());
+        $(this).parent().before(newForm);
     });
 
     $wrapperCriteries.on('click', '.js-criterry-remove', function (e) {

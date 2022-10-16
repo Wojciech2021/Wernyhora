@@ -13,8 +13,8 @@ class VariantValueFormType extends AbstractType
     {
         $builder
             ->add('value')
-            ->add('Critery')
-            ->add('Variant')
+//            ->add('Critery')
+//            ->add('Variant')
         ;
     }
 

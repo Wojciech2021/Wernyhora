@@ -32,14 +32,20 @@ class CriteriesVariantsValuesType extends AbstractType
         $builder
 
             ->add('criteriesCollection', CireriesCollectionType::class,
-            [
-                'label' => ' ',
-            ])
+                [
+                    'label' => ' ',
+                ])
 
             ->add('variantsCollection', VariantsCollectionType::class,
                 [
                     'label' => ' ',
                 ])
+
+            ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
+                [
+                    'label' => ' ',
+                ]
+            )
 
         ;
     }
