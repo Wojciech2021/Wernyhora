@@ -76,15 +76,19 @@
         </div>
     </div>
     <div class="row js-variants-values-wrapper"
-         data-prototype="<div class='js-variant-value-item'>{{ form_widget(form3.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</div>"
-         data-index="{{ form3.variantsCollection.variants|length }}"
+         data-prototype="<td class='js-variant-value-item'>{{ form_widget(form3.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"
+         data-index="{{ form3.variantsValuesCollection.variantsValues|length }}"
     >
+        <table>
+            <tr class="tr-{{ form3.variantsValuesCollection.variantsValues|length }}" data-index="{{ form3.variantsValuesCollection.variantsValues|length }}">
+                {% for variantsValues in form3.variantsValuesCollection.variantsValues %}
+                    <td class="js-variant-value-item">
+                        {{ form_row(variantsValues.value) }}
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
 
-        {% for variantsValues in form3.variantsValuesCollection.variantsValues %}
-            <div class="js-variant-value-item">
-                {{ form_row(variantsValues.value) }}
-            </div>
-        {% endfor %}
 
     </div>
     {{ form_end(form3) }}
