@@ -52,29 +52,33 @@ class ProjectsController extends AbstractController
     {
         //$project = $projectsService->getProject($id);
 
-        $form = $this->createForm(EditProjectType::class, $project);
+//        $form = $this->createForm(EditProjectType::class, $project);
 
-        //$form1 = $this->createForm(CriteriesVariantsValuesType::class);
-        $form1 = $this->createForm(CireriesCollectionType::class);
-        $form2 = $this->createForm(VariantsCollectionType::class);
         $form3 = $this->createForm(CriteriesVariantsValuesType::class);
+        $form3->handleRequest($request);
 
         //dd($form1);
 
-        $form->handleRequest($request);
+//        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
+//        if ($form->isSubmitted() && $form->isValid())
+//        {
+//
+//            $project = $form->getData();
+//            $projectsService->updateProject($project);
+//        }
+
+        if ($form3->isSubmitted() && $form3->isValid())
         {
-
-            $project = $form->getData();
-            $projectsService->updateProject($project);
+//            ($form3->getData());
+            dump('dupa');
         }
 
         return $this->render('projects/edit.html.twig', [
-            'form' => $form->createView(),
+//            'form' => $form->createView(),
             'project' => $project,
-            'form1' => $form1->createView(),
-            'form2' => $form2->createView(),
+//            'form1' => $form1->createView(),
+//            'form2' => $form2->createView(),
             'form3' => $form3->createView(),
         ]);
     }

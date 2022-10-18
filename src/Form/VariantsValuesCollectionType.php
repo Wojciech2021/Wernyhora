@@ -13,8 +13,8 @@ class VariantsValuesCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $variantsValues = new ArrayCollection();
-        $variantsValues->add(new VariantValue());
+
+        $variantsValues = new ArrayCollection([11=>new VariantValue()]);
 
         $builder
 

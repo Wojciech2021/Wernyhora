@@ -6,35 +6,35 @@
 {% block body %}
     {% include 'top_menu.html.twig' %}
 
-    {{ form_start(form) }}
-    <div class="d-flex justify-content-center mt-5">
-        <div class="flex-container col-3 justify-content-center col-1 form-group">
-            <div class="pt-3">
-                <div class="pb-1">
-                    {{ form_label(form.name) }}
-                </div>
-                <div>
-                    {{ form_widget(form.name) }}
-                </div>
-            </div>
-            <div class="pt-3 input-group">
-                <div class="pb-1 input-group-prepend">
-                    {{ form_label(form.description, null,
-                        {'label_attr': {'class': 'input-group-text'}}
-                    ) }}
-                </div>
-{#                <div>#}
-                    {{ form_widget(form.description,
-                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
-                    ) }}
+{#    {{ form_start(form) }}#}
+{#    <div class="d-flex justify-content-center mt-5">#}
+{#        <div class="flex-container col-3 justify-content-center col-1 form-group">#}
+{#            <div class="pt-3">#}
+{#                <div class="pb-1">#}
+{#                    {{ form_label(form.name) }}#}
 {#                </div>#}
-            </div>
-            <div class="pt-3">
-                {{ form_widget(form.addProject) }}
-            </div>
-        </div>
-    </div>
-    {{ form_end(form) }}
+{#                <div>#}
+{#                    {{ form_widget(form.name) }}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="pt-3 input-group">#}
+{#                <div class="pb-1 input-group-prepend">#}
+{#                    {{ form_label(form.description, null,#}
+{#                        {'label_attr': {'class': 'input-group-text'}}#}
+{#                    ) }}#}
+{#                </div>#}
+{#                <div>#}
+{#                    {{ form_widget(form.description,#}
+{#                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}#}
+{#                    ) }}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="pt-3">#}
+{#                {{ form_widget(form.addProject) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {{ form_end(form) }}#}
 
 {#    {{ dump(form_widget(form1.criteries.vars.prototype)) }}#}
 {#    {{ dump('dupa') }}#}
@@ -88,8 +88,10 @@
                 {% endfor %}
             </tr>
         </table>
-
-
     </div>
+
+    {{ form_row(form3.addValues) }}
+
     {{ form_end(form3) }}
+
 {% endblock %}

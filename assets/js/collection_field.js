@@ -1,3 +1,5 @@
+'use strict';
+
 jQuery(document).ready(function () {
     var $wrapperCriteries = $('.js-criteries-wrapper');
     var $wrapperVariants = $('.js-variants-wrapper');
@@ -86,38 +88,36 @@ jQuery(document).ready(function () {
     });
 
     function addVariantsValuesFromVariants() {
-        var indexCriteries = $wrapperCriteries.data('index');
-        var indexVariants = $wrapperVariants.data('index');
-        var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
-        var newForm = prototypeVariantValue;
 
-        for (var i = 1; i <= indexCriteries; i++)
-        {
-            newForm = newForm.replace(/__name__/g, i);
-            //var className = '.tr'+i;
-
-            $('.tr-'+i).children()[indexVariants-2].after($.parseHTML(newForm)[0]);
-            console.log($('.tr-'+i).children()[indexVariants-2]);
-            //newForm.insertAfter($('.tr-'+i).children()[indexVariants-2].attr('class'));
-            //console.log($('.tr-'+i).children()[indexVariants-2])
-            //console.log($.parseHTML(newForm)[0]);
-        }
-    }
-
-    function addVariantsValuesFromCriteries() {
         var indexCriteries = $wrapperCriteries.data('index');
         var indexVariants = $wrapperVariants.data('index');
         var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
         var newForm = '';
+        console.log(indexCriteries.toString()+indexVariants.toString())
+        for (var i = 1; i <= indexCriteries; i++)
+        {
+            newForm = prototypeVariantValue;
+            newForm = newForm.replace(/__name__/g, i.toString()+indexVariants.toString());
+            $('.tr-'+i).children()[indexVariants-2].after($.parseHTML(newForm)[0]);
+        }
+    }
 
+    function addVariantsValuesFromCriteries() {
+
+        var indexCriteries = $wrapperCriteries.data('index');
+        var indexVariants = $wrapperVariants.data('index');
+        var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
+        var newForm = '';
+        var prototype = '';
+        console.log(indexCriteries.toString()+indexVariants.toString())
         for (var i = 1; i <= indexVariants; i++)
         {
-            newForm +=prototypeVariantValue;
+            prototype = prototypeVariantValue;
+            prototype = prototype.replace(/__name__/g, indexCriteries.toString()+i.toString());
+            newForm +=prototype;
         }
 
-        //var className = 'tr-' + indexCriteries;
         newForm = "<tr class='tr-" + indexCriteries + "'>" + newForm + "</tr>"
-        console.log($.parseHTML(newForm)[0]);
         $('.tr-' + (indexCriteries - 1)).after($.parseHTML(newForm)[0]);
     }
 

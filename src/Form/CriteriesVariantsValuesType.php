@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -44,8 +45,14 @@ class CriteriesVariantsValuesType extends AbstractType
             ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
                 [
                     'label' => ' ',
+                ])
+
+            ->add('addValues', SubmitType::class,[
+                'label' => 'Zapisz wartości',
+                'attr' => [
+                    'class' => 'btn btn-secondary'
                 ]
-            )
+            ])
 
         ;
     }
