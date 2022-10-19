@@ -3,6 +3,9 @@
 namespace App\Form\Project;
 
 use App\Entity\Project;
+use App\Form\CireriesCollectionType;
+use App\Form\VariantsCollectionType;
+use App\Form\VariantsValuesCollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -24,6 +27,24 @@ class EditProjectType extends AbstractType
             ->add('description', TextareaType::class,[
                 'label' => 'Opis:'
             ])
+
+            ->add('criteriesCollection', CireriesCollectionType::class,
+                [
+                    'label' => ' ',
+                    'mapped' => false,
+                ])
+
+            ->add('variantsCollection', VariantsCollectionType::class,
+                [
+                    'label' => ' ',
+                    'mapped' => false,
+                ])
+
+            ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
+                [
+                    'label' => ' ',
+                    'mapped' => false,
+                ])
 
             ->add('addProject', SubmitType::class,[
                 'label' => 'Zapisz',

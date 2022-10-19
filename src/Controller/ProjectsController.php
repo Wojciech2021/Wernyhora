@@ -8,6 +8,7 @@ use App\Form\Project\EditProjectType;
 use App\Form\CriteriesVariantsValuesType;
 use App\Form\CireriesCollectionType;
 use App\Form\VariantsCollectionType;
+use App\Repository\ProjectRepository;
 use App\Service\ProjectsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +39,6 @@ class ProjectsController extends AbstractController
 
         $projectsArray = $projectsService->gettAllProjects();
 
-
         return $this->render('projects/index.html.twig', [
             'form' => $form->createView(),
             'projectsArray' => $projectsArray,
@@ -50,36 +50,25 @@ class ProjectsController extends AbstractController
                                 Project $project,
                                 ProjectsService $projectsService)
     {
-        //$project = $projectsService->getProject($id);
 
-//        $form = $this->createForm(EditProjectType::class, $project);
+        $form = $this->createForm(EditProjectType::class, $project);
+        $form->handleRequest($request);
 
-        $form3 = $this->createForm(CriteriesVariantsValuesType::class);
-        $form3->handleRequest($request);
+        dd($project->getCritery());
 
-        //dd($form1);
-
-//        $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid())
-//        {
-//
-//            $project = $form->getData();
-//            $projectsService->updateProject($project);
-//        }
-
-        if ($form3->isSubmitted() && $form3->isValid())
+        if ($form->isSubmitted() && $form->isValid())
         {
-//            ($form3->getData());
-            dump('dupa');
+
+            $project = $form->getData();
+            $criteriesCollection = $form['criteriesCollection']->getData()['criteries'];
+            $variantsCollection = $form['variantsCollection']->getData()['variants'];
+            $variantsValuesCollection = $form['variantsValuesCollection']->getData()['variantsValues'];
+            $projectsService->updateProject($project, $criteriesCollection, $variantsCollection, $variantsValuesCollection);
         }
 
         return $this->render('projects/edit.html.twig', [
-//            'form' => $form->createView(),
+            'form' => $form->createView(),
             'project' => $project,
-//            'form1' => $form1->createView(),
-//            'form2' => $form2->createView(),
-            'form3' => $form3->createView(),
         ]);
     }
 }
