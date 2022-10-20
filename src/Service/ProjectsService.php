@@ -10,6 +10,7 @@ use App\Repository\ProjectRepository;
 use App\Repository\VariantRepository;
 use App\Repository\VariantValueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -51,7 +52,7 @@ class ProjectsService
     {
         if ($this->user)
         {
-            $projectsArray = $this->projectRepository->findBy(['User'=> $this->user]);
+            $projectsArray = $this->user->getProjects();
 
             return $projectsArray;
         }
@@ -67,8 +68,8 @@ class ProjectsService
     }
 
     public function updateProject(Project $project,
-                                  ArrayCollection $criteries,
-                                  ArrayCollection $variants,
+                                  PersistentCollection $criteries,
+                                  PersistentCollection $variants,
                                   ArrayCollection $variantsValues)
     {
 

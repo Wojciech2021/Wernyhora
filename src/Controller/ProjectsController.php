@@ -11,6 +11,7 @@ use App\Form\VariantsCollectionType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectsService;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,20 +49,19 @@ class ProjectsController extends AbstractController
     #[Route('/projects/edit/{slug}', name: 'app_edit_project')]
     public function editProject(Request $request,
                                 Project $project,
+                                ProjectRepository $projectRepository,
                                 ProjectsService $projectsService)
     {
 
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
 
-        dd($project->getCritery());
-
         if ($form->isSubmitted() && $form->isValid())
         {
 
             $project = $form->getData();
-            $criteriesCollection = $form['criteriesCollection']->getData()['criteries'];
-            $variantsCollection = $form['variantsCollection']->getData()['variants'];
+            $criteriesCollection = $form['criteriesCollection']->getData();
+            $variantsCollection = $form['variantsCollection']->getData();
             $variantsValuesCollection = $form['variantsValuesCollection']->getData()['variantsValues'];
             $projectsService->updateProject($project, $criteriesCollection, $variantsCollection, $variantsValuesCollection);
         }

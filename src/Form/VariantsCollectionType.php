@@ -14,8 +14,16 @@ class VariantsCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $variants = new ArrayCollection();
-        $variants->add(new Variant());
+
+        if ($options['data']->isEmpty())
+        {
+            $variants = new ArrayCollection();
+            $variants->add(new Variant());
+        }
+        else
+        {
+            $variants = $options['data'];
+        }
 
         $builder
 
@@ -25,6 +33,7 @@ class VariantsCollectionType extends AbstractType
                     'data' => $variants,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'mapped' => false,
                 ]
             )
 

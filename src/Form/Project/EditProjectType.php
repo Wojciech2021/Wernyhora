@@ -17,6 +17,7 @@ class EditProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
 
             ->add('name',TextType::class,[
@@ -32,12 +33,14 @@ class EditProjectType extends AbstractType
                 [
                     'label' => ' ',
                     'mapped' => false,
+                    'data' => $options['data']->getCritery(),
                 ])
 
             ->add('variantsCollection', VariantsCollectionType::class,
                 [
                     'label' => ' ',
                     'mapped' => false,
+                    'data' => $options['data']->getVariant(),
                 ])
 
             ->add('variantsValuesCollection', VariantsValuesCollectionType::class,

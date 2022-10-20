@@ -14,8 +14,17 @@ class CireriesCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $criteries = new ArrayCollection();
-        $criteries->add(new Critery());
+
+        if ($options['data']->isEmpty())
+        {
+            $criteries = new ArrayCollection();
+            $criteries->add(new Critery());
+        }
+        else
+        {
+
+            $criteries = $options['data'];
+        }
 
         $builder
 
@@ -25,6 +34,7 @@ class CireriesCollectionType extends AbstractType
                     'data' => $criteries,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'mapped' => false,
                 ]
             )
 
