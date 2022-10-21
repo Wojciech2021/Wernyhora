@@ -10,6 +10,7 @@ use App\Form\CireriesCollectionType;
 use App\Form\VariantsCollectionType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectsService;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,6 @@ class ProjectsController extends AbstractController
     #[Route('/projects/edit/{slug}', name: 'app_edit_project')]
     public function editProject(Request $request,
                                 Project $project,
-                                ProjectRepository $projectRepository,
                                 ProjectsService $projectsService)
     {
 
@@ -60,9 +60,22 @@ class ProjectsController extends AbstractController
         {
 
             $project = $form->getData();
-            $criteriesCollection = $form['criteriesCollection']->getData();
-            $variantsCollection = $form['variantsCollection']->getData();
-            $variantsValuesCollection = $form['variantsValuesCollection']->getData()['variantsValues'];
+
+            if ($project->getCritery()->isEmpty())
+            {
+
+                $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
+                $variantsCollection = $form['variantsCollection']['variants']->getData();
+                $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
+            }
+            else
+            {
+
+                $criteriesCollection = $projectsService->changeToArrayCollection($form['criteriesCollection']->getData());
+                $variantsCollection = $projectsService->changeToArrayCollection($form['variantsCollection']->getData());
+                $variantsValuesCollection = $projectsService->changeToArrayCollection($form['variantsValuesCollection']->getData());
+            }
+
             $projectsService->updateProject($project, $criteriesCollection, $variantsCollection, $variantsValuesCollection);
         }
 

@@ -10,7 +10,6 @@ use App\Repository\ProjectRepository;
 use App\Repository\VariantRepository;
 use App\Repository\VariantValueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\PersistentCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -68,28 +67,49 @@ class ProjectsService
     }
 
     public function updateProject(Project $project,
-                                  PersistentCollection $criteries,
-                                  PersistentCollection $variants,
+                                  ArrayCollection $criteries,
+                                  ArrayCollection $variants,
                                   ArrayCollection $variantsValues)
     {
-
-        foreach ($criteries as $critery)
+        //dd($criteries, $variants, $variantsValues);
+        foreach ($criteries as $keyCritery => $critery)
         {
 
             $critery->setProject($project);
             $this->criteryRepository->save($critery, false);
-            $project->addCritery($critery);
 
-            foreach ($variants as $variant)
+            foreach ($variants as $keyVariant => $variant)
             {
+
                 $variant->setProject($project);
                 $this->variantRepository->save($variant, false);
+
+                $variantValue = $variantsValues->get(($keyCritery+1).($keyVariant+1));
+                $variantValue->setCritery($critery);
+                $variantValue->setVariant($variant);
+                $this->variantValueRepository->save($variantValue, false);
+
                 $project->addVariant($variant);
+
             }
+
+            $project->addCritery($critery);
         }
 
         $now = new \DateTime();
         $project->setUpdateTime($now);
         $this->projectRepository->save($project, true);
+    }
+
+    public function changeToArrayCollection($collection)
+    {
+        $arrayCollection =  new ArrayCollection();
+
+        foreach ($collection as $item)
+        {
+            $arrayCollection->add($item);
+        }
+
+        return $arrayCollection;
     }
 }
