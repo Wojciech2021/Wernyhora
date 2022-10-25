@@ -69,6 +69,7 @@
                     <div class="js-variant-item col">
                         {{ form_row(variantsForm.name) }}
                         {{ form_row(variantsForm.removeVariant) }}
+{#                        {{ variantsForm.vars.data.variantValue }}#}
                     </div>
                 {% endfor %}
 
@@ -77,26 +78,65 @@
 {#            {% for  %}#}
         </div>
     </div>
-    <div class="row js-variants-values-wrapper"
-         data-prototype="<td class='js-variant-value-item'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"
-         data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
-    >
-        <table>
-            <tr class="tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">
-                {% for variantsValues in form.variantsValuesCollection.variantsValues %}
-                    <td class="js-variant-value-item">
-                        {{ form_row(variantsValues.value) }}
-                    </td>
-                {% endfor %}
-            </tr>
-        </table>
-    </div>
+{#    <div class="row js-variants-values-wrapper"#}
+{#         data-prototype="<td class='js-variant-value-item'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"#}
+{#         data-index="{{ form.variantsValuesCollection.variantsValues|length }}"#}
+{#    >#}
+{#        <table>#}
+{#            <tr class="tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">#}
+{#                {% for variantsValues in form.variantsValuesCollection.variantsValues %}#}
+{#                    <td class="js-variant-value-item">#}
+{#                        {% if variantValue.critery is same as(critery)  %}#}
+{#                            {{ variantValue.value }}#}
+{#                        {% endif %}#}
+{#                        {{ form_row(variantsValues.value) }}#}
+{#                    </td>#}
+{#                {% endfor %}#}
+{#            </tr>#}
+{#        </table>#}
+{#    </div>#}
 
+        <div class="row js-variants-values-wrapper"
+             data-prototype="<td class='js-variant-value-item'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"
+             data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
+        >
+            <table>
+                {% for critery in form.criteriesCollection.criteries %}
+                    <tr class="tr-{{ loop.index }}">
+
+                        {% for variant in form.variantsCollection.variants %}
+
+{#                            {% for variantValue in variant.vars.data.variantValue %}#}
+
+{#                                {% if variantValue.critery is same as(critery.vars.data)  %}#}
+
+                                    {% for variantsValues in form.variantsValuesCollection.variantsValues %}
+
+{#                                            {{ variantsValues.vars.data.variant.name }}#}
+{#                                            {{ variantsValues.vars.data.value }}#}
+                                            {% if variantsValues.vars.data.critery is same as(critery.vars.data) and variantsValues.vars.data.variant is same as(variant.vars.data)  %}
+                                                <td class="js-variant-value-item">
+                                                    {{ form_row(variantsValues) }}
+                                                </td>
+                                            {% endif %}
+
+                                    {% endfor %}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+
+                        {% endfor %}
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
 {#    {{ form_row(form3.addValues) }}#}
 
 {#    {{ form_end(form3) }}#}
 
     {{ form_widget(form.addProject) }}
     {{ form_end(form) }}
+
+
 
 {% endblock %}

@@ -67,8 +67,8 @@ class ProjectsService
     }
 
     public function updateProject(Project $project,
-                                  ArrayCollection $criteries,
-                                  ArrayCollection $variants,
+                                  $criteries,
+                                  $variants,
                                   ArrayCollection $variantsValues)
     {
         //dd($criteries, $variants, $variantsValues);

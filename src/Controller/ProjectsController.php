@@ -56,26 +56,30 @@ class ProjectsController extends AbstractController
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid())
         {
 
-            $project = $form->getData();
 
-            if ($project->getCritery()->isEmpty())
-            {
+
+//            if ($project->getCritery()->isEmpty())
+//            {
 
                 $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
                 $variantsCollection = $form['variantsCollection']['variants']->getData();
                 $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
-            }
-            else
-            {
+//            }
+//            else
+//            {
+//
+//                $criteriesCollection = $projectsService->changeToArrayCollection($form['criteriesCollection']['criteries']->getData());
+//                $variantsCollection = $form['variantsCollection']['variants']->getData();
+//                $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
+//            }
 
-                $criteriesCollection = $projectsService->changeToArrayCollection($form['criteriesCollection']->getData());
-                $variantsCollection = $projectsService->changeToArrayCollection($form['variantsCollection']->getData());
-                $variantsValuesCollection = $projectsService->changeToArrayCollection($form['variantsValuesCollection']->getData());
-            }
-
+            $project = $form->getData();
+//            dd($criteriesCollection, $variantsCollection, $variantsValuesCollection);
             $projectsService->updateProject($project, $criteriesCollection, $variantsCollection, $variantsValuesCollection);
         }
 

@@ -22,7 +22,6 @@ class CireriesCollectionType extends AbstractType
         }
         else
         {
-
             $criteries = $options['data'];
         }
 
