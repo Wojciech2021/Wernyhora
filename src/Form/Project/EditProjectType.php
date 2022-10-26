@@ -47,11 +47,11 @@ class EditProjectType extends AbstractType
                 [
                     'label' => ' ',
                     'mapped' => false,
-                    'data' => [
-                        'variants' => $options['data']->getVariant(),
-                        'citeries' =>  $options['data']->getCritery(),
-                        ],
-//                    'data' => $options['data']->getVariant(),
+//                    'data' => [
+//                        'variants' => $options['data']->getVariant(),
+//                        'citeries' =>  $options['data']->getCritery(),
+//                        ],
+                    'data' => $options['data']->getVariant(),
                 ])
 
             ->add('addProject', SubmitType::class,[

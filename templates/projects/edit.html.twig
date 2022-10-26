@@ -5,8 +5,6 @@
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
-{#{{ dump('dupa') }}#}
-{#{{ dump(project.critery) }}#}
     {{ form_start(form) }}
     <div class="d-flex justify-content-center mt-5">
         <div class="flex-container col-3 justify-content-center col-1 form-group">
@@ -31,16 +29,10 @@
                 </div>
             </div>
             <div class="pt-3">
-{#                {{ form_widget(form.addProject) }}#}
             </div>
         </div>
     </div>
-{#    {{ form_end(form) }}#}
 
-{#    {{ dump(form_widget(form1.criteries.vars.prototype)) }}#}
-{#    {{ dump('dupa') }}#}
-
-{#    {{ form_start(form3) }}#}
     <div class="row">
         <div class="col-2">
             <div class="row js-criteries-wrapper"
@@ -69,13 +61,11 @@
                     <div class="js-variant-item col">
                         {{ form_row(variantsForm.name) }}
                         {{ form_row(variantsForm.removeVariant) }}
-{#                        {{ variantsForm.vars.data.variantValue }}#}
                     </div>
                 {% endfor %}
 
                 {{ form_row(form.variantsCollection.addVariant) }}
             </div>
-{#            {% for  %}#}
         </div>
     </div>
 {#    <div class="row js-variants-values-wrapper"#}
@@ -101,39 +91,39 @@
              data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
         >
             <table>
-                {% for critery in form.criteriesCollection.criteries %}
-                    <tr class="tr-{{ loop.index }}">
 
-                        {% for variant in form.variantsCollection.variants %}
+                {% if form.variantsValuesCollection.variantsValues|length > 1 %}
 
-{#                            {% for variantValue in variant.vars.data.variantValue %}#}
+                    {% for critery in form.criteriesCollection.criteries %}
+                        <tr class="tr-{{ loop.index }}">
 
-{#                                {% if variantValue.critery is same as(critery.vars.data)  %}#}
+                            {% for variant in form.variantsCollection.variants %}
+                                {% for variantsValues in form.variantsValuesCollection.variantsValues %}
 
-                                    {% for variantsValues in form.variantsValuesCollection.variantsValues %}
+                                    {% if variantsValues.vars.data.critery is same as(critery.vars.data) and variantsValues.vars.data.variant is same as(variant.vars.data)  %}
+                                        <td class="js-variant-value-item">
 
-{#                                            {{ variantsValues.vars.data.variant.name }}#}
-{#                                            {{ variantsValues.vars.data.value }}#}
-                                            {% if variantsValues.vars.data.critery is same as(critery.vars.data) and variantsValues.vars.data.variant is same as(variant.vars.data)  %}
-                                                <td class="js-variant-value-item">
-                                                    {{ form_row(variantsValues) }}
-                                                </td>
-                                            {% endif %}
+                                            {{ form_widget(variantsValues) }}
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
 
-                                    {% endfor %}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
+                {% else %}
 
+                    <tr class="tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">
+                        {% for variantsValues in form.variantsValuesCollection.variantsValues %}
+                            <td class="js-variant-value-item">
+                                {{ form_widget(variantsValues.value) }}
+                            </td>
                         {% endfor %}
-
                     </tr>
-                {% endfor %}
+
+                {% endif %}
             </table>
         </div>
-{#    {{ form_row(form3.addValues) }}#}
-
-{#    {{ form_end(form3) }}#}
-
     {{ form_widget(form.addProject) }}
     {{ form_end(form) }}
 

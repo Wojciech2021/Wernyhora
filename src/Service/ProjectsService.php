@@ -69,30 +69,43 @@ class ProjectsService
     public function updateProject(Project $project,
                                   $criteries,
                                   $variants,
-                                  ArrayCollection $variantsValues)
+                                  $variantsValues)
     {
-        //dd($criteries, $variants, $variantsValues);
+
         foreach ($criteries as $keyCritery => $critery)
         {
 
-            $critery->setProject($project);
-            $this->criteryRepository->save($critery, false);
 
-            foreach ($variants as $keyVariant => $variant)
+            foreach ($variants as $variant)
             {
 
-                $variant->setProject($project);
-                $this->variantRepository->save($variant, false);
 
-                $variantValue = $variantsValues->get(($keyCritery+1).($keyVariant+1));
-                $variantValue->setCritery($critery);
-                $variantValue->setVariant($variant);
-                $this->variantValueRepository->save($variantValue, false);
+                foreach ($variantsValues as $variantValue)
+                {
+
+                    if (!$variantValue->getVariant() &&  !$variantValue->getCritery())
+                    {
+                        $index = strval(array_search($variantValue, $variantsValues));
+                        $variantValue->setCritery($criteries->get($index[0]-1));
+                        $variantValue->setVariant($variants->get($index[1]-1));
+                        $this->variantValueRepository->save($variantValue, false);
+                        $variants->get($index[1]-1)->addVariantValue($variantValue);
+                        $criteries->get($index[0]-1)->addVariantValue($variantValue);
+                    }
+
+                    $this->variantValueRepository->save($variantValue, false);
+                    $variant->setProject($project);
+                    $this->variantRepository->save($variant, false);
+                }
+
+
 
                 $project->addVariant($variant);
 
             }
 
+            $critery->setProject($project);
+            $this->criteryRepository->save($critery, false);
             $project->addCritery($critery);
         }
 
