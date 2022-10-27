@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\User;
 use App\Repository\CriteryRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\UserRepository;
 use App\Repository\VariantRepository;
 use App\Repository\VariantValueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,17 +17,20 @@ use Doctrine\ORM\EntityManagerInterface;
 class ProjectsService
 {
 
+    private $userRepository;
     private $projectRepository;
     private $criteryRepository;
     private $variantRepository;
     private $variantValueRepository;
     private $user;
 
-    public function __construct(ProjectRepository $projectRepository,
+    public function __construct(UserRepository $userRepository,
+                                ProjectRepository $projectRepository,
                                 CriteryRepository $criteryRepository,
                                 VariantRepository $variantRepository,
                                 VariantValueRepository $variantValueRepository)
     {
+        $this->userRepository = $userRepository;
         $this->projectRepository = $projectRepository;
         $this->criteryRepository =$criteryRepository;
         $this->variantRepository = $variantRepository;
@@ -71,7 +75,7 @@ class ProjectsService
                                   $variants,
                                   $variantsValues)
     {
-
+        dd($criteries, $variants, $variantsValues);
         foreach ($criteries as $keyCritery => $critery)
         {
 
@@ -89,6 +93,7 @@ class ProjectsService
                         $variantValue->setCritery($criteries->get($index[0]-1));
                         $variantValue->setVariant($variants->get($index[1]-1));
                         $this->variantValueRepository->save($variantValue, false);
+                        
                         $variants->get($index[1]-1)->addVariantValue($variantValue);
                         $criteries->get($index[0]-1)->addVariantValue($variantValue);
                     }
@@ -124,5 +129,11 @@ class ProjectsService
         }
 
         return $arrayCollection;
+    }
+
+    public function deleteProject(Project $project)
+    {
+        $this->user->removeProject($project);
+        $this->userRepository->save($this->user, true);
     }
 }

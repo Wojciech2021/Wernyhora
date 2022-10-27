@@ -88,4 +88,15 @@ class ProjectsController extends AbstractController
             'project' => $project,
         ]);
     }
+
+    #[Route('/projects/delete/{slug}', name: 'app_delete_project')]
+    public function deleteProject(Project $project,
+                                ProjectsService $projectsService)
+    {
+        $user = $this->getUser();
+        $projectsService->setUser($user);
+        $projectsService->deleteProject($project);
+
+        return $this->redirect('/projects');
+    }
 }

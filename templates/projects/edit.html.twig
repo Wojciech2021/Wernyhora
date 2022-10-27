@@ -36,11 +36,11 @@
     <div class="row">
         <div class="col-2">
             <div class="row js-criteries-wrapper"
-                 data-prototype="<div class='js-critery-item'>{{ form_widget(form.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
+                 data-prototype="<div class='js-critery-item' id='__name__'>{{ form_widget(form.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
                  data-index="{{ form.criteriesCollection.criteries|length }}"
             >
                 {% for criteriesForm in form.criteriesCollection.criteries %}
-                    <div class="js-critery-item">
+                    <div class="js-critery-item" id="{{ loop.index }}">
                         {{ form_row(criteriesForm.name) }}
                         {{ form_row(criteriesForm.unit) }}
                         {{ form_row(criteriesForm.weight) }}
@@ -53,12 +53,12 @@
         </div>
         <div class="col">
             <div class="row js-variants-wrapper row flex-nowrap"
-                 data-prototype="<div class='js-variant-item col'>{{ form_widget(form.variantsCollection.variants.vars.prototype)|e('html_attr') }}</div>"
+                 data-prototype="<div class='js-variant-item col' id='__name__'>{{ form_widget(form.variantsCollection.variants.vars.prototype)|e('html_attr') }}</div>"
                  data-index="{{ form.variantsCollection.variants|length }}"
             >
 
                 {% for variantsForm in form.variantsCollection.variants %}
-                    <div class="js-variant-item col">
+                    <div class="js-variant-item col" id="{{ loop.index }}">
                         {{ form_row(variantsForm.name) }}
                         {{ form_row(variantsForm.removeVariant) }}
                     </div>
@@ -87,7 +87,7 @@
 {#    </div>#}
 
         <div class="row js-variants-values-wrapper"
-             data-prototype="<td class='js-variant-value-item'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"
+             data-prototype="<td class='js-variant-value-item-__name__'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</td>"
              data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
         >
             <table>
@@ -101,7 +101,7 @@
                                 {% for variantsValues in form.variantsValuesCollection.variantsValues %}
 
                                     {% if variantsValues.vars.data.critery is same as(critery.vars.data) and variantsValues.vars.data.variant is same as(variant.vars.data)  %}
-                                        <td class="js-variant-value-item">
+                                        <td class="js-variant-value-item-{{ loop.parent.loop.parent.loop.index }}{{ loop.parent.loop.index }}">
 
                                             {{ form_widget(variantsValues) }}
                                         </td>
@@ -115,7 +115,7 @@
 
                     <tr class="tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">
                         {% for variantsValues in form.variantsValuesCollection.variantsValues %}
-                            <td class="js-variant-value-item">
+                            <td class="js-variant-value-item-11">
                                 {{ form_widget(variantsValues.value) }}
                             </td>
                         {% endfor %}

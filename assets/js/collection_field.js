@@ -22,7 +22,7 @@ jQuery(document).ready(function () {
 
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, indexCriteries);
+        newForm = newForm.replace(/__name__/g, indexCriteries + 1);
 
         // increase the index with one for the next item
         $wrapperCriteries.data('index', indexCriteries + 1);
@@ -50,7 +50,7 @@ jQuery(document).ready(function () {
 
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, indexVariants);
+        newForm = newForm.replace(/__name__/g, indexVariants + 1);
 
         // increase the index with one for the next item
         $wrapperVariants.data('index', indexVariants + 1);
@@ -68,8 +68,13 @@ jQuery(document).ready(function () {
 
         if (index > 1)
         {
+            var idCritery =  $(this).closest('.js-critery-item').attr('id');
+
             $wrapperCriteries.data('index', index - 1);
             $(this).closest('.js-critery-item')
+                .remove();
+
+            $('.tr-'+idCritery)
                 .remove();
         }
     });
@@ -77,13 +82,22 @@ jQuery(document).ready(function () {
     $wrapperVariants.on('click', '.js-variant-remove', function (e) {
         e.preventDefault();
 
-        var index = $wrapperVariants.data('index');
+        var indexVariant = $wrapperVariants.data('index');
+        var indexCriteries = $wrapperCriteries.data('index');
 
-        if (index > 1)
+        if (indexVariant > 1)
         {
-            $wrapperVariants.data('index', index - 1);
+            $wrapperVariants.data('index', indexVariant - 1);
+            var idVariant =  $(this).closest('.js-variant-item').attr('id');
+
             $(this).closest('.js-variant-item')
                 .remove();
+
+            for (var i=1; i<= indexCriteries; i++)
+            {
+                $('.js-variant-value-item-'+i+idVariant)
+                    .remove();
+            }
         }
     });
 
@@ -93,7 +107,7 @@ jQuery(document).ready(function () {
         var indexVariants = $wrapperVariants.data('index');
         var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
         var newForm = '';
-        console.log(indexCriteries.toString()+indexVariants.toString())
+
         for (var i = 1; i <= indexCriteries; i++)
         {
             newForm = prototypeVariantValue;
@@ -109,7 +123,7 @@ jQuery(document).ready(function () {
         var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
         var newForm = '';
         var prototype = '';
-        console.log(indexCriteries.toString()+indexVariants.toString())
+
         for (var i = 1; i <= indexVariants; i++)
         {
             prototype = prototypeVariantValue;
