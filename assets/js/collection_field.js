@@ -22,15 +22,16 @@ jQuery(document).ready(function () {
 
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, indexCriteries + 1);
+        newForm = newForm.replace(/__name__/g, indexCriteries);
 
         // increase the index with one for the next item
         $wrapperCriteries.data('index', indexCriteries + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).before(newForm);
+        $(this).parent().before($.parseHTML(newForm)[0]);
 
-        addVariantsValuesFromCriteries();
+        // addVariantsValuesFromCriteries();
+
     });
 
     $wrapperVariants.on('click', '.js-variant-add', function(e) {
@@ -46,19 +47,17 @@ jQuery(document).ready(function () {
         // You need this only if you didn't set 'label' => false in your tags field in TaskType
         // Replace '__name__label__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        // newForm = newForm.replace(/__name__label__/g, index);
-
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, indexVariants + 1);
+        newForm = newForm.replace(/__name__/g, indexVariants);
 
         // increase the index with one for the next item
         $wrapperVariants.data('index', indexVariants + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).parent().before(newForm);
+        $(this).parent().before($.parseHTML(newForm)[0]);
 
-        addVariantsValuesFromVariants();
+        // addVariantsValuesFromVariants();
     });
 
     $wrapperCriteries.on('click', '.js-criterry-remove', function (e) {
@@ -68,13 +67,8 @@ jQuery(document).ready(function () {
 
         if (index > 1)
         {
-            var idCritery =  $(this).closest('.js-critery-item').attr('id');
-
             $wrapperCriteries.data('index', index - 1);
             $(this).closest('.js-critery-item')
-                .remove();
-
-            $('.tr-'+idCritery)
                 .remove();
         }
     });
@@ -82,22 +76,13 @@ jQuery(document).ready(function () {
     $wrapperVariants.on('click', '.js-variant-remove', function (e) {
         e.preventDefault();
 
-        var indexVariant = $wrapperVariants.data('index');
-        var indexCriteries = $wrapperCriteries.data('index');
+        var index = $wrapperVariants.data('index');
 
-        if (indexVariant > 1)
+        if (index > 1)
         {
-            $wrapperVariants.data('index', indexVariant - 1);
-            var idVariant =  $(this).closest('.js-variant-item').attr('id');
-
+            $wrapperVariants.data('index', index - 1);
             $(this).closest('.js-variant-item')
                 .remove();
-
-            for (var i=1; i<= indexCriteries; i++)
-            {
-                $('.js-variant-value-item-'+i+idVariant)
-                    .remove();
-            }
         }
     });
 
@@ -107,7 +92,7 @@ jQuery(document).ready(function () {
         var indexVariants = $wrapperVariants.data('index');
         var prototypeVariantValue = $wrapperVariantsValues.data('prototype');
         var newForm = '';
-
+        console.log(indexCriteries.toString()+indexVariants.toString())
         for (var i = 1; i <= indexCriteries; i++)
         {
             newForm = prototypeVariantValue;
@@ -131,8 +116,9 @@ jQuery(document).ready(function () {
             newForm +=prototype;
         }
 
-        newForm = "<tr class='tr-" + indexCriteries + "'>" + newForm + "</tr>"
-        $('.tr-' + (indexCriteries - 1)).after($.parseHTML(newForm)[0]);
+        newForm = "<div class='row tr-" + indexCriteries + "' data-index='"+ indexCriteries +"'>" + newForm + "</div>"
+        console.log($('.tr-' + (indexCriteries - 1)))
+        $('.tr-' + (indexCriteries - 1)).after($.parseHTML(newForm));
     }
 
 });

@@ -15,16 +15,24 @@ class CriteryFormType extends AbstractType
 
         $builder
 
-            ->add('name')
+            ->add('name', null, [
+                'label' => false,
+            ])
 
-            ->add('unit')
+            ->add('unit', null, [
+                'label' => false,
+                'required' => false,
+            ])
 
-            ->add('weight')
+            ->add('weight', null, [
+                'label' => false,
+                'data' => 1,
+            ])
 
             ->add('removeCritery', ButtonType::class, [
-                'label' => '- usuń kryterium',
+                'label' => false,
                 'attr' => [
-                    'class' => 'js-criterry-remove'
+                    'class' => 'js-criterry-remove btn-close'
                 ]
             ])
             //->add('Project')

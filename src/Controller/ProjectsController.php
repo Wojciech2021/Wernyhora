@@ -5,14 +5,8 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
-use App\Form\CriteriesVariantsValuesType;
-use App\Form\CireriesCollectionType;
-use App\Form\VariantsCollectionType;
-use App\Repository\ProjectRepository;
+use App\Form\VariantsValuesCollectionType;
 use App\Service\ProjectsService;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,8 +41,8 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/edit/{slug}', name: 'app_edit_project')]
-    public function editProject(Request $request,
+    #[Route('/projects/edit/critery_variant/{slug}', name: 'app_edit_critery_variant_project')]
+    public function editCritery(Request $request,
                                 Project $project,
                                 ProjectsService $projectsService)
     {
@@ -56,36 +50,49 @@ class ProjectsController extends AbstractController
         $form = $this->createForm(EditProjectType::class, $project);
         $form->handleRequest($request);
 
-
-
         if ($form->isSubmitted() && $form->isValid())
         {
 
-
-
-//            if ($project->getCritery()->isEmpty())
-//            {
-
-                $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
-                $variantsCollection = $form['variantsCollection']['variants']->getData();
-                $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
-//            }
-//            else
-//            {
-//
-//                $criteriesCollection = $projectsService->changeToArrayCollection($form['criteriesCollection']['criteries']->getData());
-//                $variantsCollection = $form['variantsCollection']['variants']->getData();
-//                $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
-//            }
-
+            $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
+            $variantsCollection = $form['variantsCollection']['variants']->getData();
             $project = $form->getData();
-//            dd($criteriesCollection, $variantsCollection, $variantsValuesCollection);
-            $projectsService->updateProject($project, $criteriesCollection, $variantsCollection, $variantsValuesCollection);
+            $projectsService->updateCriteriesVariants($project, $criteriesCollection, $variantsCollection);
+
+            return $this->redirectToRoute('app_edit_variants_values_project', ['slug' => $project->getSlug()]);
         }
 
-        return $this->render('projects/edit.html.twig', [
+        return $this->render('projects/criteryVariant/edit.html.twig', [
             'form' => $form->createView(),
             'project' => $project,
+        ]);
+    }
+
+    #[Route('/projects/edit/variants_values/{slug}', name: 'app_edit_variants_values_project')]
+    public function editVariant(Request $request,
+                                Project $project,
+                                ProjectsService $projectsService)
+    {
+
+
+        $criteries = $project->getCritery();
+        $variants = $project->getVariant();
+
+        $form = $this->createForm(VariantsValuesCollectionType::class, $project);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid())
+//        {
+//            $variansCollection = $form['variants']->getData();
+//            $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
+//
+//            $projectsService->updateVariantsValues($project, $variansCollection, $variantsValuesCollection);
+//        }
+
+        return $this->render('/projects/variantValue/edit.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project,
+            'criteries' => $criteries,
+            'variants' => $variants,
         ]);
     }
 
@@ -99,4 +106,5 @@ class ProjectsController extends AbstractController
 
         return $this->redirect('/projects');
     }
+
 }

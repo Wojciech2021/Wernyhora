@@ -11,8 +11,11 @@ class VariantValueFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
-            ->add('value')
+            ->add('value', null, [
+                'label' => false
+            ])
 //            ->add('Critery')
 //            ->add('Variant')
         ;

@@ -13,7 +13,7 @@ class VariantValue
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'VariantValue')]

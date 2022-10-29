@@ -13,22 +13,14 @@ class VariantsValuesCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $variantsValues = new ArrayCollection();
 
-        if ($options['data']->isEmpty())
+        foreach ($options['data']->getVariant() as $variant)
         {
-            $variantsValues = new ArrayCollection([11=>new VariantValue()]);
-        }
-        else
-        {
-            $variantsValues = new ArrayCollection();
 
-            foreach ($options['data']->toArray() as $variant)
+            foreach ($variant->getVariantValue() as $variantValue)
             {
-
-                foreach ($variant->getVariantValue()->toArray() as $variantValue)
-                {
-                    $variantsValues->add($variantValue);
-                }
+                $variantsValues->add($variantValue);
             }
         }
 
@@ -37,7 +29,7 @@ class VariantsValuesCollectionType extends AbstractType
             ->add('variantsValues', CollectionType::class,
                 [
                     'entry_type' => VariantValueFormType::class,
-                    'data' => $variantsValues->toArray(),
+                    'data' => $variantsValues,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'mapped' => false,

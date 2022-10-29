@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Critery;
 use App\Entity\Project;
 use App\Entity\User;
+use App\Entity\VariantValue;
 use App\Repository\CriteryRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
@@ -70,48 +71,94 @@ class ProjectsService
         return $this->projectRepository->find($id);
     }
 
-    public function updateProject(Project $project,
-                                  $criteries,
-                                  $variants,
-                                  $variantsValues)
+//    public function updateProject(Project $project,
+//                                  $criteries,
+//                                  $variants,
+//                                  $variantsValues)
+//    {
+//        //dd($criteries, $variants, $variantsValues);
+//        foreach ($criteries as $keyCritery => $critery)
+//        {
+//
+//
+//            foreach ($variants as $variant)
+//            {
+//
+//
+//                foreach ($variantsValues as $variantValue)
+//                {
+//
+//                    if (!$variantValue->getVariant() &&  !$variantValue->getCritery())
+//                    {
+//                        $index = strval(array_search($variantValue, $variantsValues));
+//                        $variantValue->setCritery($criteries->get($index[0]-1));
+//                        $variantValue->setVariant($variants->get($index[1]-1));
+//                        $this->variantValueRepository->save($variantValue, false);
+//
+//                        $variants->get($index[1]-1)->addVariantValue($variantValue);
+//                        $criteries->get($index[0]-1)->addVariantValue($variantValue);
+//                    }
+//
+//                    $this->variantValueRepository->save($variantValue, false);
+//                    $variant->setProject($project);
+//                    $this->variantRepository->save($variant, false);
+//                }
+//
+//
+//
+//                $project->addVariant($variant);
+//
+//            }
+//
+//            $critery->setProject($project);
+//            $this->criteryRepository->save($critery, false);
+//            $project->addCritery($critery);
+//        }
+//
+//        $now = new \DateTime();
+//        $project->setUpdateTime($now);
+//        $this->projectRepository->save($project, true);
+//    }
+
+    public function updateCriteriesVariants(Project $project,
+                                            $criteries,
+                                            $variants)
     {
-        dd($criteries, $variants, $variantsValues);
-        foreach ($criteries as $keyCritery => $critery)
+        $variantValuesCounterNew = count($criteries) * count($variants);
+        $varinatValuesCounter = 0;
+
+        foreach ($variants as $variant)
         {
+            $variant->setProject($project);
+            $this->variantRepository->save($variant, false);
+            $project->addVariant($variant);
+            $varinatValuesCounter += count($variant->getVariantValue());
+        }
 
-
-            foreach ($variants as $variant)
-            {
-
-
-                foreach ($variantsValues as $variantValue)
-                {
-
-                    if (!$variantValue->getVariant() &&  !$variantValue->getCritery())
-                    {
-                        $index = strval(array_search($variantValue, $variantsValues));
-                        $variantValue->setCritery($criteries->get($index[0]-1));
-                        $variantValue->setVariant($variants->get($index[1]-1));
-                        $this->variantValueRepository->save($variantValue, false);
-                        
-                        $variants->get($index[1]-1)->addVariantValue($variantValue);
-                        $criteries->get($index[0]-1)->addVariantValue($variantValue);
-                    }
-
-                    $this->variantValueRepository->save($variantValue, false);
-                    $variant->setProject($project);
-                    $this->variantRepository->save($variant, false);
-                }
-
-
-
-                $project->addVariant($variant);
-
-            }
-
+        foreach ($criteries as $critery)
+        {
             $critery->setProject($project);
             $this->criteryRepository->save($critery, false);
             $project->addCritery($critery);
+        }
+
+        $variantValuesCounterNew -= $varinatValuesCounter;
+
+        for ($i = 0; $i < $variantValuesCounterNew; $i++)
+        {
+            $variantValue = new VariantValue();
+            $this->variantValueRepository->save($variantValue, false);
+            foreach ($criteries as $critery)
+            {
+                $variantValue->setCritery($critery);
+                $critery->addVariantValue($variantValue);
+            }
+
+            foreach ($variants as $variant)
+            {
+                $variantValue->setVariant($variant);
+                $variant->addVariantValue($variantValue);
+            }
         }
 
         $now = new \DateTime();

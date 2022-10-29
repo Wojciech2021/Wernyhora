@@ -15,12 +15,14 @@ class VariantFormType extends AbstractType
 
         $builder
 
-            ->add('name')
+            ->add('name', null, [
+                'label' => false,
+            ])
 
             ->add('removeVariant', ButtonType::class, [
-                'label' => '- usuń wariant',
+                'label' => false,
                 'attr' => [
-                    'class' => 'js-variant-remove'
+                    'class' => 'js-variant-remove btn-close'
                 ]
             ])
             //->add('Project')

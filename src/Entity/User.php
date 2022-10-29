@@ -142,7 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeProject(Project $project): self
     {
-
         if ($this->Projects->removeElement($project)) {
             // set the owning side to null (unless already changed)
             if ($project->getUser() === $this) {

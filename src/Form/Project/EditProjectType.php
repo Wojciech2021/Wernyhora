@@ -42,17 +42,17 @@ class EditProjectType extends AbstractType
                     'mapped' => false,
                     'data' => $options['data']->getVariant(),
                 ])
-
-            ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
-                [
-                    'label' => ' ',
-                    'mapped' => false,
-//                    'data' => [
-//                        'variants' => $options['data']->getVariant(),
-//                        'citeries' =>  $options['data']->getCritery(),
-//                        ],
-                    'data' => $options['data']->getVariant(),
-                ])
+//
+//            ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
+//                [
+//                    'label' => ' ',
+//                    'mapped' => false,
+////                    'data' => [
+////                        'variants' => $options['data']->getVariant(),
+////                        'citeries' =>  $options['data']->getCritery(),
+////                        ],
+//                    'data' => $options['data']->getVariant(),
+//                ])
 
             ->add('addProject', SubmitType::class,[
                 'label' => 'Zapisz',
