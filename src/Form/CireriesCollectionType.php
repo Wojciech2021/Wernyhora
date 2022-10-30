@@ -40,7 +40,7 @@ class CireriesCollectionType extends AbstractType
             ->add('addCritery', ButtonType::class, [
                 'label' => '+ dodaj kryterium',
                 'attr' => [
-                    'class' => 'js-criterry-add'
+                    'class' => 'js-criterry-add btn btn-warning'
                 ]
             ])
         ;

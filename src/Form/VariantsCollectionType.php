@@ -43,7 +43,7 @@ class VariantsCollectionType extends AbstractType
             ->add('addVariant', ButtonType::class, [
                 'label' => '+ dodaj wariant',
                 'attr' => [
-                    'class' => 'js-variant-add'
+                    'class' => 'js-variant-add btn btn-success'
                 ]
             ])
         ;

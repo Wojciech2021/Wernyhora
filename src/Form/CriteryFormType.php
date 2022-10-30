@@ -17,16 +17,25 @@ class CriteryFormType extends AbstractType
 
             ->add('name', null, [
                 'label' => false,
+                'attr' => [
+                    'class' => 'mb-1'
+                ],
             ])
 
             ->add('unit', null, [
                 'label' => false,
                 'required' => false,
+                'attr' => [
+                    'class' => 'mb-1'
+                ],
             ])
 
             ->add('weight', null, [
                 'label' => false,
                 'data' => 1,
+                'attr' => [
+                    'class' => 'mb-1'
+                ],
             ])
 
             ->add('removeCritery', ButtonType::class, [
