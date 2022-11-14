@@ -6,6 +6,7 @@ use App\Entity\VariantValue;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,11 +31,18 @@ class VariantsValuesCollectionType extends AbstractType
                 [
                     'entry_type' => VariantValueFormType::class,
                     'data' => $variantsValues,
-                    'allow_add' => true,
-                    'allow_delete' => true,
+//                    'allow_add' => true,
+//                    'allow_delete' => true,
                     'mapped' => false,
                 ]
             )
+
+            ->add('addVariantsValues', SubmitType::class,[
+                'label' => 'Zapisz wartości',
+                'attr' => [
+                    'class' => 'btn btn-secondary'
+                ]
+            ])
 
         ;
     }

@@ -43,10 +43,14 @@ class Project
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Variant::class, orphanRemoval: true)]
     private Collection $Variant;
 
+    #[ORM\OneToMany(mappedBy: 'Project', targetEntity: KlasName::class, orphanRemoval: true)]
+    private Collection $KlasName;
+
     public function __construct()
     {
         $this->Critery = new ArrayCollection();
         $this->Variant = new ArrayCollection();
+        $this->KlasName = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +182,36 @@ class Project
             // set the owning side to null (unless already changed)
             if ($variant->getProject() === $this) {
                 $variant->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, KlasName>
+     */
+    public function getKlasName(): Collection
+    {
+        return $this->KlasName;
+    }
+
+    public function addKlasName(KlasName $klasName): self
+    {
+        if (!$this->KlasName->contains($klasName)) {
+            $this->KlasName->add($klasName);
+            $klasName->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKlasName(KlasName $klasName): self
+    {
+        if ($this->KlasName->removeElement($klasName)) {
+            // set the owning side to null (unless already changed)
+            if ($klasName->getProject() === $this) {
+                $klasName->setProject(null);
             }
         }
 

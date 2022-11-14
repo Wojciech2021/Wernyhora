@@ -37,7 +37,8 @@
 {#            {% endfor %}#}
 {#        {% endfor %}#}
     </table>
-
-    {{ form_widget(form) }}
+    <div class="pt-5">
+        {{ form_widget(form.addVariantsValues) }}
+    </div>
     {{ form_end(form) }}
 {% endblock %}

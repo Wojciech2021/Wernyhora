@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projekt {{ project.name }} klasy{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+    <div class="col-1"></div>
+    <div style="margin-bottom: 5px;">
+        <div class="row js-klas-name-wrapper  row flex-nowrap"
+             data-prototype="<div class='js-klas-name-item col'>{{ form_widget(form.klassNames.vars.prototype)|e('html_attr') }}</div>"
+             data-index="{{ form.klassNames|length }}"
+        >
+            <div class="row">
+                <div class="col-2">
+                    <div>
+                        Nazwa Klasy
+                    </div>
+                </div>
+
+                {% for klasNameForm in form.klassNames %}
+                    <div class="js-klas-name-item col">
+                        {{ form_row(klasNameForm.name) }}
+                        {{ form_row(klasNameForm.removeKlasName) }}
+                    </div>
+                {% endfor %}
+                {{ form_row(form.addKlasName) }}
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form.addKlasNames) }}
+    {{ form_end(form) }}
+{% endblock %}

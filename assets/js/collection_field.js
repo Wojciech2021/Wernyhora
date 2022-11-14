@@ -4,6 +4,8 @@ jQuery(document).ready(function () {
     var $wrapperCriteries = $('.js-criteries-wrapper');
     var $wrapperVariants = $('.js-variants-wrapper');
     var $wrapperVariantsValues = $('.js-variants-values-wrapper');
+    var $wrapperKlasNames = $('.js-klas-name-wrapper');
+
 
     $wrapperCriteries.on('click', '.js-criterry-add', function(e) {
         e.preventDefault();
@@ -60,6 +62,31 @@ jQuery(document).ready(function () {
         // addVariantsValuesFromVariants();
     });
 
+    $wrapperKlasNames.on('click', '.js-klas-name-add', function(e) {
+        e.preventDefault();
+
+        // Get the data-prototype explained earlier
+        var prototype = $wrapperKlasNames.data('prototype');
+
+        // get the new index
+        var indexKlasNames = $wrapperKlasNames.data('index');
+
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, indexKlasNames);
+
+        // increase the index with one for the next item
+        $wrapperKlasNames.data('index', indexKlasNames + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        $(this).parent().before($.parseHTML(newForm)[0]);
+
+    });
+
     $wrapperCriteries.on('click', '.js-criterry-remove', function (e) {
         e.preventDefault();
 
@@ -69,6 +96,19 @@ jQuery(document).ready(function () {
         {
             $wrapperCriteries.data('index', index - 1);
             $(this).closest('.js-critery-item')
+                .remove();
+        }
+    });
+
+    $wrapperKlasNames.on('click', '.js-klas-name-remove', function (e) {
+        e.preventDefault();
+
+        var index = $wrapperKlasNames.data('index');
+
+        if (index > 1)
+        {
+            $wrapperKlasNames.data('index', index - 1);
+            $(this).closest('.js-klas-name-item')
                 .remove();
         }
     });

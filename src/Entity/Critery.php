@@ -31,6 +31,24 @@ class Critery
     #[ORM\OneToMany(mappedBy: 'Critery', targetEntity: VariantValue::class, orphanRemoval: true)]
     private Collection $VariantValue;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $alfaQ = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $betaQ = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $alfaP = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $betaP = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $alfaV = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $betaV = null;
+
     public function __construct()
     {
         $this->VariantValue = new ArrayCollection();
@@ -116,6 +134,78 @@ class Critery
                 $variantValue->setCritery(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAlfaQ(): ?float
+    {
+        return $this->alfaQ;
+    }
+
+    public function setAlfaQ(?float $alfaQ): self
+    {
+        $this->alfaQ = $alfaQ;
+
+        return $this;
+    }
+
+    public function getBetaQ(): ?float
+    {
+        return $this->betaQ;
+    }
+
+    public function setBetaQ(?float $betaQ): self
+    {
+        $this->betaQ = $betaQ;
+
+        return $this;
+    }
+
+    public function getAlfaP(): ?float
+    {
+        return $this->alfaP;
+    }
+
+    public function setAlfaP(?float $alfaP): self
+    {
+        $this->alfaP = $alfaP;
+
+        return $this;
+    }
+
+    public function getBetaP(): ?float
+    {
+        return $this->betaP;
+    }
+
+    public function setBetaP(?float $betaP): self
+    {
+        $this->betaP = $betaP;
+
+        return $this;
+    }
+
+    public function getAlfaV(): ?float
+    {
+        return $this->alfaV;
+    }
+
+    public function setAlfaV(?float $alfaV): self
+    {
+        $this->alfaV = $alfaV;
+
+        return $this;
+    }
+
+    public function getBetaV(): ?float
+    {
+        return $this->betaV;
+    }
+
+    public function setBetaV(?float $betaV): self
+    {
+        $this->betaV = $betaV;
 
         return $this;
     }

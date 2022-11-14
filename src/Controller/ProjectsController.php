@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Form\KlasNameCollectionType;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
 use App\Form\VariantsValuesCollectionType;
@@ -73,26 +74,50 @@ class ProjectsController extends AbstractController
                                 ProjectsService $projectsService)
     {
 
-
         $criteries = $project->getCritery();
         $variants = $project->getVariant();
 
         $form = $this->createForm(VariantsValuesCollectionType::class, $project);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid())
-//        {
-//            $variansCollection = $form['variants']->getData();
-//            $variantsValuesCollection = $form['variantsValuesCollection']['variantsValues']->getData();
-//
-//            $projectsService->updateVariantsValues($project, $variansCollection, $variantsValuesCollection);
-//        }
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $variantsValuesCollection = $form['variantsValues']->getData();
+
+            $projectsService->updateVariantsValues($project, $variantsValuesCollection);
+
+            return $this->redirectToRoute('app_edit_klas_name_project', ['slug' => $project->getSlug()]);
+        }
 
         return $this->render('/projects/variantValue/edit.html.twig',[
             'form' => $form->createView(),
             'project' => $project,
             'criteries' => $criteries,
             'variants' => $variants,
+        ]);
+    }
+
+    #[Route('/projects/edit/klas_name/{slug}', name: 'app_edit_klas_name_project')]
+    public function editClassName(Request $request,
+                                Project $project,
+                                ProjectsService $projectsService)
+    {
+
+        $form = $this->createForm(KlasNameCollectionType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            dd($form['klassNames']->getData());
+            $klasNamesCollection = $form['klassNames']->getData();
+
+            $projectsService->updateKlasNames($project, $klasNamesCollection);
+        }
+
+        return $this->render('/projects/klasName/edit.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project,
         ]);
     }
 
