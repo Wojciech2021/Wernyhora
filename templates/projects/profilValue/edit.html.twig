@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Projekt {{ project.name }} Wartości wariantów{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+    <table>
+        <th></th>
+        {% for profil in profiles %}
+            <th>Profil {{ loop.index }}</th>
+        {% endfor %}
+
+        {% for critery in criteries %}
+            <tr>
+                <th>{{ critery.name }}</th>
+            {% for profil in profiles %}
+                    {% for profilesValuesForm in form.profilesValues %}
+
+                        {% if profilesValuesForm.vars.data.critery is same as(critery) and profilesValuesForm.vars.data.profil is same as(profil)  %}
+                            <td>
+                                {{ form_widget(profilesValuesForm) }}
+                            </td>
+                        {% endif %}
+
+                    {% endfor %}
+
+            {% endfor %}
+            </tr>
+        {% endfor %}
+{#        {% for critery in criteries %}#}
+{#            {% for variant in variants %}#}
+{#                <div class="col-2">#}
+{#                    #}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
+    </table>
+    <div class="pt-5">
+        {{ form_widget(form.addProfilesValues) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

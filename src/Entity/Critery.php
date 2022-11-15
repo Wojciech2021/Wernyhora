@@ -49,9 +49,13 @@ class Critery
     #[ORM\Column(nullable: true)]
     private ?float $betaV = null;
 
+    #[ORM\OneToMany(mappedBy: 'Critery', targetEntity: ProfilValue::class, orphanRemoval: true)]
+    private Collection $ProfilValue;
+
     public function __construct()
     {
         $this->VariantValue = new ArrayCollection();
+        $this->ProfilValue = new ArrayCollection();
     }
 
 
@@ -206,6 +210,36 @@ class Critery
     public function setBetaV(?float $betaV): self
     {
         $this->betaV = $betaV;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProfilValue>
+     */
+    public function getProfilValue(): Collection
+    {
+        return $this->ProfilValue;
+    }
+
+    public function addProfilValue(ProfilValue $profilValue): self
+    {
+        if (!$this->ProfilValue->contains($profilValue)) {
+            $this->ProfilValue->add($profilValue);
+            $profilValue->setCritery($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfilValue(ProfilValue $profilValue): self
+    {
+        if ($this->ProfilValue->removeElement($profilValue)) {
+            // set the owning side to null (unless already changed)
+            if ($profilValue->getCritery() === $this) {
+                $profilValue->setCritery(null);
+            }
+        }
 
         return $this;
     }

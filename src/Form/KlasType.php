@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\KlasName;
+use App\Entity\Klas;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class KlasNameType extends AbstractType
+class KlasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,10 +17,14 @@ class KlasNameType extends AbstractType
                 'label' => false,
             ])
 
-            ->add('removeKlasName', ButtonType::class, [
+            ->add('klasOrder', null, [
+                'label' => false,
+            ])
+
+            ->add('removeKlas', ButtonType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'js-klas-name-remove btn-close'
+                    'class' => 'js-klas-remove btn-close'
                 ]
             ])
 
@@ -31,7 +35,7 @@ class KlasNameType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => KlasName::class,
+            'data_class' => Klas::class,
         ]);
     }
 }

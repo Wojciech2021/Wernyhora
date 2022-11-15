@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\KlasNameRepository;
+use App\Repository\KlasRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: KlasNameRepository::class)]
-class KlasName
+#[ORM\Entity(repositoryClass: KlasRepository::class)]
+class Klas
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,9 +16,12 @@ class KlasName
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'KlasName')]
+    #[ORM\ManyToOne(inversedBy: 'Klas')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $Project = null;
+
+    #[ORM\Column]
+    private ?int $klasOrder = null;
 
     public function getId(): ?int
     {
@@ -45,6 +48,18 @@ class KlasName
     public function setProject(?Project $Project): self
     {
         $this->Project = $Project;
+
+        return $this;
+    }
+
+    public function getKlasOrder(): ?int
+    {
+        return $this->klasOrder;
+    }
+
+    public function setKlasOrder(int $klasOrder): self
+    {
+        $this->klasOrder = $klasOrder;
 
         return $this;
     }

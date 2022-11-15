@@ -43,14 +43,18 @@ class Project
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Variant::class, orphanRemoval: true)]
     private Collection $Variant;
 
-    #[ORM\OneToMany(mappedBy: 'Project', targetEntity: KlasName::class, orphanRemoval: true)]
-    private Collection $KlasName;
+    #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Klas::class, orphanRemoval: true)]
+    private Collection $Klas;
+
+    #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Profil::class, orphanRemoval: true)]
+    private Collection $Profil;
 
     public function __construct()
     {
         $this->Critery = new ArrayCollection();
         $this->Variant = new ArrayCollection();
-        $this->KlasName = new ArrayCollection();
+        $this->Klas = new ArrayCollection();
+        $this->Profil = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,29 +193,59 @@ class Project
     }
 
     /**
-     * @return Collection<int, KlasName>
+     * @return Collection<int, Klas>
      */
-    public function getKlasName(): Collection
+    public function getKlas(): Collection
     {
-        return $this->KlasName;
+        return $this->Klas;
     }
 
-    public function addKlasName(KlasName $klasName): self
+    public function addKlas(Klas $klas): self
     {
-        if (!$this->KlasName->contains($klasName)) {
-            $this->KlasName->add($klasName);
-            $klasName->setProject($this);
+        if (!$this->Klas->contains($klas)) {
+            $this->Klas->add($klas);
+            $klas->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeKlasName(KlasName $klasName): self
+    public function removeKlas(Klas $klas): self
     {
-        if ($this->KlasName->removeElement($klasName)) {
+        if ($this->Klas->removeElement($klas)) {
             // set the owning side to null (unless already changed)
-            if ($klasName->getProject() === $this) {
-                $klasName->setProject(null);
+            if ($klas->getProject() === $this) {
+                $klas->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Profil>
+     */
+    public function getProfil(): Collection
+    {
+        return $this->Profil;
+    }
+
+    public function addProfil(Profil $profil): self
+    {
+        if (!$this->Profil->contains($profil)) {
+            $this->Profil->add($profil);
+            $profil->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfil(Profil $profil): self
+    {
+        if ($this->Profil->removeElement($profil)) {
+            // set the owning side to null (unless already changed)
+            if ($profil->getProject() === $this) {
+                $profil->setProject(null);
             }
         }
 

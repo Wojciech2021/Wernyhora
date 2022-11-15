@@ -3,11 +3,15 @@
 namespace App\Service;
 
 use App\Entity\Critery;
+use App\Entity\Profil;
+use App\Entity\ProfilValue;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Entity\VariantValue;
 use App\Repository\CriteryRepository;
-use App\Repository\KlasNameRepository;
+use App\Repository\KlasRepository;
+use App\Repository\ProfilRepository;
+use App\Repository\ProfilValueRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use App\Repository\VariantRepository;
@@ -24,22 +28,28 @@ class ProjectsService
     private $criteryRepository;
     private $variantRepository;
     private $variantValueRepository;
-    private $klasNameRepository;
+    private $klasRepository;
+    private $profilRepository;
+    private $profilValueRepository;
     private $user;
 
-    public function __construct(UserRepository $userRepository,
-                                ProjectRepository $projectRepository,
-                                CriteryRepository $criteryRepository,
-                                VariantRepository $variantRepository,
+    public function __construct(UserRepository         $userRepository,
+                                ProjectRepository      $projectRepository,
+                                CriteryRepository      $criteryRepository,
+                                VariantRepository      $variantRepository,
                                 VariantValueRepository $variantValueRepository,
-                                KlasNameRepository $klasNameRepository)
+                                KlasRepository         $klasRepository,
+                                ProfilRepository       $profilRepository,
+                                ProfilValueRepository  $profilValueRepository)
     {
         $this->userRepository = $userRepository;
         $this->projectRepository = $projectRepository;
         $this->criteryRepository =$criteryRepository;
         $this->variantRepository = $variantRepository;
         $this->variantValueRepository = $variantValueRepository;
-        $this->klasNameRepository = $klasNameRepository;
+        $this->klasRepository = $klasRepository;
+        $this->profilRepository = $profilRepository;
+        $this->profilValueRepository = $profilValueRepository;
     }
 
     public function setUser(User $user)
@@ -214,15 +224,15 @@ class ProjectsService
         $this->projectRepository->save($project, true);
     }
 
-    public function updateKlasNames(Project $project,
-                                    $klasNames)
+    public function updateKlas(Project $project,
+                                    $klass)
     {
-        dd($project, $klasNames);
-        foreach ($klasNames as $klasName)
+
+        foreach ($klass as $klas)
         {
-            $klasName->setProject($project);
-            $this->klasNameRepository->save($klasName, false);
-            $project->addKlasName($klasName);
+            $klas->setProject($project);
+            $this->klasRepository->save($klas, false);
+            $project->addKlas($klas);
         }
 
         $now = new \DateTime();
@@ -230,7 +240,69 @@ class ProjectsService
         $this->projectRepository->save($project, true);
     }
 
+    public function addProfiles(Project $project,
+                                        $klass)
+    {
 
+        $klassCounter = count($klass);
+
+        for($i = 0; $i < $klassCounter - 1; $i++)
+        {
+            $profil = new Profil();
+            $profil->setProject($project);
+            $this->profilRepository->save($profil, false);
+            $project->addProfil($profil);
+        }
+
+        $profiles = $project->getProfil();
+        $criteries = $project->getCritery();
+
+        $criteriesCounter = count($criteries);
+        $profilesCouter = count($profiles);
+
+        foreach ($criteries as $critery)
+        {
+
+            if (count($critery->getProfilValue()) < $profilesCouter){
+
+                foreach ($profiles as $profil)
+                {
+
+                    if (count($profil->getProfilValue()) < $criteriesCounter)
+                    {
+
+                        $profilValue = new ProfilValue();
+                        $profilValue->setCritery($critery);
+                        $profilValue->setProfil($profil);
+                        $this->profilValueRepository->save($profilValue, false);
+
+                        $critery->addProfilValue($profilValue);
+                        $profil->addProfilValue($profilValue);
+                    }
+                }
+            }
+
+
+        }
+
+        $now = new \DateTime();
+        $project->setUpdateTime($now);
+        $this->projectRepository->save($project, true);
+    }
+
+    public function updateProfilesValues(Project $project,
+                                        ArrayCollection $profilesValues)
+    {
+        foreach ($profilesValues as $profilValue)
+        {
+
+            $this->profilValueRepository->save($profilValue, false);
+        }
+
+        $now = new \DateTime();
+        $project->setUpdateTime($now);
+        $this->projectRepository->save($project, true);
+    }
 
     public function changeToArrayCollection($collection)
     {

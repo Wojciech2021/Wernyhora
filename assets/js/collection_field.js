@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
     var $wrapperCriteries = $('.js-criteries-wrapper');
     var $wrapperVariants = $('.js-variants-wrapper');
     var $wrapperVariantsValues = $('.js-variants-values-wrapper');
-    var $wrapperKlasNames = $('.js-klas-name-wrapper');
+    var $wrapperKlas = $('.js-klas-wrapper');
 
 
     $wrapperCriteries.on('click', '.js-criterry-add', function(e) {
@@ -41,7 +41,7 @@ jQuery(document).ready(function () {
 
         // Get the data-prototype explained earlier
         var prototype = $wrapperVariants.data('prototype');
-
+        console.log(prototype);
         // get the new index
         var indexVariants = $wrapperVariants.data('index');
 
@@ -62,14 +62,14 @@ jQuery(document).ready(function () {
         // addVariantsValuesFromVariants();
     });
 
-    $wrapperKlasNames.on('click', '.js-klas-name-add', function(e) {
+    $wrapperKlas.on('click', '.js-klas-add', function(e) {
         e.preventDefault();
 
         // Get the data-prototype explained earlier
-        var prototype = $wrapperKlasNames.data('prototype');
-
+        var prototype = $wrapperKlas.data('prototype');
+        console.log(prototype);
         // get the new index
-        var indexKlasNames = $wrapperKlasNames.data('index');
+        var indexKlas = $wrapperKlas.data('index');
 
         var newForm = prototype;
         // You need this only if you didn't set 'label' => false in your tags field in TaskType
@@ -77,10 +77,10 @@ jQuery(document).ready(function () {
         // instead be a number based on how many items we have
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, indexKlasNames);
-
+        newForm = newForm.replace(/__name__/g, indexKlas);
+        console.log(newForm);
         // increase the index with one for the next item
-        $wrapperKlasNames.data('index', indexKlasNames + 1);
+        $wrapperKlas.data('index', indexKlas + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
         $(this).parent().before($.parseHTML(newForm)[0]);
@@ -100,19 +100,6 @@ jQuery(document).ready(function () {
         }
     });
 
-    $wrapperKlasNames.on('click', '.js-klas-name-remove', function (e) {
-        e.preventDefault();
-
-        var index = $wrapperKlasNames.data('index');
-
-        if (index > 1)
-        {
-            $wrapperKlasNames.data('index', index - 1);
-            $(this).closest('.js-klas-name-item')
-                .remove();
-        }
-    });
-
     $wrapperVariants.on('click', '.js-variant-remove', function (e) {
         e.preventDefault();
 
@@ -122,6 +109,19 @@ jQuery(document).ready(function () {
         {
             $wrapperVariants.data('index', index - 1);
             $(this).closest('.js-variant-item')
+                .remove();
+        }
+    });
+
+    $wrapperKlas.on('click', '.js-klas-remove', function (e) {
+        e.preventDefault();
+
+        var index = $wrapperKlas.data('index');
+
+        if (index > 1)
+        {
+            $wrapperKlas.data('index', index - 1);
+            $(this).closest('.js-klas-item')
                 .remove();
         }
     });

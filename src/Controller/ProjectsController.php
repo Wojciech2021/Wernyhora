@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Form\KlasNameCollectionType;
+use App\Form\KlasCollectionType;
+use App\Form\ProfilesValuesCollectionType;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
 use App\Form\VariantsValuesCollectionType;
@@ -87,7 +88,7 @@ class ProjectsController extends AbstractController
 
             $projectsService->updateVariantsValues($project, $variantsValuesCollection);
 
-            return $this->redirectToRoute('app_edit_klas_name_project', ['slug' => $project->getSlug()]);
+            return $this->redirectToRoute('app_edit_klas_project', ['slug' => $project->getSlug()]);
         }
 
         return $this->render('/projects/variantValue/edit.html.twig',[
@@ -98,26 +99,61 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/edit/klas_name/{slug}', name: 'app_edit_klas_name_project')]
-    public function editClassName(Request $request,
+    #[Route('/projects/edit/klas/{slug}', name: 'app_edit_klas_project')]
+    public function editKlas(Request $request,
                                 Project $project,
                                 ProjectsService $projectsService)
     {
 
-        $form = $this->createForm(KlasNameCollectionType::class, $project);
+        $form = $this->createForm(KlasCollectionType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            dd($form['klassNames']->getData());
-            $klasNamesCollection = $form['klassNames']->getData();
 
-            $projectsService->updateKlasNames($project, $klasNamesCollection);
+            $klasCollection = $form['klas']->getData();
+
+            $projectsService->updateKlas($project, $klasCollection);
+
+            return $this->redirectToRoute('app_edit_profils_values_project', ['slug' => $project->getSlug()]);
         }
 
-        return $this->render('/projects/klasName/edit.html.twig',[
+        return $this->render('/projects/klas/edit.html.twig',[
             'form' => $form->createView(),
             'project' => $project,
+        ]);
+    }
+
+    #[Route('/projects/edit/profils_values/{slug}', name: 'app_edit_profils_values_project')]
+    public function editProfilValue(Request $request,
+                                  Project $project,
+                                  ProjectsService $projectsService)
+    {
+
+
+        $klassCollection = $project->getKlas();
+        $projectsService->addProfiles($project, $klassCollection);
+
+        $criteries = $project->getCritery();
+        $profiles = $project->getProfil();
+
+        $form = $this->createForm(ProfilesValuesCollectionType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            dd($form['profilesValues']->getData());
+//            $projectsService->updateProfilesValues($project, );
+//            $klasCollection = $form['klas']->getData();
+//
+//            $projectsService->updateKlas($project, $klasCollection);
+        }
+
+        return $this->render('/projects/profilValue/edit.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project,
+            'criteries' => $criteries,
+            'profiles' => $profiles,
         ]);
     }
 

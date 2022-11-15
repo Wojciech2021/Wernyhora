@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\KlasName;
+use App\Entity\Klas;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -11,39 +11,39 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class KlasNameCollectionType extends AbstractType
+class KlasCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
-        if ($options['data']->getKlasName()->isEmpty())
+        if ($options['data']->getKlas()->isEmpty())
         {
             $klasNames = new ArrayCollection();
-            $klasNames->add(new KlasName());
+            $klasNames->add(new Klas());
         }
         else
         {
-            $klasNames = $options['data']->getKlasName();
+            $klasNames = $options['data']->getKlas();
         }
 
         $builder
-            ->add('klassNames', CollectionType::class,
+            ->add('klas', CollectionType::class,
                 [
-                    'entry_type' => KlasNameType::class,
+                    'entry_type' => KlasType::class,
                     'data' => $klasNames,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'mapped' => false,
                 ])
 
-            ->add('addKlasName', ButtonType::class, [
+            ->add('addKlas', ButtonType::class, [
                 'label' => '+ dodaj klasę',
                 'attr' => [
-                    'class' => 'js-klas-name-add btn btn-warning'
+                    'class' => 'js-klas-add btn btn-warning'
                 ]
             ])
 
-            ->add('addKlasNames', SubmitType::class,[
+            ->add('saveKlas', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
                     'class' => 'btn btn-secondary'
