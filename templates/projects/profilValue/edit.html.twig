@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Projekt {{ project.name }} Wartości wariantów{% endblock %}
+{% block title %}Projekt {{ project.name }} Wartości profili{% endblock %}
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
@@ -29,13 +29,6 @@
             {% endfor %}
             </tr>
         {% endfor %}
-{#        {% for critery in criteries %}#}
-{#            {% for variant in variants %}#}
-{#                <div class="col-2">#}
-{#                    #}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        {% endfor %}#}
     </table>
     <div class="pt-5">
         {{ form_widget(form.addProfilesValues) }}

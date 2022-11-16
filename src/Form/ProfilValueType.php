@@ -13,7 +13,8 @@ class ProfilValueType extends AbstractType
     {
         $builder
             ->add('value',null, [
-        'label' => false
+                    'label' => false,
+                    'required' => true,
             ])
 //            ->add('Critery')
 //            ->add('Profil')

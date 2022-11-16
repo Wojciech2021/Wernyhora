@@ -15,3 +15,11 @@ import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 Chart.register(annotationPlugin);
+
+jQuery( document ).ready(function() {
+    setTimeout(function(){
+        if ($('.alert').length > 0) {
+            $('.alert').remove();
+        }
+    }, 5000)
+});

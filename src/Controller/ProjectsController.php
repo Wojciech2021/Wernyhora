@@ -7,8 +7,11 @@ use App\Form\KlasCollectionType;
 use App\Form\ProfilesValuesCollectionType;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
+use App\Form\ThresholdCollectionType;
 use App\Form\VariantsValuesCollectionType;
 use App\Service\ProjectsService;
+use App\Service\CriteryVariantService;
+use App\Service\KlasService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +35,7 @@ class ProjectsController extends AbstractController
             $project = $form->getData();
             $projectsService->addNewProject($project);
             $form = $this->createForm(AddProjectType::class);
+            $this->addFlash('success', 'Dodano projekt '.$project->getName());
             // TO DO Dodaje kolejne projekty jak się odświerza stronę
         }
 
@@ -44,9 +48,9 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/edit/critery_variant/{slug}', name: 'app_edit_critery_variant_project')]
-    public function editCritery(Request $request,
-                                Project $project,
-                                ProjectsService $projectsService)
+    public function editCriteryVariant(Request               $request,
+                                       Project               $project,
+                                       CriteryVariantService $criteryVariantService)
     {
 
         $form = $this->createForm(EditProjectType::class, $project);
@@ -58,7 +62,9 @@ class ProjectsController extends AbstractController
             $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
             $variantsCollection = $form['variantsCollection']['variants']->getData();
             $project = $form->getData();
-            $projectsService->updateCriteriesVariants($project, $criteriesCollection, $variantsCollection);
+            $criteryVariantService->updateCriteriesVariants($project, $criteriesCollection, $variantsCollection);
+
+            $this->addFlash('success', 'Zapisano kryteria i warianty');
 
             return $this->redirectToRoute('app_edit_variants_values_project', ['slug' => $project->getSlug()]);
         }
@@ -70,9 +76,9 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/edit/variants_values/{slug}', name: 'app_edit_variants_values_project')]
-    public function editVariant(Request $request,
-                                Project $project,
-                                ProjectsService $projectsService)
+    public function editVariantValue(Request               $request,
+                                Project               $project,
+                                CriteryVariantService $criteryVariantService)
     {
 
         $criteries = $project->getCritery();
@@ -86,7 +92,9 @@ class ProjectsController extends AbstractController
 
             $variantsValuesCollection = $form['variantsValues']->getData();
 
-            $projectsService->updateVariantsValues($project, $variantsValuesCollection);
+            $criteryVariantService->updateVariantsValues($project, $variantsValuesCollection);
+
+            $this->addFlash('success', 'Zapisano wartości wariantów!');
 
             return $this->redirectToRoute('app_edit_klas_project', ['slug' => $project->getSlug()]);
         }
@@ -100,9 +108,9 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/edit/klas/{slug}', name: 'app_edit_klas_project')]
-    public function editKlas(Request $request,
-                                Project $project,
-                                ProjectsService $projectsService)
+    public function editKlas(Request     $request,
+                             Project     $project,
+                             KlasService $klasService)
     {
 
         $form = $this->createForm(KlasCollectionType::class, $project);
@@ -113,7 +121,9 @@ class ProjectsController extends AbstractController
 
             $klasCollection = $form['klas']->getData();
 
-            $projectsService->updateKlas($project, $klasCollection);
+            $klasService->updateKlas($project, $klasCollection);
+
+            $this->addFlash('success', 'Zapisano klasy!');
 
             return $this->redirectToRoute('app_edit_profils_values_project', ['slug' => $project->getSlug()]);
         }
@@ -125,14 +135,13 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/edit/profils_values/{slug}', name: 'app_edit_profils_values_project')]
-    public function editProfilValue(Request $request,
-                                  Project $project,
-                                  ProjectsService $projectsService)
+    public function editProfilValue(Request     $request,
+                                    Project     $project,
+                                    KlasService $klasService)
     {
 
-
         $klassCollection = $project->getKlas();
-        $projectsService->addProfiles($project, $klassCollection);
+        $klasService->addProfiles($project, $klassCollection);
 
         $criteries = $project->getCritery();
         $profiles = $project->getProfil();
@@ -142,11 +151,13 @@ class ProjectsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            dd($form['profilesValues']->getData());
-//            $projectsService->updateProfilesValues($project, );
-//            $klasCollection = $form['klas']->getData();
-//
-//            $projectsService->updateKlas($project, $klasCollection);
+
+            $profilesValues = $form['profilesValues']->getData();
+            $klasService->updateProfilesValues($project, $profilesValues);
+
+            $this->addFlash('success', 'Zapisano wartości profili!');
+
+            return $this->redirectToRoute('app_edit_threshold_values_project', ['slug' => $project->getSlug()]);
         }
 
         return $this->render('/projects/profilValue/edit.html.twig',[
@@ -157,10 +168,38 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/delete/{slug}', name: 'app_delete_project')]
-    public function deleteProject(Project $project,
-                                ProjectsService $projectsService)
+    #[Route('/projects/edit/threshold_values/{slug}', name: 'app_edit_threshold_values_project')]
+    public function editThresholdValue(Request               $request,
+                                       Project               $project,
+                                       CriteryVariantService $criteryVariantService)
     {
+
+        $criteries = $project->getCritery();
+
+        $form = $this->createForm(ThresholdCollectionType::class, $criteries);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+//            $profilesValues = $form['profilesValues']->getData();
+//            $klasService->updateProfilesValues($project, $profilesValues);
+
+            $this->addFlash('success', 'Zapisano wartości progów!');
+        }
+
+        return $this->render('/projects/thresholdValue/edit.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project,
+            'criteries' => $criteries,
+        ]);
+    }
+
+    #[Route('/projects/delete/{slug}', name: 'app_delete_project')]
+    public function deleteProject(Project         $project,
+                                  ProjectsService $projectsService)
+    {
+        $this->addFlash('success', 'Usunięto projekt '.$project->getName());
         $user = $this->getUser();
         $projectsService->setUser($user);
         $projectsService->deleteProject($project);
