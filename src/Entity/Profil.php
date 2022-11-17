@@ -22,6 +22,9 @@ class Profil
     #[ORM\OneToMany(mappedBy: 'Profil', targetEntity: ProfilValue::class, orphanRemoval: true)]
     private Collection $ProfilValue;
 
+    #[ORM\Column]
+    private ?int $profilOrder = null;
+
     public function __construct()
     {
         $this->ProfilValue = new ArrayCollection();
@@ -70,6 +73,18 @@ class Profil
                 $profilValue->setProfil(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfilOrder(): ?int
+    {
+        return $this->profilOrder;
+    }
+
+    public function setProfilOrder(?int $profilOrder): self
+    {
+        $this->profilOrder = $profilOrder;
 
         return $this;
     }

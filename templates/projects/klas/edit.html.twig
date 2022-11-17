@@ -16,15 +16,15 @@
                     <div>
                         Nazwa Klasy
                     </div>
-                    <div>
-                        Kolejność Klasy
-                    </div>
+{#                    <div>#}
+{#                        Kolejność Klasy#}
+{#                    </div>#}
                 </div>
 
                 {% for klasForm in form.klas %}
                     <div class="js-klas-item col">
                         {{ form_row(klasForm.name) }}
-                        {{ form_row(klasForm.klasOrder) }}
+{#                        {{ form_row(klasForm.klasOrder) }}#}
                         {{ form_row(klasForm.removeKlas) }}
                     </div>
                 {% endfor %}

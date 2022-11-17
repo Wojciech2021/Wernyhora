@@ -9,6 +9,7 @@ use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
 use App\Form\ThresholdCollectionType;
 use App\Form\VariantsValuesCollectionType;
+use App\Service\ChartService;
 use App\Service\ProjectsService;
 use App\Service\CriteryVariantService;
 use App\Service\KlasService;
@@ -16,6 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class ProjectsController extends AbstractController
 {
@@ -140,8 +143,8 @@ class ProjectsController extends AbstractController
                                     KlasService $klasService)
     {
 
-        $klassCollection = $project->getKlas();
-        $klasService->addProfiles($project, $klassCollection);
+        $klass = $project->getKlas();
+        $klasService->addProfiles($project, $klass);
 
         $criteries = $project->getCritery();
         $profiles = $project->getProfil();
@@ -171,10 +174,15 @@ class ProjectsController extends AbstractController
     #[Route('/projects/edit/threshold_values/{slug}', name: 'app_edit_threshold_values_project')]
     public function editThresholdValue(Request               $request,
                                        Project               $project,
-                                       CriteryVariantService $criteryVariantService)
+                                       ChartBuilderInterface $chartBuilder,
+                                       CriteryVariantService $criteryVariantService,
+                                       ChartService          $chartService)
     {
 
         $criteries = $project->getCritery();
+        $klass = $project->getKlas();
+        $profiles = $project->getProfil();
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 
         $form = $this->createForm(ThresholdCollectionType::class, $criteries);
         $form->handleRequest($request);
@@ -182,16 +190,21 @@ class ProjectsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
 
-//            $profilesValues = $form['profilesValues']->getData();
-//            $klasService->updateProfilesValues($project, $profilesValues);
+            $criteryVariantService->updateCriteries($project, $criteries);
 
             $this->addFlash('success', 'Zapisano wartości progów!');
+
+
+            $chart = $chartService->prepareChart($chart, $criteries, $profiles);
         }
 
         return $this->render('/projects/thresholdValue/edit.html.twig',[
             'form' => $form->createView(),
             'project' => $project,
             'criteries' => $criteries,
+            'klas' => $klass,
+            'profiles' =>$profiles,
+            'chart' => $chart,
         ]);
     }
 

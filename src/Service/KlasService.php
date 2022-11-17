@@ -38,9 +38,10 @@ class KlasService
                                        $klass)
     {
 
-        foreach ($klass as $klas)
+        foreach ($klass as $key => $klas)
         {
             $klas->setProject($project);
+            $klas->setKlasOrder($key);
             $this->klasRepository->save($klas, false);
             $project->addKlas($klas);
         }
@@ -66,6 +67,7 @@ class KlasService
 
                 $profil = new Profil();
                 $profil->setProject($project);
+                $profil->setProfilOrder($i);
                 $this->profilRepository->save($profil, false);
                 $project->addProfil($profil);
             }

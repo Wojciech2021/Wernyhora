@@ -82,7 +82,7 @@ class CriteryVariantService
         $this->projectRepository->save($project, true);
     }
 
-    public function updateVariantsValues(Project $project,
+    public function updateVariantsValues(Project         $project,
                                          ArrayCollection $variantsValues)
     {
 
@@ -90,6 +90,20 @@ class CriteryVariantService
         {
 
             $this->variantValueRepository->save($variantValue, false);
+        }
+
+        $now = new \DateTime();
+        $project->setUpdateTime($now);
+        $this->projectRepository->save($project, true);
+    }
+
+    public function updateCriteries(Project         $project,
+                                                    $criteries)
+    {
+
+        foreach ($criteries as $critery)
+        {
+            $this->criteryRepository->save($critery, false);
         }
 
         $now = new \DateTime();

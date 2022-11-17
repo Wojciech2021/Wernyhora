@@ -17,9 +17,9 @@ class KlasType extends AbstractType
                 'label' => false,
             ])
 
-            ->add('klasOrder', null, [
-                'label' => false,
-            ])
+//            ->add('klasOrder', null, [
+//                'label' => false,
+//            ])
 
             ->add('removeKlas', ButtonType::class, [
                 'label' => false,

@@ -5,53 +5,63 @@
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
-    {{ form_start(form) }}
-    <table>
-        <tr>
-            <th rowspan="2" class="text-center">Kryteria</th>
-            <th colspan="2" class="text-center">Progi nierozróżnialności</th>
-            <th colspan="2" class="text-center">Progi preferencji</th>
-            <th colspan="2" class="text-center">Progi veta</th>
-        </tr>
-        <tr>
-            <th class="text-center">&alpha;<sub>q</sub></th>
-            <th class="text-center">&beta;<sub>q</sub></th>
-            <th class="text-center">&alpha;<sub>p</sub></th>
-            <th class="text-center">&beta;<sub>p</sub></th>
-            <th class="text-center">&alpha;<sub>v</sub></th>
-            <th class="text-center">&beta;<sub>v</sub></th>
-        </tr>
-
-        {% for critery in criteries %}
+    <div class="container">
+        {{ form_start(form) }}
+        <table class="table">
+            <thead>
             <tr>
-                <th>{{ critery.name }}</th>
-            {% for threshold in form.threshold %}
-                {% if threshold.vars.data is same as (critery) %}
-                    <td>
-                        {{ form_widget(threshold.alfaQ) }}
-                    </td>
-                    <td>
-                        {{ form_widget(threshold.betaQ) }}
-                    </td>
-                    <td>
-                        {{ form_widget(threshold.alfaP) }}
-                    </td>
-                    <td>
-                        {{ form_widget(threshold.betaP) }}
-                    </td>
-                    <td>
-                        {{ form_widget(threshold.alfaV) }}
-                    </td>
-                    <td>
-                        {{ form_widget(threshold.betaV) }}
-                    </td>
-                {% endif %}
-            {% endfor %}
+                <th rowspan="2" class="text-center">Kryteria</th>
+                <th colspan="2" class="text-center">Progi nierozróżnialności</th>
+                <th colspan="2" class="text-center">Progi preferencji</th>
+                <th colspan="2" class="text-center">Progi veta</th>
             </tr>
-        {% endfor %}
-    </table>
-    <div class="pt-5">
-        {{ form_widget(form.addThreshold) }}
+            <tr>
+                <th class="text-center">&alpha;<sub>q</sub></th>
+                <th class="text-center">&beta;<sub>q</sub></th>
+                <th class="text-center">&alpha;<sub>p</sub></th>
+                <th class="text-center">&beta;<sub>p</sub></th>
+                <th class="text-center">&alpha;<sub>v</sub></th>
+                <th class="text-center">&beta;<sub>v</sub></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for critery in criteries %}
+                <tr>
+                    <th class="text-nowrap">{{ critery.name }}
+                        {% if critery.unit is defined %}
+                            [{{ critery.unit }}]
+                        {% endif %}
+                    </th>
+                    {% for threshold in form.threshold %}
+                        {% if threshold.vars.data is same as (critery) %}
+                            <td>
+                                {{ form_widget(threshold.alfaQ) }}
+                            </td>
+                            <td>
+                                {{ form_widget(threshold.betaQ) }}
+                            </td>
+                            <td>
+                                {{ form_widget(threshold.alfaP) }}
+                            </td>
+                            <td>
+                                {{ form_widget(threshold.betaP) }}
+                            </td>
+                            <td>
+                                {{ form_widget(threshold.alfaV) }}
+                            </td>
+                            <td>
+                                {{ form_widget(threshold.betaV) }}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pt-5">
+            {{ form_widget(form.addThreshold) }}
+        </div>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
+    {% include '/projects/thresholdValue/display.html.twig' %}
 {% endblock %}
