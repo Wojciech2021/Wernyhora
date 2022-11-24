@@ -13,8 +13,11 @@ import './bootstrap';
 
 import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import autocolors from 'chartjs-plugin-autocolors';
+
 
 Chart.register(annotationPlugin);
+Chart.register(autocolors);
 
 jQuery( document ).ready(function() {
     setTimeout(function(){
@@ -23,3 +26,13 @@ jQuery( document ).ready(function() {
         }
     }, 5000)
 });
+
+jQuery( document ).ready(function() {
+    var d = document.querySelector('canvas');
+    console.log(d);
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.rotate(20 * Math.PI / 180);
+    ctx.fillRect(50, 20, 100, 50);
+});
+

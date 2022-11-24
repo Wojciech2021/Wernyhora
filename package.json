@@ -18,6 +18,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "chartjs-plugin-annotation": "^1.4.0"
+        "chartjs-color": "^2.4.1",
+        "chartjs-plugin-annotation": "^1.4.0",
+        "chartjs-plugin-autocolors": "^0.0.7"
     }
 }
