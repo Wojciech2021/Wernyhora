@@ -5,7 +5,6 @@
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
-
     {{ form_start(form) }}
     <div class="d-flex justify-content-center mt-5">
         <div class="flex-container col-3 justify-content-center col-1 form-group">
@@ -23,16 +22,101 @@
                         {'label_attr': {'class': 'input-group-text'}}
                     ) }}
                 </div>
-{#                <div>#}
+                <div>
                     {{ form_widget(form.description,
                         {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
                     ) }}
-{#                </div>#}
+                </div>
             </div>
             <div class="pt-3">
-                {{ form_widget(form.addProject) }}
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-2">
+            <div class="row js-criteries-wrapper"
+                 data-prototype="<div class='js-critery-item d-flex flex-row'>{{ form_widget(form.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
+                 data-index="{{ form.criteriesCollection.criteries|length }}"
+            >
+                {% for criteriesForm in form.criteriesCollection.criteries %}
+                    <div class="js-critery-item d-flex flex-row">
+                        {{ form_row(criteriesForm.name) }}
+{#                        {{ form_row(criteriesForm.unit) }}#}
+{#                        {{ form_row(criteriesForm.weight) }}#}
+                        {{ form_row(criteriesForm.removeCritery) }}
+                    </div>
+                {% endfor %}
+
+                {{ form_row(form.criteriesCollection.addCritery) }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="row js-variants-wrapper row flex-nowrap"
+                 data-prototype="<div class='js-variant-item col'>{{ form_widget(form.variantsCollection.variants.vars.prototype)|e('html_attr') }}</div>"
+                 data-index="{{ form.variantsCollection.variants|length }}"
+            >
+                <div class="row">
+                    {% for variantsForm in form.variantsCollection.variants %}
+                        <div class="js-variant-item col">
+                            {{ form_row(variantsForm.name) }}
+                            {{ form_row(variantsForm.removeVariant) }}
+                        </div>
+                    {% endfor %}
+                    {{ form_row(form.variantsCollection.addVariant) }}
+                </div>
+
+            </div>
+
+            <div class="js-variants-values-wrapper"
+                 data-prototype="<div class='js-variant-value-item col'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</div>"
+                 data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
+            >
+                {#        <table>#}
+
+                {% if form.variantsValuesCollection.variantsValues|length > 1 %}
+
+                    {% for critery in form.criteriesCollection.criteries %}
+                        <div class="row tr-{{ loop.index }}">
+
+                            {% for variant in form.variantsCollection.variants %}
+                                {% for variantsValues in form.variantsValuesCollection.variantsValues %}
+
+                                    {% if variantsValues.vars.data.critery is same as(critery.vars.data) and variantsValues.vars.data.variant is same as(variant.vars.data)  %}
+                                        <div class="js-variant-value-item col">
+                                            {{ form_widget(variantsValues) }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="row tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">
+                        {% for variantsValues in form.variantsValuesCollection.variantsValues %}
+                            <div class="js-variant-value-item col">
+                                {{ form_widget(variantsValues.value) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+                {#        </table>#}
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    {{ form_widget(form.addProject) }}
     {{ form_end(form) }}
+
+
+
 {% endblock %}

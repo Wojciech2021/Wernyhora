@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Projekt {{ project.name }} Kryteria i Warianty{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+    <div class="d-flex justify-content-center mt-5">
+        <div class="flex-container col-3 justify-content-center col-1 form-group">
+            <div class="pt-3">
+                <div class="pb-1">
+                    {{ form_label(form.name) }}
+                </div>
+                <div>
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="pt-3 input-group">
+                <div class="pb-1 input-group-prepend">
+                    {{ form_label(form.description, null,
+                        {'label_attr': {'class': 'input-group-text'}}
+                    ) }}
+                </div>
+                <div>
+                    {{ form_widget(form.description,
+                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
+                    ) }}
+                </div>
+            </div>
+            <div class="pt-3">
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
+    <div style="margin-bottom: 5px;">
+        <div class="row js-criteries-wrapper  row flex-nowrap"
+             data-prototype="<div class='js-critery-item col'>{{ form_widget(form.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
+             data-index="{{ form.criteriesCollection.criteries|length }}"
+        >
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-2">
+                    <div class="mb-2">
+                        Nazwa Kryterium
+                    </div>
+                    <div class="mb-2">
+                        Jednoskta Kryterium
+                    </div>
+                    <div class="mb-2">
+                        Waga Kryterium
+                    </div>
+                </div>
+
+                {% for criteriesForm in form.criteriesCollection.criteries %}
+                    <div class="js-critery-item col">
+                        {{ form_row(criteriesForm.name) }}
+                        {{ form_row(criteriesForm.unit) }}
+                        {{ form_row(criteriesForm.weight) }}
+                        {{ form_row(criteriesForm.removeCritery) }}
+                    </div>
+                {% endfor %}
+                {{ form_row(form.criteriesCollection.addCritery) }}
+            </div>
+        </div>
+
+        <div class="row js-variants-wrapper  row flex-nowrap"
+             data-prototype="<div class='js-variant-item col'>{{ form_widget(form.variantsCollection.variants.vars.prototype)|e('html_attr') }}</div>"
+             data-index="{{ form.variantsCollection.variants|length }}"
+        >
+            <div class="row">
+                <div class="col-2">
+                    <div>
+                        Nazwa Wariantu
+                    </div>
+                </div>
+
+                {% for variantsForm in form.variantsCollection.variants %}
+                    <div class="js-variant-item col">
+                        {{ form_row(variantsForm.name) }}
+                        {{ form_row(variantsForm.removeVariant) }}
+                    </div>
+                {% endfor %}
+                {{ form_row(form.variantsCollection.addVariant) }}
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form.addProject) }}
+    {{ form_end(form) }}
+{% endblock %}

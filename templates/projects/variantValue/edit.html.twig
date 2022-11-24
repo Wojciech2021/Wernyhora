@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Projekt {{ project.name }} Wartości wariantów{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    <div class="container">
+        {{ form_start(form) }}
+        <table class="table">
+            <thead>
+            <th></th>
+            {% for variant in variants %}
+                <th class="text-center">{{ variant.name }}</th>
+            {% endfor %}
+            </thead>
+            <tbody>
+            {% for critery in criteries %}
+                <tr>
+                    <th class="text-nowrap">{{ critery.name }}
+                        {% if critery.unit is defined %}
+                            [{{ critery.unit }}]
+                        {% endif %}
+                    </th>
+                    {% for variant in variants %}
+                        {% for variantsValuesForm in form.variantsValues %}
+
+                            {% if variantsValuesForm.vars.data.critery is same as(critery) and variantsValuesForm.vars.data.variant is same as(variant)  %}
+                                <td>
+                                    {{ form_widget(variantsValuesForm) }}
+                                </td>
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            {#        {% for critery in criteries %}#}
+            {#            {% for variant in variants %}#}
+            {#                <div class="col-2">#}
+            {#                    #}
+            {#                </div>#}
+            {#            {% endfor %}#}
+            {#        {% endfor %}#}
+            </tbody>
+        </table>
+        <div class="pt-5">
+            {{ form_widget(form.addVariantsValues) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

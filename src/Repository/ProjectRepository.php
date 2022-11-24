@@ -23,6 +23,7 @@ class ProjectRepository extends ServiceEntityRepository
 
     public function save(Project $entity, bool $flush = false): void
     {
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
