@@ -29,13 +29,13 @@
                         {% endif %}
                     </th>
                     {% for profilValue in critery.profilValue %}
-                        <td>{{ profilValue.value - (critery.alfaV * profilValue.value + critery.betaV) }}</td>
-                        <td>{{ profilValue.value - (critery.alfaP * profilValue.value + critery.betaP) }}</td>
-                        <td>{{ profilValue.value - (critery.alfaQ * profilValue.value + critery.betaQ) }}</td>
+                        <td>{{ theresholdService.calculateVTheresgold(profilValue)['minusV'] }}</td>
+                        <td>{{ theresholdService.calculatePTheresgold(profilValue)['minusP'] }}</td>
+                        <td>{{ theresholdService.calculateQTheresgold(profilValue)['minusQ'] }}</td>
                         <td class="bg-warning">{{ profilValue.value }}</td>
-                        <td>{{ profilValue.value + (critery.alfaQ * profilValue.value + critery.betaQ) }}</td>
-                        <td>{{ profilValue.value + (critery.alfaP * profilValue.value + critery.betaP) }}</td>
-                        <td>{{ profilValue.value + (critery.alfaV * profilValue.value + critery.betaV) }}</td>
+                        <td>{{ theresholdService.calculateQTheresgold(profilValue)['plusQ'] }}</td>
+                        <td>{{ theresholdService.calculatePTheresgold(profilValue)['plusP'] }}</td>
+                        <td>{{ theresholdService.calculateVTheresgold(profilValue)['plusV'] }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}

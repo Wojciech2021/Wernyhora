@@ -13,6 +13,7 @@ use App\Service\ChartService;
 use App\Service\ProjectsService;
 use App\Service\CriteryVariantService;
 use App\Service\KlasService;
+use App\Service\TheresholdService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -176,7 +177,8 @@ class ProjectsController extends AbstractController
                                        Project               $project,
                                        ChartBuilderInterface $chartBuilder,
                                        CriteryVariantService $criteryVariantService,
-                                       ChartService          $chartService)
+                                       ChartService          $chartService,
+                                       TheresholdService     $theresholdService)
     {
 
         $criteries = $project->getCritery();
@@ -195,7 +197,7 @@ class ProjectsController extends AbstractController
             $this->addFlash('success', 'Zapisano wartości progów!');
 
 
-            $chart = $chartService->prepareChart($chart, $criteries, $profiles);
+            $chart = $chartService->prepareChart($chart, $criteries, $profiles, $theresholdService);
         }
 
         return $this->render('/projects/thresholdValue/edit.html.twig',[
@@ -205,6 +207,7 @@ class ProjectsController extends AbstractController
             'klas' => $klass,
             'profiles' =>$profiles,
             'chart' => $chart,
+            'theresholdService' => $theresholdService,
         ]);
     }
 
