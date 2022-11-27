@@ -10,19 +10,21 @@
         <table class="table">
             <thead>
             <th></th>
-            {% for variant in variants %}
-                <th class="text-center">{{ variant.name }}</th>
+            {% for critery in criteries %}
+                <th class="text-center text-nowrap">{{ critery.name }}
+                    {% if critery.unit is defined %}
+                        [{{ critery.unit }}]
+                    {% endif %}
+                </th>
             {% endfor %}
             </thead>
             <tbody>
-            {% for critery in criteries %}
+            {% for variant in variants %}
                 <tr>
-                    <th class="text-nowrap">{{ critery.name }}
-                        {% if critery.unit is defined %}
-                            [{{ critery.unit }}]
-                        {% endif %}
+                    <th class="text-nowrap">
+                        {{ variant.name }}
                     </th>
-                    {% for variant in variants %}
+                    {% for critery in criteries %}
                         {% for variantsValuesForm in form.variantsValues %}
 
                             {% if variantsValuesForm.vars.data.critery is same as(critery) and variantsValuesForm.vars.data.variant is same as(variant)  %}
@@ -36,13 +38,6 @@
                     {% endfor %}
                 </tr>
             {% endfor %}
-            {#        {% for critery in criteries %}#}
-            {#            {% for variant in variants %}#}
-            {#                <div class="col-2">#}
-            {#                    #}
-            {#                </div>#}
-            {#            {% endfor %}#}
-            {#        {% endfor %}#}
             </tbody>
         </table>
         <div class="pt-5">

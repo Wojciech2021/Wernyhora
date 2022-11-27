@@ -157,7 +157,6 @@ jQuery(document).ready(function () {
         }
 
         newForm = "<div class='row tr-" + indexCriteries + "' data-index='"+ indexCriteries +"'>" + newForm + "</div>"
-        console.log($('.tr-' + (indexCriteries - 1)))
         $('.tr-' + (indexCriteries - 1)).after($.parseHTML(newForm));
     }
 
