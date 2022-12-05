@@ -5,29 +5,34 @@
 {% block body %}
     {% include 'top_menu.html.twig' %}
     {{ form_start(form) }}
-    <div class="col-1"></div>
-    <div style="margin-bottom: 5px;">
-        <div class="row js-klas-wrapper  row flex-nowrap"
-             data-prototype="<div class='js-klas-item col'>{{ form_widget(form.klas.vars.prototype)|e('html_attr') }}</div>"
+    <div class="d-flex flex-row justify-content-center">
+        <div class="js-klas-wrapper"
+             data-prototype=
+             "<tr class='js-klas-item'>
+                 <td>{{ form_widget(form.klas.vars.prototype.name)|e('html_attr') }}</td>
+                 <td>{{ form_widget(form.klas.vars.prototype.removeKlas)|e('html_attr') }}</td>
+             </tr>"
              data-index="{{ form.klas|length }}"
         >
-            <div class="row">
-                <div class="col-2">
-                    <div>
-                        Nazwa Klasy
-                    </div>
-{#                    <div>#}
-{#                        Kolejność Klasy#}
-{#                    </div>#}
-                </div>
-
-                {% for klasForm in form.klas %}
-                    <div class="js-klas-item col">
-                        {{ form_row(klasForm.name) }}
-{#                        {{ form_row(klasForm.klasOrder) }}#}
-                        {{ form_row(klasForm.removeKlas) }}
-                    </div>
-                {% endfor %}
+            <div class="col">
+                <table class="table" id="klas">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Klasy</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Nazwa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for klasForm in form.klas %}
+                        <tr class="js-klas-item">
+                            <td>{{ form_row(klasForm.name) }}</td>
+                            <td> {{ form_row(klasForm.removeKlas) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
                 {{ form_row(form.addKlas) }}
             </div>
         </div>

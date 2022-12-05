@@ -16,22 +16,24 @@ class CriteryFormType extends AbstractType
         $builder
 
             ->add('name', null, [
-                'label' => 'Nazwa: ',
-                'label_attr' => [
-                    'class' => 'pr-2',
-                    'style' => 'padding-right: 28px;'
-                ],
+                'label' => false,
+//                'label' => 'Nazwa: ',
+//                'label_attr' => [
+//                    'class' => 'pr-2',
+//                    'style' => 'padding-right: 28px;'
+//                ],
                 'attr' => [
                     'class' => 'mb-1'
                 ],
             ])
 
             ->add('unit', null, [
-                'label' => 'Jednostka: ',
-                'label_attr' => [
-                    'class' => 'pr-2',
-                    'style' => 'padding-right: 5px;'
-                ],
+                'label' => false,
+//                'label' => 'Jednostka: ',
+//                'label_attr' => [
+//                    'class' => 'pr-2',
+//                    'style' => 'padding-right: 5px;'
+//                ],
                 'required' => false,
                 'attr' => [
                     'class' => 'mb-1'
@@ -39,11 +41,12 @@ class CriteryFormType extends AbstractType
             ])
 
             ->add('weight', null, [
-                'label' => 'Waga: ',
-                'label_attr' => [
-                    'class' => 'pr-2',
-                    'style' => 'padding-right: 35px;'
-                ],
+                'label' => false,
+//                'label' => 'Waga: ',
+//                'label_attr' => [
+//                    'class' => 'pr-2',
+//                    'style' => 'padding-right: 35px;'
+//                ],
                 'data' => 1,
                 'attr' => [
                     'class' => 'mb-1'

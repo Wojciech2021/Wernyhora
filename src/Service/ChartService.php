@@ -20,9 +20,25 @@ class ChartService
         $chart->setOptions([
             'plugins' => [
                 'autocolors'
+            ],
+            'scales' => [
+                'x' => [
+                    'ticks' => [
+                        'autoSkip' => false,
+                        'maxRotation' => 90,
+                        'minRotation' => 90,
+                    ]
+                ],
+                'y' => [
+                    'ticks' => [
+                        'autoSkip' => false,
+                        'maxRotation' => 90,
+                        'minRotation' => 90,
+                    ]
+                ]
             ]
         ]);
-//        dd($chart);
+
         $datasets = [];
         $labels = [];
 
@@ -41,16 +57,23 @@ class ChartService
 
             foreach ($profil->getProfilValue() as $profilValue)
             {
-                $arrayOfProfil += [$profilValue->getCritery()->getName() => $profilValue->getValue()];
+                $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $profilValue->getValue()];
 
-                $arrayOfMinusQ += [$profilValue->getCritery()->getName() => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
-                $arrayOfPlusQ += [$profilValue->getCritery()->getName() => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+                $arrayOfMinusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                $arrayOfPlusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
 
-                $arrayOfMinusP += [$profilValue->getCritery()->getName() => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
-                $arrayOfPlusP += [$profilValue->getCritery()->getName() => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+                $arrayOfMinusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                $arrayOfPlusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
 
-                $arrayOfMinusV += [$profilValue->getCritery()->getName() => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
-                $arrayOfPlusV += [$profilValue->getCritery()->getName() => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                $arrayOfMinusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                $arrayOfPlusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
             }
 
 //            dd($labels, $data, array_keys($arrayOfElements));

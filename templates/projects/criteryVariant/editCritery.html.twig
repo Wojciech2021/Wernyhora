@@ -1,0 +1,36 @@
+<div class="js-criteries-wrapper"
+     data-prototype=
+     "<tr class='js-critery-item'>
+                    <td>{{ form_widget(form.criteriesCollection.criteries.vars.prototype.name)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteriesCollection.criteries.vars.prototype.unit)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteriesCollection.criteries.vars.prototype.weight)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteriesCollection.criteries.vars.prototype.removeCritery)|e('html_attr') }}</td>
+                 </tr>"
+     data-index="{{ form.criteriesCollection.criteries|length }}"
+>
+    <div class="col">
+        <table class="table" id="criteries">
+            <thead>
+            <tr>
+                <th class="text-center" colspan="3">Kryteria</th>
+            </tr>
+            <tr>
+                <th class="text-center">Nazwa</th>
+                <th class="text-center">Jednotka</th>
+                <th class="text-center">Waga</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for criteriesForm in form.criteriesCollection.criteries %}
+                <tr class="js-critery-item">
+                    <td>{{ form_row(criteriesForm.name) }}</td>
+                    <td>{{ form_row(criteriesForm.unit) }}</td>
+                    <td>{{ form_row(criteriesForm.weight) }}</td>
+                    <td>{{ form_row(criteriesForm.removeCritery) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form_row(form.criteriesCollection.addCritery) }}
+    </div>
+</div>
