@@ -32,59 +32,9 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-row">
-        <div class="col-1"></div>
-{#        <div style="margin-bottom: 5px;" class="col">#}
-            <div class="js-criteries-wrapper" style="padding-right: 5px"
-                 data-prototype="<div class='js-critery-item col'>{{ form_widget(form.criteriesCollection.criteries.vars.prototype)|e('html_attr') }}</div>"
-                 data-index="{{ form.criteriesCollection.criteries|length }}"
-            >
-                <div class="col" style="margin-bottom: 5px;">
-                    {#                <div class="col-2">#}
-                    {#                    <div class="mb-2">#}
-                    {#                        Nazwa Kryterium#}
-                    {#                    </div>#}
-                    {#                    <div class="mb-2">#}
-                    {#                        Jednoskta Kryterium#}
-                    {#                    </div>#}
-                    {#                    <div class="mb-2">#}
-                    {#                        Waga Kryterium#}
-                    {#                    </div>#}
-                    {#                </div>#}
-
-                    {% for criteriesForm in form.criteriesCollection.criteries %}
-                        <div class="js-critery-item col">
-                            {{ form_row(criteriesForm.name) }}
-                            {{ form_row(criteriesForm.unit) }}
-                            {{ form_row(criteriesForm.weight) }}
-                            {{ form_row(criteriesForm.removeCritery) }}
-                        </div>
-                    {% endfor %}
-                    {{ form_row(form.criteriesCollection.addCritery) }}
-                </div>
-            </div>
-
-            <div class="js-variants-wrapper"
-                 data-prototype="<div class='d-flex flex-row js-variant-item'{{ form_widget(form.variantsCollection.variants.vars.prototype)|e('html_attr') }}></div>"
-                 data-index="{{ form.variantsCollection.variants|length }}"
-            >
-                <div class="col">
-                    {#                <div class="col-2">#}
-                    {#                    <div>#}
-                    {#                        Nazwa Wariantu#}
-                    {#                    </div>#}
-                    {#                </div>#}
-
-                    {% for variantsForm in form.variantsCollection.variants %}
-                        <div class="d-flex flex-row js-variant-item">
-                            {{ form_row(variantsForm.name) }}
-                            {{ form_row(variantsForm.removeVariant) }}
-                        </div>
-                    {% endfor %}
-                    {{ form_row(form.variantsCollection.addVariant) }}
-                </div>
-            </div>
-{#        </div>#}
+    <div class="d-flex flex-row justify-content-center">
+        {% include('projects/criteryVariant/editCritery.html.twig') %}
+        {% include('projects/criteryVariant/editVariant.html.twig') %}
     </div>
 
     {{ form_widget(form.addProject) }}

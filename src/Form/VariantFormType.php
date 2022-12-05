@@ -16,11 +16,12 @@ class VariantFormType extends AbstractType
         $builder
 
             ->add('name', null, [
-                'label' => 'Nazwa: ',
-                'label_attr' => [
-                    'class' => 'pr-2',
-                    'style' => 'padding-right: 5px;'
-                ],
+                'label' => false,
+//                'label' => 'Nazwa: ',
+//                'label_attr' => [
+//                    'class' => 'pr-2',
+//                    'style' => 'padding-right: 5px;'
+//                ],
                 'attr' => [
                     'class' => 'mb-1'
                 ],

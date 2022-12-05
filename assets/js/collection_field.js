@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         var prototype = $wrapperCriteries.data('prototype');
 
         // get the new index
-        var indexCriteries = $wrapperCriteries.data('index');
+        var indexCriteries = parseInt($wrapperCriteries.attr('data-index'));
 
         var newForm = prototype;
         // You need this only if you didn't set 'label' => false in your tags field in TaskType
@@ -27,13 +27,13 @@ jQuery(document).ready(function () {
         newForm = newForm.replace(/__name__/g, indexCriteries);
 
         // increase the index with one for the next item
-        $wrapperCriteries.data('index', indexCriteries + 1);
+        // $wrapperCriteries.data('index', indexCriteries + 1);
+        $wrapperCriteries.attr('data-index', indexCriteries + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).parent().before($.parseHTML(newForm)[0]);
+        var lastCritery = $('#criteries').children()[1].children.item(indexCriteries -1);
 
-        // addVariantsValuesFromCriteries();
-
+        lastCritery.after($.parseHTML(newForm)[0]);
     });
 
     $wrapperVariants.on('click', '.js-variant-add', function(e) {
@@ -41,9 +41,9 @@ jQuery(document).ready(function () {
 
         // Get the data-prototype explained earlier
         var prototype = $wrapperVariants.data('prototype');
-        console.log(prototype);
+
         // get the new index
-        var indexVariants = $wrapperVariants.data('index');
+        var indexVariants = parseInt($wrapperVariants.attr('data-index'));
 
         var newForm = prototype;
         // You need this only if you didn't set 'label' => false in your tags field in TaskType
@@ -54,12 +54,13 @@ jQuery(document).ready(function () {
         newForm = newForm.replace(/__name__/g, indexVariants);
 
         // increase the index with one for the next item
-        $wrapperVariants.data('index', indexVariants + 1);
+        // $wrapperVariants.data('index', indexVariants + 1);
+        $wrapperVariants.attr('data-index', indexVariants + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).parent().before($.parseHTML(newForm)[0]);
+        var lastVariant = $('#variants').children()[1].children.item(indexVariants -1);
 
-        // addVariantsValuesFromVariants();
+        lastVariant.after($.parseHTML(newForm)[0]);
     });
 
     $wrapperKlas.on('click', '.js-klas-add', function(e) {
@@ -67,9 +68,9 @@ jQuery(document).ready(function () {
 
         // Get the data-prototype explained earlier
         var prototype = $wrapperKlas.data('prototype');
-        console.log(prototype);
+
         // get the new index
-        var indexKlas = $wrapperKlas.data('index');
+        var indexKlas = parseInt($wrapperKlas.attr('data-index'));
 
         var newForm = prototype;
         // You need this only if you didn't set 'label' => false in your tags field in TaskType
@@ -78,12 +79,16 @@ jQuery(document).ready(function () {
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__/g, indexKlas);
-        console.log(newForm);
+
         // increase the index with one for the next item
-        $wrapperKlas.data('index', indexKlas + 1);
+        // $wrapperKlas.data('index', indexKlas + 1);
+        $wrapperKlas.attr('data-index', indexKlas + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        $(this).parent().before($.parseHTML(newForm)[0]);
+        var lastKlas = $('#klas').children()[1].children.item(indexKlas -1);
+
+        lastKlas.after($.parseHTML(newForm)[0]);
+        // $(this).parent().before($.parseHTML(newForm)[0]);
 
     });
 
