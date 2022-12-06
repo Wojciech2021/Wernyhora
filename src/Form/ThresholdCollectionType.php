@@ -42,6 +42,18 @@ class ThresholdCollectionType extends AbstractType
                 'mapped' => false,
             ])
 
+            ->add('thresholdTypes', ChoiceType::class, [
+                'label' => 'Progi wyświetlane na wykresie',
+                'choices'  => [
+                    'Nierozróżnialności:' => 'q',
+                    'Preferencji:' => 'p',
+                    'Weta:' => 'v'
+                ],
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => false,
+            ])
+
             ->add('addThreshold', SubmitType::class,[
                 'label' => 'Zapisz wartości',
                 'attr' => [

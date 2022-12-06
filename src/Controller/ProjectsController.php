@@ -192,12 +192,14 @@ class ProjectsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $criteriesOnChart = $form['criteriesCollection']->getData();
+            $thresholdOnChart = $form['thresholdTypes']->getData();
+
             $criteryVariantService->updateCriteries($project, $criteries);
 
             $this->addFlash('success', 'Zapisano wartości progów!');
 
 
-            $chart = $chartService->prepareChart($chart, $profiles, $theresholdService, $criteriesOnChart);
+            $chart = $chartService->prepareChart($chart, $profiles, $theresholdService, $criteriesOnChart, $thresholdOnChart);
         }
 
         return $this->render('/projects/thresholdValue/edit.html.twig',[
