@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,17 +13,34 @@ class ThresholdCollectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $criteries = null;
+
+        if (!$options['data']->isEmpty())
+        {
+            $criteries = $options['data'];
+        }
 
         $builder
             ->add('threshold', CollectionType::class,
                 [
                     'entry_type' => ThresholdType::class,
-                    'data' => $options['data'],
+                    'data' => $criteries,
 //                    'allow_add' => true,
 //                    'allow_delete' => true,
                     'mapped' => false,
                 ]
             )
+
+            ->add('criteriesCollection', ChoiceType::class, [
+                'label' => 'Kryteria wyświetlane na wykresie',
+                'choices'  => $criteries,
+                'choice_label' => function ($critery){
+                    return $critery->getName().':';
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => false,
+            ])
 
             ->add('addThreshold', SubmitType::class,[
                 'label' => 'Zapisz wartości',
@@ -30,6 +48,8 @@ class ThresholdCollectionType extends AbstractType
                     'class' => 'btn btn-secondary'
                 ]
             ])
+
+
         ;
     }
 
