@@ -15,7 +15,8 @@ class ChartService
     public function prepareChart($chart,
                                  $profiles,
                                 TheresholdService $theresholdService,
-                                                    $criteriesOnChart)
+                                                    $criteriesOnChart,
+                                                    $thresholdOnChart)
     {
 //        dd($profiles);
 
@@ -64,6 +65,27 @@ class ChartService
             {
                 if (in_array($profilValue->getCritery(), $criteriesOnChart))
                 {
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfProfil += ['.'
+                        => $profilValue->getValue()];
+
+                        $arrayOfMinusQ += ['.'
+                        => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                        $arrayOfPlusQ += ['.'
+                        => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+
+                        $arrayOfMinusP += ['.'
+                        => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                        $arrayOfPlusP += ['.'
+                        => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+
+                        $arrayOfMinusV += ['.'
+                        => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                        $arrayOfPlusV += ['.'
+                        => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                    }
+
                     $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
                     => $profilValue->getValue()];
 
@@ -81,6 +103,27 @@ class ChartService
                     => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
                     $arrayOfPlusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
                     => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfProfil += [','
+                        => $profilValue->getValue()];
+
+                        $arrayOfMinusQ += [','
+                        => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                        $arrayOfPlusQ += [','
+                        => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+
+                        $arrayOfMinusP += [','
+                        => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                        $arrayOfPlusP += [','
+                        => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+
+                        $arrayOfMinusV += [','
+                        => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                        $arrayOfPlusV += [','
+                        => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                    }
                 }
             }
 
@@ -98,41 +141,51 @@ class ChartService
                 'data' =>  $arrayOfProfil,
                 ];
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' - q'.($key+1),
-                'data' =>  $arrayOfMinusQ,
+            if (in_array('q', $thresholdOnChart))
+            {
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' - q'.($key+1),
+                    'data' =>  $arrayOfMinusQ,
 //                'fill' => '-1'
-            ];
+                ];
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' + q'.($key+1),
-                'data' =>  $arrayOfPlusQ,
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' + q'.($key+1),
+                    'data' =>  $arrayOfPlusQ,
 //                'fill' => '-2'
-            ];
+                ];
+            }
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' - p'.($key+1),
-                'data' =>  $arrayOfMinusP,
+            if (in_array('p', $thresholdOnChart))
+            {
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' - p'.($key+1),
+                    'data' =>  $arrayOfMinusP,
 //                'fill' => '-3'
-            ];
+                ];
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' + p'.($key+1),
-                'data' =>  $arrayOfPlusP,
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' + p'.($key+1),
+                    'data' =>  $arrayOfPlusP,
 //                'fill' => '-4'
-            ];
+                ];
+            }
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' - v'.($key+1),
-                'data' =>  $arrayOfMinusV,
+            if (in_array('v', $thresholdOnChart))
+            {
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' - v'.($key+1),
+                    'data' =>  $arrayOfMinusV,
 //                'fill' => '-5'
-            ];
+                ];
 
-            $datasets[] = [
-                'label' => 'Profil '.($key+1).' + v'.($key+1),
-                'data' =>  $arrayOfPlusV,
+                $datasets[] = [
+                    'label' => 'Profil '.($key+1).' + v'.($key+1),
+                    'data' =>  $arrayOfPlusV,
 //                'fill' => '-6'
-            ];
+                ];
+            }
+
         }
 
 //        if ($cpu)

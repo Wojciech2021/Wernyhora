@@ -72,6 +72,19 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <table class="table w-25 p-3">
+                <thead>
+                <th colspan="2" class="text-center">{{ form_label(form.thresholdTypes) }}</th>
+                </thead>
+                <tbody>
+                {% for thresholdType in form.thresholdTypes %}
+                    <tr>
+                        <th class="pr-1">{{ form_label(thresholdType) }}</th>
+                        <td>{{ form_widget(thresholdType) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
         <div class="pt-5">
             {{ form_widget(form.addThreshold) }}
