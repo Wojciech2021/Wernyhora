@@ -13,13 +13,18 @@ class ChartService
     }
 
     public function prepareChart($chart,
-                                 $criteries,
                                  $profiles,
-                                TheresholdService $theresholdService)
+                                TheresholdService $theresholdService,
+                                                    $criteriesOnChart)
     {
+//        dd($profiles);
+
         $chart->setOptions([
             'plugins' => [
-                'autocolors'
+                'autocolors',
+                'legend' => [
+                    'display' => false,
+                ],
             ],
             'scales' => [
                 'x' => [
@@ -57,23 +62,26 @@ class ChartService
 
             foreach ($profil->getProfilValue() as $profilValue)
             {
-                $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $profilValue->getValue()];
+                if (in_array($profilValue->getCritery(), $criteriesOnChart))
+                {
+                    $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $profilValue->getValue()];
 
-                $arrayOfMinusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
-                $arrayOfPlusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+                    $arrayOfMinusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                    $arrayOfPlusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
 
-                $arrayOfMinusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
-                $arrayOfPlusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+                    $arrayOfMinusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                    $arrayOfPlusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
 
-                $arrayOfMinusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
-                $arrayOfPlusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                    $arrayOfMinusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                    $arrayOfPlusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                }
             }
 
 //            dd($labels, $data, array_keys($arrayOfElements));
@@ -83,7 +91,7 @@ class ChartService
 
             $color = $this->randomColor();
 
-//            dd($color);
+//            dd($arrayOfProfil);
 
             $datasets[] = [
                 'label' => 'Profil '.$key+1,
