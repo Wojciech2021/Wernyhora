@@ -199,11 +199,11 @@ class ChartService
         }
 
         $min = min($datasToMinMax);
-        $min = intval($min - $min/10);
+        $min = round($min - $min/10, 2);
 
         $max = max($datasToMinMax);
-        $max = intval($max + $max/10);
-
+        $max = round($max + $max/30, 2);
+        
         $chart->setOptions([
             'plugins' => [
 //                'autocolors',
