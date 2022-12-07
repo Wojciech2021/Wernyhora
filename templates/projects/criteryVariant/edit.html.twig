@@ -32,11 +32,17 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-row justify-content-center">
-        {% include('projects/criteryVariant/editCritery.html.twig') %}
-        {% include('projects/criteryVariant/editVariant.html.twig') %}
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center">
+            {% include('projects/criteryVariant/editCritery.html.twig') %}
+            {% include('projects/criteryVariant/editVariant.html.twig') %}
+
+        </div>
+        <div class="pt-5">
+            {{ form_widget(form.addProject) }}
+        </div>
     </div>
 
-    {{ form_widget(form.addProject) }}
+
     {{ form_end(form) }}
 {% endblock %}

@@ -25,9 +25,61 @@ class Profil
     #[ORM\Column]
     private ?int $profilOrder = null;
 
+    #[ORM\Column]
+    private ?int $colorR = null;
+
+    #[ORM\Column]
+    private ?int $colorG = null;
+
+    #[ORM\Column]
+    private ?int $colorB = null;
+
+    #[ORM\Column]
+    private ?int $colorRQ = null;
+
+    #[ORM\Column]
+    private ?int $colorGQ = null;
+
+    #[ORM\Column]
+    private ?int $colorBQ = null;
+
+    #[ORM\Column]
+    private ?int $colorRP = null;
+
+    #[ORM\Column]
+    private ?int $colorGP = null;
+
+    #[ORM\Column]
+    private ?int $colorBP = null;
+
+    #[ORM\Column]
+    private ?int $colorRV = null;
+
+    #[ORM\Column]
+    private ?int $colorGV = null;
+
+    #[ORM\Column]
+    private ?int $colorBV = null;
+
     public function __construct()
     {
         $this->ProfilValue = new ArrayCollection();
+
+        $this->colorR = rand(0,255);
+        $this->colorG = rand(0,255);
+        $this->colorB = rand(0,255);
+
+        $this->colorRP = rand(0,255);
+        $this->colorGP = rand(0,255);
+        $this->colorBP = rand(0,255);
+
+        $this->colorRQ = rand(0,255);
+        $this->colorGQ = rand(0,255);
+        $this->colorBQ = rand(0,255);
+
+        $this->colorRV = rand(0,255);
+        $this->colorGV = rand(0,255);
+        $this->colorBV = rand(0,255);
     }
 
     public function getId(): ?int
@@ -85,6 +137,150 @@ class Profil
     public function setProfilOrder(?int $profilOrder): self
     {
         $this->profilOrder = $profilOrder;
+
+        return $this;
+    }
+
+    public function getColorR(): ?int
+    {
+        return $this->colorR;
+    }
+
+    public function setColorR(int $colorR): self
+    {
+        $this->colorR = $colorR;
+
+        return $this;
+    }
+
+    public function getColorG(): ?int
+    {
+        return $this->colorG;
+    }
+
+    public function setColorG(int $colorG): self
+    {
+        $this->colorG = $colorG;
+
+        return $this;
+    }
+
+    public function getColorB(): ?int
+    {
+        return $this->colorB;
+    }
+
+    public function setColorB(int $colorB): self
+    {
+        $this->colorB = $colorB;
+
+        return $this;
+    }
+
+    public function getColorRQ(): ?int
+    {
+        return $this->colorRQ;
+    }
+
+    public function setColorRQ(int $colorRQ): self
+    {
+        $this->colorRQ = $colorRQ;
+
+        return $this;
+    }
+
+    public function getColorGQ(): ?int
+    {
+        return $this->colorGQ;
+    }
+
+    public function setColorGQ(int $colorGQ): self
+    {
+        $this->colorGQ = $colorGQ;
+
+        return $this;
+    }
+
+    public function getColorBQ(): ?int
+    {
+        return $this->colorBQ;
+    }
+
+    public function setColorBQ(int $colorBQ): self
+    {
+        $this->colorBQ = $colorBQ;
+
+        return $this;
+    }
+
+    public function getColorRP(): ?int
+    {
+        return $this->colorRP;
+    }
+
+    public function setColorRP(int $colorRP): self
+    {
+        $this->colorRP = $colorRP;
+
+        return $this;
+    }
+
+    public function getColorGP(): ?int
+    {
+        return $this->colorGP;
+    }
+
+    public function setColorGP(int $colorGP): self
+    {
+        $this->colorGP = $colorGP;
+
+        return $this;
+    }
+
+    public function getColorBP(): ?int
+    {
+        return $this->colorBP;
+    }
+
+    public function setColorBP(int $colorBP): self
+    {
+        $this->colorBP = $colorBP;
+
+        return $this;
+    }
+
+    public function getColorRV(): ?int
+    {
+        return $this->colorRV;
+    }
+
+    public function setColorRV(int $colorRV): self
+    {
+        $this->colorRV = $colorRV;
+
+        return $this;
+    }
+
+    public function getColorGV(): ?int
+    {
+        return $this->colorGV;
+    }
+
+    public function setColorGV(int $colorGV): self
+    {
+        $this->colorGV = $colorGV;
+
+        return $this;
+    }
+
+    public function getColorBV(): ?int
+    {
+        return $this->colorBV;
+    }
+
+    public function setColorBV(int $colorBV): self
+    {
+        $this->colorBV = $colorBV;
 
         return $this;
     }

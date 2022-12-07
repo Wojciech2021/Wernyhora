@@ -7,11 +7,6 @@ use App\Service\TheresholdService;
 class ChartService
 {
 
-    private function randomColor()
-    {
-        return 'rgb('.rand(0,255).','.rand(0,255).','.rand(0,255).')';
-    }
-
     public function prepareChart($chart,
                                  $profiles,
                                 TheresholdService $theresholdService,
@@ -19,32 +14,6 @@ class ChartService
                                                     $thresholdOnChart)
     {
 //        dd($profiles);
-
-        $chart->setOptions([
-            'plugins' => [
-                'autocolors',
-                'legend' => [
-                    'display' => false,
-                ],
-            ],
-            'scales' => [
-                'x' => [
-                    'ticks' => [
-                        'autoSkip' => false,
-                        'maxRotation' => 90,
-                        'minRotation' => 90,
-                    ]
-                ],
-                'y' => [
-                    'ticks' => [
-                        'autoSkip' => false,
-                        'maxRotation' => 90,
-                        'minRotation' => 90,
-                    ]
-                ]
-            ]
-        ]);
-
         $datasets = [];
         $labels = [];
 
@@ -59,7 +28,7 @@ class ChartService
             $arrayOfMinusV = [];
             $arrayOfPlusV = [];
             $labels = [];
-            $data = [];
+//            $data = [];
 
             foreach ($profil->getProfilValue() as $profilValue)
             {
@@ -132,12 +101,14 @@ class ChartService
 
 //            dd($arrayOfElements);
 
-            $color = $this->randomColor();
+//            $color = $this->randomColor();
 
 //            dd($arrayOfProfil);
 
             $datasets[] = [
                 'label' => 'Profil '.$key+1,
+                'backgroundColor' => 'rgb('.$profil->getColorR().','.$profil->getColorG().','.$profil->getColorB().')',
+                'borderColor' => 'rgb('.$profil->getColorR().','.$profil->getColorG().','.$profil->getColorB().')',
                 'data' =>  $arrayOfProfil,
                 ];
 
@@ -145,14 +116,18 @@ class ChartService
             {
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' - q'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
+                    'borderColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
                     'data' =>  $arrayOfMinusQ,
 //                'fill' => '-1'
                 ];
 
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' + q'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
+                    'borderColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
                     'data' =>  $arrayOfPlusQ,
-//                'fill' => '-2'
+                'fill' => '-1'
                 ];
             }
 
@@ -160,31 +135,42 @@ class ChartService
             {
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' - p'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
+                    'borderColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
                     'data' =>  $arrayOfMinusP,
 //                'fill' => '-3'
                 ];
 
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' + p'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
+                    'borderColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
                     'data' =>  $arrayOfPlusP,
-//                'fill' => '-4'
+                'fill' => '-1'
                 ];
             }
 
             if (in_array('v', $thresholdOnChart))
             {
+
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' - v'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.1)',
+                    'borderColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.1)',
                     'data' =>  $arrayOfMinusV,
-//                'fill' => '-5'
+//                'fill' => '-2'
                 ];
 
                 $datasets[] = [
                     'label' => 'Profil '.($key+1).' + v'.($key+1),
+                    'backgroundColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.5)',
+                    'borderColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.5)',
                     'data' =>  $arrayOfPlusV,
-//                'fill' => '-6'
+                'fill' => '-1'
                 ];
             }
+
+//            dd($datasets);
 
         }
 
@@ -202,6 +188,45 @@ class ChartService
 //            ];
 //        }
 
+        $datasToMinMax = [];
+
+        foreach ($datasets as $dataset)
+        {
+            foreach ($dataset['data'] as $data)
+            {
+                $datasToMinMax[] = $data;
+            }
+        }
+
+        $min = min($datasToMinMax);
+        $min = intval($min - $min/10);
+
+        $max = max($datasToMinMax);
+        $max = intval($max + $max/10);
+
+        $chart->setOptions([
+            'plugins' => [
+//                'autocolors',
+                'legend' => [
+                    'display' => false,
+                ],
+            ],
+            'scales' => [
+//                'x' => [
+//                    'ticks' => [
+//                        'autoSkip' => false,
+//                        'maxRotation' => 90,
+//                        'minRotation' => 90,
+//                    ]
+//                ],
+                'y' => [
+                    'min' => $min,
+                    'max' => $max,
+                ]
+            ]
+        ]);
+
+//        dd($datasToMinMax, $min, $max);
 
         $chart->setData([
             'labels' => $labels,
