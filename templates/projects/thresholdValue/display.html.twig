@@ -41,6 +41,47 @@
             {% endfor %}
             </tbody>
         </table>
+    <table class="table w-25 p-3">
+        <thead>
+        <tr>
+            <th colspan="3" class="text-center">Profil</th>
+        </tr>
+        <tr>
+            <th></th>
+            {% for profil in profiles %}
+                <th class="text-nowrap">Profil {{ loop.index}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th class="text-nowrap">Profil</th>
+            {% for profil in profiles %}
+                <td style="background-color:rgb({{ profil.colorR }}, {{ profil.colorG }}, {{ profil.colorB }});"></td>
+            {% endfor %}
+
+        </tr>
+        <tr>
+            <th class="text-nowrap">Próg nierozróznialności</th>
+            {% for profil in profiles %}
+                <td style="background-color:rgb({{ profil.colorRQ }}, {{ profil.colorGQ }}, {{ profil.colorBQ }});"></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="text-nowrap">Próg preferencji</th>
+            {% for profil in profiles %}
+                <td style="background-color:rgb({{ profil.colorRP }}, {{ profil.colorGP }}, {{ profil.colorBP }});"></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th class="text-nowrap">Próg weta</th>
+            {% for profil in profiles %}
+                <td style="background-color:rgb({{ profil.colorRV }}, {{ profil.colorGV }}, {{ profil.colorBV }});"></td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+
     {% if chart is defined %}
         <div class="position-relative mt-5">
             <div class="position-absolute top-50 start-50 translate-middle" style="width: 75%; height: 75%; transform: rotate(90deg);">

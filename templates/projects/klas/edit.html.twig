@@ -5,38 +5,42 @@
 {% block body %}
     {% include 'top_menu.html.twig' %}
     {{ form_start(form) }}
-    <div class="d-flex flex-row justify-content-center">
-        <div class="js-klas-wrapper"
-             data-prototype=
-             "<tr class='js-klas-item'>
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center">
+            <div class="js-klas-wrapper"
+                 data-prototype=
+                 "<tr class='js-klas-item'>
                  <td>{{ form_widget(form.klas.vars.prototype.name)|e('html_attr') }}</td>
                  <td>{{ form_widget(form.klas.vars.prototype.removeKlas)|e('html_attr') }}</td>
              </tr>"
-             data-index="{{ form.klas|length }}"
-        >
-            <div class="col">
-                <table class="table" id="klas">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Klasy</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Nazwa</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for klasForm in form.klas %}
-                        <tr class="js-klas-item">
-                            <td>{{ form_row(klasForm.name) }}</td>
-                            <td> {{ form_row(klasForm.removeKlas) }}</td>
+                 data-index="{{ form.klas|length }}"
+            >
+                <div class="col">
+                    <table class="table" id="klas">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Klasy</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {{ form_row(form.addKlas) }}
+                        <tr>
+                            <th class="text-center">Nazwa</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for klasForm in form.klas %}
+                            <tr class="js-klas-item">
+                                <td>{{ form_row(klasForm.name) }}</td>
+                                <td> {{ form_row(klasForm.removeKlas) }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ form_row(form.addKlas) }}
+                </div>
             </div>
         </div>
+        <div class="pt-5">
+            {{ form_widget(form.saveKlas) }}
+        </div>
     </div>
-    {{ form_widget(form.saveKlas) }}
     {{ form_end(form) }}
 {% endblock %}

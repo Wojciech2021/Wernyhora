@@ -13,11 +13,11 @@ import './bootstrap';
 
 import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import autocolors from 'chartjs-plugin-autocolors';
+// import autocolors from 'chartjs-plugin-autocolors';
 
 
 Chart.register(annotationPlugin);
-Chart.register(autocolors);
+// Chart.register(autocolors);
 
 jQuery( document ).ready(function() {
     setTimeout(function(){
