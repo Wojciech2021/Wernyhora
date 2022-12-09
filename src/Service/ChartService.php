@@ -198,12 +198,19 @@ class ChartService
             }
         }
 
-        $min = min($datasToMinMax);
-        $min = round($min - $min/10, 2);
+        $min = 0;
+        $max = 0;
 
-        $max = max($datasToMinMax);
-        $max = round($max + $max/30, 2);
-        
+        if ($datasToMinMax)
+        {
+            $min = min($datasToMinMax);
+            $min = round($min - $min/10, 2);
+
+            $max = max($datasToMinMax);
+            $max = round($max + $max/30, 2);
+        }
+
+
         $chart->setOptions([
             'plugins' => [
 //                'autocolors',
@@ -225,6 +232,8 @@ class ChartService
                 ]
             ]
         ]);
+
+
 
 //        dd($datasToMinMax, $min, $max);
 

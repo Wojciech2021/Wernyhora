@@ -64,19 +64,19 @@
         <tr>
             <th class="text-nowrap">Próg nierozróznialności</th>
             {% for profil in profiles %}
-                <td style="background-color:rgb({{ profil.colorRQ }}, {{ profil.colorGQ }}, {{ profil.colorBQ }});"></td>
+                <td style="background-color:rgba({{ profil.colorRQ }}, {{ profil.colorGQ }}, {{ profil.colorBQ }}, 0.5);"></td>
             {% endfor %}
         </tr>
         <tr>
             <th class="text-nowrap">Próg preferencji</th>
             {% for profil in profiles %}
-                <td style="background-color:rgb({{ profil.colorRP }}, {{ profil.colorGP }}, {{ profil.colorBP }});"></td>
+                <td style="background-color:rgba({{ profil.colorRP }}, {{ profil.colorGP }}, {{ profil.colorBP }}, 0.5);"></td>
             {% endfor %}
         </tr>
         <tr>
             <th class="text-nowrap">Próg weta</th>
             {% for profil in profiles %}
-                <td style="background-color:rgb({{ profil.colorRV }}, {{ profil.colorGV }}, {{ profil.colorBV }});"></td>
+                <td style="background-color:rgba({{ profil.colorRV }}, {{ profil.colorGV }}, {{ profil.colorBV }}, 0.5);"></td>
             {% endfor %}
         </tr>
         </tbody>
