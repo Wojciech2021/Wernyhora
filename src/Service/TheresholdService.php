@@ -7,12 +7,27 @@ use App\Entity\ProfilValue;
 class TheresholdService
 {
 
+    public function calculateQ(ProfilValue $profilValue)
+    {
+        return $profilValue->getCritery()->getAlfaQ() * $profilValue->getValue() + $profilValue->getCritery()->getBetaQ();
+    }
+
+    public function calculateP(ProfilValue $profilValue)
+    {
+        return $profilValue->getCritery()->getAlfaP() * $profilValue->getValue() + $profilValue->getCritery()->getBetaP();
+    }
+
+    public function calculateV(ProfilValue $profilValue)
+    {
+        return $profilValue->getCritery()->getAlfaV() * $profilValue->getValue() + $profilValue->getCritery()->getBetaV();
+    }
+
     public function calculateQTheresgold(ProfilValue $profilValue)
     {
 
         return [
-            'minusQ' => $profilValue->getValue() - ($profilValue->getCritery()->getAlfaQ() * $profilValue->getValue() + $profilValue->getCritery()->getBetaQ()),
-            'plusQ' => $profilValue->getValue() + ($profilValue->getCritery()->getAlfaQ() * $profilValue->getValue() + $profilValue->getCritery()->getBetaQ())
+            'minusQ' => $profilValue->getValue() - $this->calculateQ($profilValue),
+            'plusQ' => $profilValue->getValue() + $this->calculateQ($profilValue)
         ];
     }
 
@@ -20,8 +35,8 @@ class TheresholdService
     {
 
         return [
-            'minusP' => $profilValue->getValue() - ($profilValue->getCritery()->getAlfaP() * $profilValue->getValue() + $profilValue->getCritery()->getBetaP()),
-            'plusP' => $profilValue->getValue() + ($profilValue->getCritery()->getAlfaP() * $profilValue->getValue() + $profilValue->getCritery()->getBetaP())
+            'minusP' => $profilValue->getValue() - $this->calculateP($profilValue),
+            'plusP' => $profilValue->getValue() + $this->calculateP($profilValue)
 
         ];
     }
@@ -30,8 +45,8 @@ class TheresholdService
     {
 
         return [
-            'minusV' => $profilValue->getValue() - ($profilValue->getCritery()->getAlfaV() * $profilValue->getValue() + $profilValue->getCritery()->getBetaV()),
-            'plusV' => $profilValue->getValue() + ($profilValue->getCritery()->getAlfaV() * $profilValue->getValue() + $profilValue->getCritery()->getBetaV())
+            'minusV' => $profilValue->getValue() - $this->calculateV($profilValue),
+            'plusV' => $profilValue->getValue() + $this->calculateV($profilValue)
         ];
     }
 }
