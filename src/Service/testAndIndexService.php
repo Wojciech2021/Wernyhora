@@ -25,6 +25,8 @@ class testAndIndexService
      */
     public function getTestIndex(): ArrayCollection
     {
+        $this->makeCompatibilityTest();
+        $this->calculateCredibilityIndex();
         return $this->testIndex;
     }
 
@@ -45,46 +47,129 @@ class testAndIndexService
                 foreach ($critery->getProfilValue() as $profilValue)
                 {
                     $cdSigmaTestValue = new cdsigmaTestValue($variantValue, $profilValue);
-                    $this->calculateValueCompatibilityTest();
-
+                    $this->calculateValueCompatibilityTest($cdSigmaTestValue);
+                    $this->calculateValueNonCompatibilityTest($cdSigmaTestValue);
+                    $this->testIndex->add($cdSigmaTestValue);
                 }
             }
         }
     }
 
+    private function calculateCredibilityIndex()
+    {
+        foreach ($this->testIndex as $cdSigmaTestValue)
+        {
+            $this->calculateCredibilityIndexValue($cdSigmaTestValue);
+        }
+    }
+
     private function calculateValueCompatibilityTest(cdsigmaTestValue $cdsigmaTestValue)
     {
-        $abConformanceconformanceTestValue = 0;
-        $baConformanceconformanceTestValue = 0;
 
-        if (!$cdsigmaTestValue->getVariantValue() <= ($cdsigmaTestValue->getProfilValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
+        if ($cdsigmaTestValue->getVariantValue()->getValue() <= ($cdsigmaTestValue->getProfilValue()->getValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
         {
-            if (!$cdsigmaTestValue->getVariantValue() >= ($cdsigmaTestValue->getProfilValue() - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue())))
-            {
-                $abConformanceconformanceTestValue = ($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $cdsigmaTestValue->getProfilValue() + $cdsigmaTestValue->getVariantValue())
+            $abConformanceconformanceTestValue = 0;
+
+        }
+        elseif ($cdsigmaTestValue->getVariantValue()->getValue() >= ($cdsigmaTestValue->getProfilValue()->getValue() - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue())))
+        {
+            $abConformanceconformanceTestValue = 1;
+        }
+        else
+        {
+            $abConformanceconformanceTestValue = ($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $cdsigmaTestValue->getProfilValue()->getValue() + $cdsigmaTestValue->getVariantValue()->getValue())
                 /($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue()));
-            }
-            else
-            {
-                $abConformanceconformanceTestValue = 1;
-            }
         }
 
-        if (!$cdsigmaTestValue->getProfilValue() <= ($cdsigmaTestValue->getVariantValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
+        if ($cdsigmaTestValue->getProfilValue()->getValue() <= ($cdsigmaTestValue->getVariantValue()->getValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
         {
-            if (!$cdsigmaTestValue->getProfilValue() >= ($cdsigmaTestValue->getVariantValue() - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue())))
-            {
-                $baConformanceconformanceTestValue = ($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $cdsigmaTestValue->getVariantValue() + $cdsigmaTestValue->getProfilValue())
-                    /($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue()));
-            }
-            else
-            {
-                $baConformanceconformanceTestValue = 1;
-            }
+            $baConformanceconformanceTestValue = 0;
+        }
+        elseif ($cdsigmaTestValue->getProfilValue()->getValue() >= ($cdsigmaTestValue->getVariantValue()->getValue() - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue())))
+        {
+            $baConformanceconformanceTestValue = 1;
+        }
+        else
+        {
+            $baConformanceconformanceTestValue = ($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $cdsigmaTestValue->getVariantValue()->getValue() + $cdsigmaTestValue->getProfilValue()->getValue())
+                /($this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()) - $this->theresholdService->calculateQ($cdsigmaTestValue->getProfilValue()));
         }
 
-        $cdsigmaTestValue->setAbConformanceconformanceTestValue($abConformanceconformanceTestValue);
-        $cdsigmaTestValue->setBaConformanceconformanceTestValue($baConformanceconformanceTestValue);
+        if ($cdsigmaTestValue->getVariantValue()->getCritery()->getCostGain() == 1)
+        {
+            $cdsigmaTestValue->setAbConformanceTestValue($abConformanceconformanceTestValue);
+            $cdsigmaTestValue->setBaConformanceTestValue($baConformanceconformanceTestValue);
+        }
+        else
+        {
+            $cdsigmaTestValue->setAbConformanceTestValue($baConformanceconformanceTestValue);
+            $cdsigmaTestValue->setBaConformanceTestValue($abConformanceconformanceTestValue);
+        }
+
+
+    }
+
+    private function calculateValueNonCompatibilityTest(cdsigmaTestValue $cdsigmaTestValue)
+    {
+        if ($cdsigmaTestValue->getVariantValue()->getValue() >= ($cdsigmaTestValue->getProfilValue()->getValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
+        {
+            $abNonconformanceconformanceTestValue = 0;
+
+        }
+        elseif ($cdsigmaTestValue->getVariantValue()->getValue() <= ($cdsigmaTestValue->getProfilValue()->getValue() - $this->theresholdService->calculateV($cdsigmaTestValue->getProfilValue())))
+        {
+            $abNonconformanceconformanceTestValue = 1;
+        }
+        else
+        {
+            $abNonconformanceconformanceTestValue = ($cdsigmaTestValue->getProfilValue()->getValue() - $cdsigmaTestValue->getVariantValue()->getValue() + $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()))
+                /($this->theresholdService->calculateV($cdsigmaTestValue->getProfilValue()) - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()));
+        }
+
+        if ($cdsigmaTestValue->getProfilValue()->getValue() >= ($cdsigmaTestValue->getVariantValue()->getValue() - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue())))
+        {
+            $baNonconformanceconformanceTestValue = 0;
+        }
+        elseif ($cdsigmaTestValue->getProfilValue()->getValue() <= ($cdsigmaTestValue->getVariantValue()->getValue() - $this->theresholdService->calculateV($cdsigmaTestValue->getProfilValue())))
+        {
+            $baNonconformanceconformanceTestValue = 1;
+        }
+        else
+        {
+            $baNonconformanceconformanceTestValue = ($cdsigmaTestValue->getVariantValue()->getValue() - $cdsigmaTestValue->getProfilValue()->getValue() + $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()))
+                /($this->theresholdService->calculateV($cdsigmaTestValue->getProfilValue()) - $this->theresholdService->calculateP($cdsigmaTestValue->getProfilValue()));
+        }
+
+        $cdsigmaTestValue->setAbNonconformanceTestValue($abNonconformanceconformanceTestValue);
+        $cdsigmaTestValue->setBaNonconformanceTestValue($baNonconformanceconformanceTestValue);
+    }
+
+    private function calculateWeighedAverage(cdsigmaTestValue $cdsigmaTestValue)
+    {
+        $weighedAverage = 0;
+        $sumWeight = 0;
+
+        $filteredTestIndex = $this->testIndex->filter(function ($element) use ($cdsigmaTestValue) {
+            return $element->getVariantValue()->getVariant() == $cdsigmaTestValue->getVariantValue()->getVariant()
+                && $element->getProfilValue()->getProfil() == $cdsigmaTestValue->getProfilValue()->getProfil();
+        });
+
+        foreach ($filteredTestIndex as $cdsigmaTestValue)
+        {
+            $weighedAverage +=  $cdsigmaTestValue->getAbConformanceTestValue() * $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+            $sumWeight += $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+        }
+
+//        $weighedAverage = $weighedAverage / $sumWeight;
+
+//        dd($cdsigmaTestValue, $weighedAverage, $sumWeight);
+    }
+
+    private function calculateCredibilityIndexValue(cdsigmaTestValue $cdsigmaTestValue)
+    {
+        $weighedAverage = $this->calculateWeighedAverage($cdsigmaTestValue);
+
+
     }
 
 

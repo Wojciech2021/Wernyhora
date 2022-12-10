@@ -10,10 +10,10 @@ class cdsigmaTestValue
 
     private $variantValue;
     private $profilValue;
-    private $abConformanceconformanceTestValue;
-    private $baConformanceconformanceTestValue;
-    private $abNonconformanceconformanceTestValue;
-    private $baNonconformanceconformanceTestValue;
+    private $abConformanceTestValue;
+    private $baConformanceTestValue;
+    private $abNonconformanceTestValue;
+    private $baNonconformanceTestValue;
     private $abCredibilityIndex;
     private $baCredibilityIndex;
 
@@ -58,65 +58,65 @@ class cdsigmaTestValue
     /**
      * @return mixed
      */
-    public function getAbConformanceconformanceTestValue()
+    public function getAbConformanceTestValue()
     {
-        return $this->abConformanceconformanceTestValue;
+        return $this->abConformanceTestValue;
     }
 
     /**
-     * @param mixed $abConformanceconformanceTestValue
+     * @param mixed $abConformanceTestValue
      */
-    public function setAbConformanceconformanceTestValue($abConformanceconformanceTestValue): void
+    public function setAbConformanceTestValue($abConformanceTestValue): void
     {
-        $this->abConformanceconformanceTestValue = $abConformanceconformanceTestValue;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBaConformanceconformanceTestValue()
-    {
-        return $this->baConformanceconformanceTestValue;
-    }
-
-    /**
-     * @param mixed $baConformanceconformanceTestValue
-     */
-    public function setBaConformanceconformanceTestValue($baConformanceconformanceTestValue): void
-    {
-        $this->baConformanceconformanceTestValue = $baConformanceconformanceTestValue;
+        $this->abConformanceTestValue = $abConformanceTestValue;
     }
 
     /**
      * @return mixed
      */
-    public function getAbNonconformanceconformanceTestValue()
+    public function getBaConformanceTestValue()
     {
-        return $this->abNonconformanceconformanceTestValue;
+        return $this->baConformanceTestValue;
     }
 
     /**
-     * @param mixed $abNonconformanceconformanceTestValue
+     * @param mixed $baConformanceTestValue
      */
-    public function setAbNonconformanceconformanceTestValue($abNonconformanceconformanceTestValue): void
+    public function setBaConformanceTestValue($baConformanceTestValue): void
     {
-        $this->abNonconformanceconformanceTestValue = $abNonconformanceconformanceTestValue;
+        $this->baConformanceTestValue = $baConformanceTestValue;
     }
 
     /**
      * @return mixed
      */
-    public function getBaNonconformanceconformanceTestValue()
+    public function getAbNonconformanceTestValue()
     {
-        return $this->baNonconformanceconformanceTestValue;
+        return $this->abNonconformanceTestValue;
     }
 
     /**
-     * @param mixed $baNonconformanceconformanceTestValue
+     * @param mixed $abNonconformanceTestValue
      */
-    public function setBaNonconformanceconformanceTestValue($baNonconformanceconformanceTestValue): void
+    public function setAbNonconformanceTestValue($abNonconformanceTestValue): void
     {
-        $this->baNonconformanceconformanceTestValue = $baNonconformanceconformanceTestValue;
+        $this->abNonconformanceTestValue = $abNonconformanceTestValue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBaNonconformanceTestValue()
+    {
+        return $this->baNonconformanceTestValue;
+    }
+
+    /**
+     * @param mixed $baNonconformanceTestValue
+     */
+    public function setBaNonconformanceTestValue($baNonconformanceTestValue): void
+    {
+        $this->baNonconformanceTestValue = $baNonconformanceTestValue;
     }
 
     /**

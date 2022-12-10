@@ -52,6 +52,9 @@ class Critery
     #[ORM\OneToMany(mappedBy: 'Critery', targetEntity: ProfilValue::class, orphanRemoval: true)]
     private Collection $ProfilValue;
 
+    #[ORM\Column]
+    private ?int $CostGain = null;
+
     public function __construct()
     {
         $this->VariantValue = new ArrayCollection();
@@ -240,6 +243,18 @@ class Critery
                 $profilValue->setCritery(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCostGain(): ?int
+    {
+        return $this->CostGain;
+    }
+
+    public function setCostGain(int $CostGain): self
+    {
+        $this->CostGain = $CostGain;
 
         return $this;
     }
