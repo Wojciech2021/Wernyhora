@@ -12,10 +12,11 @@
         <table class="table" id="criteries">
             <thead>
             <tr>
-                <th class="text-center" colspan="3">Kryteria</th>
+                <th class="text-center" colspan="4">Kryteria</th>
             </tr>
             <tr>
                 <th class="text-center">Nazwa</th>
+                <th class="text-center">Zysk/Koszt</th>
                 <th class="text-center">Jednotka</th>
                 <th class="text-center">Waga</th>
             </tr>
@@ -24,6 +25,7 @@
             {% for criteriesForm in form.criteriesCollection.criteries %}
                 <tr class="js-critery-item">
                     <td>{{ form_row(criteriesForm.name) }}</td>
+                    <td>{{ form_row(criteriesForm.costGain) }}</td>
                     <td>{{ form_row(criteriesForm.unit) }}</td>
                     <td>{{ form_row(criteriesForm.weight) }}</td>
                     <td>{{ form_row(criteriesForm.removeCritery) }}</td>

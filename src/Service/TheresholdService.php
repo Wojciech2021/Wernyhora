@@ -26,8 +26,8 @@ class TheresholdService
     {
 
         return [
-            'minusQ' => $profilValue->getValue() - $this->calculateQ($profilValue),
-            'plusQ' => $profilValue->getValue() + $this->calculateQ($profilValue)
+            'minusQ' => $profilValue->getValue() - $this->calculateQ($profilValue) * $profilValue->getCritery()->getCostGain(),
+            'plusQ' => $profilValue->getValue() + $this->calculateQ($profilValue) * $profilValue->getCritery()->getCostGain()
         ];
     }
 
@@ -35,8 +35,8 @@ class TheresholdService
     {
 
         return [
-            'minusP' => $profilValue->getValue() - $this->calculateP($profilValue),
-            'plusP' => $profilValue->getValue() + $this->calculateP($profilValue)
+            'minusP' => $profilValue->getValue() - $this->calculateP($profilValue) * $profilValue->getCritery()->getCostGain(),
+            'plusP' => $profilValue->getValue() + $this->calculateP($profilValue) * $profilValue->getCritery()->getCostGain()
 
         ];
     }
@@ -45,8 +45,8 @@ class TheresholdService
     {
 
         return [
-            'minusV' => $profilValue->getValue() - $this->calculateV($profilValue),
-            'plusV' => $profilValue->getValue() + $this->calculateV($profilValue)
+            'minusV' => $profilValue->getValue() - $this->calculateV($profilValue) * $profilValue->getCritery()->getCostGain(),
+            'plusV' => $profilValue->getValue() + $this->calculateV($profilValue) * $profilValue->getCritery()->getCostGain()
         ];
     }
 }

@@ -13,6 +13,7 @@ use App\Service\ChartService;
 use App\Service\ProjectsService;
 use App\Service\CriteryVariantService;
 use App\Service\KlasService;
+use App\Service\testAndIndexService;
 use App\Service\TheresholdService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -185,6 +186,7 @@ class ProjectsController extends AbstractController
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $testAndIndexService = new testAndIndexService($project, $theresholdService);
 
         $form = $this->createForm(ThresholdCollectionType::class, $criteries);
         $form->handleRequest($request);
@@ -197,6 +199,9 @@ class ProjectsController extends AbstractController
             $criteryVariantService->updateCriteries($project, $criteries);
 
             $this->addFlash('success', 'Zapisano wartości progów!');
+
+            dd($testAndIndexService->getTestIndex());
+//            $testAndIndexService->getTestIndex();
 
 
             $chart = $chartService->prepareChart($chart, $profiles, $theresholdService, $criteriesOnChart, $thresholdOnChart);
