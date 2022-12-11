@@ -146,7 +146,8 @@ class testAndIndexService
 
     private function calculateWeighedAverage(cdsigmaTestValue $cdsigmaTestValue)
     {
-        $weighedAverage = 0;
+        $weighedAverageA = 0;
+        $weighedAverageB = 0;
         $sumWeight = 0;
 
         $filteredTestIndex = $this->testIndex->filter(function ($element) use ($cdsigmaTestValue) {
@@ -156,20 +157,60 @@ class testAndIndexService
 
         foreach ($filteredTestIndex as $cdsigmaTestValue)
         {
-            $weighedAverage +=  $cdsigmaTestValue->getAbConformanceTestValue() * $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+            $weighedAverageA +=  $cdsigmaTestValue->getAbConformanceTestValue()
+                * $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+
+            $weighedAverageB += $cdsigmaTestValue->getBaConformanceTestValue()
+                * $cdsigmaTestValue->getProfilValue()->getCritery()->getWeight();
+
             $sumWeight += $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
         }
 
-//        $weighedAverage = $weighedAverage / $sumWeight;
+        $weighedAverageA = $weighedAverageA / $sumWeight;
+        $weighedAverageB = $weighedAverageB / $sumWeight;
 
-//        dd($cdsigmaTestValue, $weighedAverage, $sumWeight);
+        return [
+            'weighedAverageA' => $weighedAverageA,
+            'weighedAverageB' => $weighedAverageB
+        ];
     }
 
     private function calculateCredibilityIndexValue(cdsigmaTestValue $cdsigmaTestValue)
     {
         $weighedAverage = $this->calculateWeighedAverage($cdsigmaTestValue);
 
+        if ($cdsigmaTestValue->getAbNonconformanceTestValue() > $weighedAverage['weighedAverageA'])
+        {
+            $abCredibilityIndex = 0;
 
+            if (1 - $weighedAverage['weighedAverageA'] != 0)
+            {
+                $abCredibilityIndex = (1 - $cdsigmaTestValue->getAbNonconformanceTestValue())
+                    / (1 - $weighedAverage['weighedAverageA']);
+            }
+        }
+        else
+        {
+            $abCredibilityIndex = 'X';
+        }
+
+        if ($cdsigmaTestValue->getBaNonconformanceTestValue() > $weighedAverage['weighedAverageB'])
+        {
+            $baCredibilityIndex = 0;
+
+            if (1 - $weighedAverage['weighedAverageB'] != 0)
+            {
+                $baCredibilityIndex = (1 - $cdsigmaTestValue->getBaNonconformanceTestValue())
+                    / (1 - $weighedAverage['weighedAverageB']);
+            }
+        }
+        else
+        {
+            $baCredibilityIndex = 'X';
+        }
+
+        $cdsigmaTestValue->setAbCredibilityIndex($abCredibilityIndex);
+        $cdsigmaTestValue->setBaCredibilityIndex($baCredibilityIndex);
     }
 
 
