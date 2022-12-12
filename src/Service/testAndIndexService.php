@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Project;
 use App\Service\Model\cdsigmaTestValue;
+use App\Service\Model\variantKlas;
+use App\Service\Model\variantProfilCredibilityIndexRelation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class testAndIndexService
@@ -11,19 +13,34 @@ class testAndIndexService
 
     private $project;
     private $testIndex;
+    private $variantsProfilsCredibilityIndexRelation;
+    private $variantsKlas;
     private $theresholdService;
 
     public function __construct(Project $project, TheresholdService $theresholdService)
     {
         $this->project = $project;
         $this->testIndex = new ArrayCollection();
+        $this->variantsProfilsCredibilityIndexRelation = new ArrayCollection();
+        $this->variantsKlas = new ArrayCollection();
         $this->theresholdService = $theresholdService;
+
+    }
+
+    public function getTestValues()
+    {
+
+        return [
+            'testIndex' => $this->getTestIndex(),
+            'variantProfilCredibilityIndexRelation' => $this->getVariantProfilCredibilityIndexRelation(),
+            'variantKlas' => $this->getVariantsKlas(),
+        ];
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getTestIndex(): ArrayCollection
+    private function getTestIndex(): ArrayCollection
     {
         $this->makeCompatibilityTest();
         $this->calculateCredibilityIndex();
@@ -36,6 +53,40 @@ class testAndIndexService
     public function setTestIndex(ArrayCollection $testIndex): void
     {
         $this->testIndex = $testIndex;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    private function getVariantProfilCredibilityIndexRelation(): ArrayCollection
+    {
+        $this->calculateVariantsProfilsCredibilityIndex();
+        return $this->variantsProfilsCredibilityIndexRelation;
+    }
+
+    /**
+     * @param ArrayCollection $variantProfilCredibilityIndexRelationAssignedKlas
+     */
+    public function setVariantProfilCredibilityIndexRelation(ArrayCollection $variantProfilCredibilityIndexRelation): void
+    {
+        $this->variantProfilCredibilityIndexRelationAssignedKlas = $variantProfilCredibilityIndexRelation;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVariantsKlas(): ArrayCollection
+    {
+        $this->assignVariantsKlas();
+        return $this->variantsKlas;
+    }
+
+    /**
+     * @param ArrayCollection $variantKlas
+     */
+    public function setVariantKlas(ArrayCollection $variantKlas): void
+    {
+        $this->variantKlas = $variantKlas;
     }
 
     private function makeCompatibilityTest()
@@ -144,7 +195,7 @@ class testAndIndexService
         $cdsigmaTestValue->setBaNonconformanceTestValue($baNonconformanceconformanceTestValue);
     }
 
-    private function calculateWeighedAverage(cdsigmaTestValue $cdsigmaTestValue)
+    private function calculateWeighedAverageFromCdSigma(cdsigmaTestValue $cdsigmaTestValue)
     {
         $weighedAverageA = 0;
         $weighedAverageB = 0;
@@ -177,7 +228,7 @@ class testAndIndexService
 
     private function calculateCredibilityIndexValue(cdsigmaTestValue $cdsigmaTestValue)
     {
-        $weighedAverage = $this->calculateWeighedAverage($cdsigmaTestValue);
+        $weighedAverage = $this->calculateWeighedAverageFromCdSigma($cdsigmaTestValue);
 
         if ($cdsigmaTestValue->getAbNonconformanceTestValue() > $weighedAverage['weighedAverageA'])
         {
@@ -191,7 +242,7 @@ class testAndIndexService
         }
         else
         {
-            $abCredibilityIndex = 'X';
+            $abCredibilityIndex = 1;
         }
 
         if ($cdsigmaTestValue->getBaNonconformanceTestValue() > $weighedAverage['weighedAverageB'])
@@ -206,12 +257,206 @@ class testAndIndexService
         }
         else
         {
-            $baCredibilityIndex = 'X';
+            $baCredibilityIndex = 1;
         }
 
         $cdsigmaTestValue->setAbCredibilityIndex($abCredibilityIndex);
         $cdsigmaTestValue->setBaCredibilityIndex($baCredibilityIndex);
     }
 
+    private function calculateVariantsProfilsCredibilityIndex()
+    {
+        foreach ($this->project->getVariant() as $variant)
+        {
+            foreach ($this->project->getProfil() as $profil)
+            {
+                $variantProfilCredibilityIndexRelation = new variantProfilCredibilityIndexRelation($variant, $profil);
+                $this->calculateVariantProfilCredibilityIndexValue($variantProfilCredibilityIndexRelation);
+                $this->checkRelation($variantProfilCredibilityIndexRelation);
+                $this->variantsProfilsCredibilityIndexRelation->add($variantProfilCredibilityIndexRelation);
+            }
+        }
+    }
 
+    private function calculateWeighedAverageAndMultipy(variantProfilCredibilityIndexRelation $variantProfilCredibilityIndexRelation)
+    {
+        $weighedAverageA = 0;
+        $weighedAverageB = 0;
+        $sumWeight = 0;
+        $multiplyA = 1;
+        $multiplyB = 1;
+
+        $filteredTestIndex = $this->testIndex->filter(function ($element) use ($variantProfilCredibilityIndexRelation) {
+            return $element->getVariantValue()->getVariant() == $variantProfilCredibilityIndexRelation->getVariant()
+                && $element->getProfilValue()->getProfil() == $variantProfilCredibilityIndexRelation->getProfil();
+        });
+
+        foreach ($filteredTestIndex as $cdsigmaTestValue)
+        {
+            $weighedAverageA +=  $cdsigmaTestValue->getAbConformanceTestValue()
+                * $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+
+            $weighedAverageB += $cdsigmaTestValue->getBaConformanceTestValue()
+                * $cdsigmaTestValue->getProfilValue()->getCritery()->getWeight();
+
+            $sumWeight += $cdsigmaTestValue->getVariantValue()->getCritery()->getWeight();
+        }
+
+
+
+        $weighedAverageA = $weighedAverageA / $sumWeight;
+        $weighedAverageB = $weighedAverageB / $sumWeight;
+
+        foreach ($filteredTestIndex as $cdsigmaTestValue)
+        {
+            $multiplyA *= $cdsigmaTestValue->getAbCredibilityIndex();
+            $multiplyB *= $cdsigmaTestValue->getBaCredibilityIndex();
+        }
+
+        $multiplyA *= $weighedAverageA;
+        $multiplyB *= $weighedAverageB;
+
+        return [
+            'weighedAverageA' => $weighedAverageA,
+            'multiplyA' => $multiplyA,
+            'weighedAverageB' => $weighedAverageB,
+            'multiplyB' => $multiplyB,
+        ];
+    }
+
+    private function calculateVariantProfilCredibilityIndexValue(variantProfilCredibilityIndexRelation $variantProfilCredibilityIndexRelation)
+    {
+        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA'] >= $this->project->getCutOffLevel())
+        {
+            $variantCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['multiplyA'];
+        }
+        else
+        {
+            $variantCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA'];
+        }
+
+        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'] >= $this->project->getCutOffLevel())
+        {
+            $profilCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
+        }
+        else
+        {
+            $profilCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
+        }
+
+        $variantProfilCredibilityIndexRelation->setVariantCredibilityIndex($variantCredibilityIndex);
+        $variantProfilCredibilityIndexRelation->setProfilCredibilityIndex($profilCredibilityIndex);
+    }
+
+    private function checkRelation(variantProfilCredibilityIndexRelation $variantProfilCredibilityIndexRelation)
+    {
+        if ($variantProfilCredibilityIndexRelation->getVariantCredibilityIndex() >= $this->project->getCutOffLevel() && $variantProfilCredibilityIndexRelation->getProfilCredibilityIndex() >= $this->project->getCutOffLevel())
+        {
+            $relation = 'I';
+        }
+        elseif ($variantProfilCredibilityIndexRelation->getVariantCredibilityIndex() >= $this->project->getCutOffLevel() && $variantProfilCredibilityIndexRelation->getProfilCredibilityIndex() < $this->project->getCutOffLevel())
+        {
+            $relation = '>';
+        }
+        elseif ($variantProfilCredibilityIndexRelation->getVariantCredibilityIndex() < $this->project->getCutOffLevel() && $variantProfilCredibilityIndexRelation->getProfilCredibilityIndex() >= $this->project->getCutOffLevel())
+        {
+            $relation = '<';
+        }
+        else
+        {
+            $relation = 'R';
+        }
+
+        $variantProfilCredibilityIndexRelation->setRelation($relation);
+    }
+
+    private function assignVariantsKlas()
+    {
+        foreach ($this->project->getVariant() as $variant)
+        {
+            $variantKlas = new variantKlas($variant);
+            $this->assignVariantKlas($variantKlas);
+            $this->variantsKlas->add($variantKlas);
+        }
+    }
+
+    private function orderByProfilOrder(ArrayCollection $collection)
+    {
+        $iterator = $collection->getIterator();
+        $arrayCollection = new ArrayCollection();
+
+        $iterator->uasort(function ($first, $second)
+        {
+            return (int) $first->getProfil()->getProfilOrder() > (int) $second->getProfil()->getProfilOrder() ? 1 : -1;
+        });
+
+        $array = iterator_to_array($iterator);
+
+        foreach ($array as $item)
+        {
+            $arrayCollection->add($item);
+        }
+
+        return $arrayCollection;
+    }
+
+    private function orderByKlasOrder($collection)
+    {
+        $iterator = $collection->getIterator();
+        $arrayCollection = new ArrayCollection();
+
+        $iterator->uasort(function ($first, $second)
+        {
+            return (int) $first->getKlasOrder() > (int) $second->getKlasOrder() ? 1 : -1;
+        });
+
+        $array = iterator_to_array($iterator);
+
+        foreach ($array as $item)
+        {
+            $arrayCollection->add($item);
+        }
+
+        return $arrayCollection;
+    }
+
+    private function assignVariantKlas(variantKlas $variantKlas)
+    {
+        $klas = $this->project->getKlas();
+        $filteredVariantsProfilsCredibilityIndexRelation = $this->variantsProfilsCredibilityIndexRelation->filter(function ($element) use ($variantKlas)
+        {
+            return $element->getVariant() == $variantKlas->getVariant();
+        });
+
+        $orderedVariantsProfilsCredibilityIndexRelation = $this->orderByProfilOrder($filteredVariantsProfilsCredibilityIndexRelation);
+        $klas = $this->orderByKlasOrder($klas);
+        //$profilCounter = count($orderedVariantsProfilsCredibilityIndexRelation);
+
+        foreach ($orderedVariantsProfilsCredibilityIndexRelation as $key=>$variantProfilCredibilityIndexRelation)
+        {
+            if ($variantProfilCredibilityIndexRelation->getRelation() == '<')
+            {
+                $optimisticAssignedKlas = $klas[$key];
+            }
+            else
+            {
+                $optimisticAssignedKlas = $klas[$key+1];
+            }
+
+            if ($variantProfilCredibilityIndexRelation->getRelation() == '>'
+                || $variantProfilCredibilityIndexRelation->getRelation() == 'I')
+            {
+                $pessimisticAssignedKlas = $klas[$key+1];
+            }
+            else
+            {
+                $pessimisticAssignedKlas = $klas[$key];
+            }
+        }
+
+
+
+        $variantKlas->setOptimisticAssignedKlas($optimisticAssignedKlas);
+        $variantKlas->setPessimisticAssignedKlas($pessimisticAssignedKlas);
+    }
 }
