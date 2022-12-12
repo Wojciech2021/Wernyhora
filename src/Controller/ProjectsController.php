@@ -200,7 +200,7 @@ class ProjectsController extends AbstractController
 
             $this->addFlash('success', 'Zapisano wartości progów!');
 
-            dd($testAndIndexService->getTestIndex());
+            dd($testAndIndexService->getTestValues());
 //            $testAndIndexService->getTestIndex();
 
 

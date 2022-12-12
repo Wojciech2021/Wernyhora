@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -48,6 +49,11 @@ class Project
 
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Profil::class, orphanRemoval: true)]
     private Collection $Profil;
+
+    #[ORM\Column]
+    #[Assert\GreaterThan(0.5)]
+    #[Assert\LessThanOrEqual(1)]
+    private ?float $CutOffLevel = null;
 
     public function __construct()
     {
@@ -248,6 +254,18 @@ class Project
                 $profil->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCutOffLevel(): ?float
+    {
+        return $this->CutOffLevel;
+    }
+
+    public function setCutOffLevel(float $CutOffLevel): self
+    {
+        $this->CutOffLevel = $CutOffLevel;
 
         return $this;
     }
