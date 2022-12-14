@@ -185,8 +185,10 @@ class ProjectsController extends AbstractController
         $criteries = $project->getCritery();
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
+        $variants = $project->getVariant();
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $testAndIndexService = new testAndIndexService($project, $theresholdService);
+        $testValues = null;
 
         $form = $this->createForm(ThresholdCollectionType::class, $criteries);
         $form->handleRequest($request);
@@ -200,7 +202,8 @@ class ProjectsController extends AbstractController
 
             $this->addFlash('success', 'Zapisano wartości progów!');
 
-            dd($testAndIndexService->getTestValues());
+            $testValues = $testAndIndexService->getTestValues();
+//            dd($testAndIndexService->getTestValues());
 //            $testAndIndexService->getTestIndex();
 
 
@@ -215,6 +218,8 @@ class ProjectsController extends AbstractController
             'profiles' =>$profiles,
             'chart' => $chart,
             'theresholdService' => $theresholdService,
+            'testValues' => $testValues,
+            'variants' => $variants,
         ]);
     }
 
