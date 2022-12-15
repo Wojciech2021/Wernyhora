@@ -1,155 +1,18 @@
-<table>
-    {% for profil in profiles %}
-    {% for critery in criteries %}
-        <tr>
-            <th>{{ critery.name }}</th>
-        {% for variant in variants %}
-            {% for testValue in testValues['testIndex'] %}
-                {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                    <td>{{ testValue.abConformanceTestValue }}</td>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-        </tr>
-    {% endfor %}
-    {% endfor %}
-</table>
+{% extends 'base.html.twig' %}
 
-<table>
-    {% for profil in profiles %}
-        {% for critery in criteries %}
-            <tr>
-                <th>{{ critery.name }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['testIndex'] %}
-                        {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                            <td>{{ testValue.baConformanceTestValue }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</table>
 
-<table>
-    {% for profil in profiles %}
-        {% for critery in criteries %}
-            <tr>
-                <th>{{ critery.name }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['testIndex'] %}
-                        {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                            <td>{{ testValue.abNonConformanceTestValue }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</table>
+{% block title %}Projekt {{ project.name }} raport{% endblock %}
 
-<table class="table">
-    {% for profil in profiles %}
-        {% for critery in criteries %}
-            <tr>
-                <th>{{ critery.name }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['testIndex'] %}
-                        {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                            <td>{{ testValue.baNonConformanceTestValue }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</table>
-AB WSKAŹNIK WIARYGODNOŚCI
-<table class="table">
-    {% for profil in profiles %}
-        {% for critery in criteries %}
-            <tr>
-                <th>{{ critery.name }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['testIndex'] %}
-                        {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                            <td>{{ testValue.abCredibilityIndex }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</table>
-BA WSKAŹNIK WIARYGODNOŚCI
-<table class="table">
-    {% for profil in profiles %}
-        {% for critery in criteries %}
-            <tr>
-                <th>{{ critery.name }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['testIndex'] %}
-                        {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
-                            <td>{{ testValue.baCredibilityIndex }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</table>
-Wskaźnik wiarygodności wariantu
-<table class="table">
-    {% for profil in profiles %}
-            <tr>
-                <th>{{ loop.index }}</th>
-                {% for variant in variants %}
-                    {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
-                        {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
-                            <td>{{ testValue.variantCredibilityIndex }}</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </tr>
-    {% endfor %}
-</table>
-Wskaźnik wiarygodności profilu
-<table class="table">
-    {% for profil in profiles %}
-        <tr>
-            <th>{{ loop.index }}</th>
-            {% for variant in variants %}
-                {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
-                    {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
-                        <td>{{ testValue.profilCredibilityIndex }}</td>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    <div class="d-flex flex-row justify-content-center">
+        <h1>Raport z projektu: {{ project.name }}</h1>
+    </div>
+    {% include'/projects/testValue/compatibilityTest.html.twig' %}
+    {% include'/projects/testValue/nonCompatibilityTest.html.twig' %}
+    {% include'/projects/testValue/partialCredibilityIndex.html.twig' %}
+    {% include'/projects/testValue/credibilityIndex.html.twig' %}
+    {% include'/projects/testValue/relation.html.twig' %}
+    {% include'/projects/testValue/assignedKlas.html.twig' %}
+{% endblock %}
 
-RELACJA
-<table class="table">
-    {% for profil in profiles %}
-        <tr>
-            <th>{{ loop.index }}</th>
-            {% for variant in variants %}
-                {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
-                    {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
-                        <td>{{ testValue.relation }}</td>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
-KLASY
-<table class="table">
-    {% for variantKlas in testValues['variantsKlas'] %}
-        <tr>
-            <td>{{ variantKlas.variant.name }}</td><td>{{ variantKlas.optimisticAssignedKlas.name }}</td><td>{{ variantKlas.pessimisticAssignedKlas.name }}</td>
-        </tr>
-    {% endfor %}
-</table>

@@ -61,6 +61,13 @@ class ThresholdCollectionType extends AbstractType
                 ]
             ])
 
+            ->add('raport', SubmitType::class,[
+                'label' => 'Raport',
+                'attr' => [
+                    'class' => 'btn btn-secondary'
+                ]
+            ])
+
 
         ;
     }
