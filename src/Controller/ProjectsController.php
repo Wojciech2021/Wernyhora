@@ -187,7 +187,7 @@ class ProjectsController extends AbstractController
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-        $testAndIndexService = new testAndIndexService($project, $theresholdService);
+//        $testAndIndexService = new testAndIndexService($project, $theresholdService);
         $testValues = null;
 
         $form = $this->createForm(ThresholdCollectionType::class, $criteries);
@@ -195,19 +195,21 @@ class ProjectsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $criteriesOnChart = $form['criteriesCollection']->getData();
-            $thresholdOnChart = $form['thresholdTypes']->getData();
+            if ($form->getClickedButton() && 'addThreshold' === $form->getClickedButton()->getName())
+            {
+                $criteriesOnChart = $form['criteriesCollection']->getData();
+                $thresholdOnChart = $form['thresholdTypes']->getData();
+                $criteryVariantService->updateCriteries($project, $criteries);
+                $this->addFlash('success', 'Zapisano wartości progów!');
+                $chart = $chartService->prepareChart($chart, $profiles, $theresholdService, $criteriesOnChart, $thresholdOnChart);
+            }
 
-            $criteryVariantService->updateCriteries($project, $criteries);
+            if ($form->getClickedButton() && 'raport' === $form->getClickedButton()->getName())
+            {
+                $this->addFlash('success', 'Wygenerowano raport!');
+                return $this->redirectToRoute('app_raport_project', ['slug' => $project->getSlug()]);
+            }
 
-            $this->addFlash('success', 'Zapisano wartości progów!');
-
-            $testValues = $testAndIndexService->getTestValues();
-//            dd($testAndIndexService->getTestValues());
-//            $testAndIndexService->getTestIndex();
-
-
-            $chart = $chartService->prepareChart($chart, $profiles, $theresholdService, $criteriesOnChart, $thresholdOnChart);
         }
 
         return $this->render('/projects/thresholdValue/edit.html.twig',[
@@ -220,6 +222,28 @@ class ProjectsController extends AbstractController
             'theresholdService' => $theresholdService,
             'testValues' => $testValues,
             'variants' => $variants,
+        ]);
+    }
+
+    #[Route('/projects/raport/{slug}', name: 'app_raport_project')]
+    public function raportProject(Project               $project,
+                                  TheresholdService     $theresholdService)
+    {
+        $testAndIndexService = new testAndIndexService($project, $theresholdService);
+        $testValues = $testAndIndexService->getTestValues();
+
+        $criteries = $project->getCritery();
+        $klass = $project->getKlas();
+        $profiles = $project->getProfil();
+        $variants = $project->getVariant();
+
+        return $this->render('/projects/testValue/display.html.twig',[
+            'project' => $project,
+            'criteries' => $criteries,
+            'klas' => $klass,
+            'profiles' =>$profiles,
+            'variants' => $variants,
+            'testValues' => $testValues,
         ]);
     }
 

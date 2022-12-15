@@ -1,0 +1,24 @@
+<div class="d-flex flex-row justify-content-center">
+    <h2>Przydzielone klasy</h2>
+</div>
+
+<div class="d-flex flex-row justify-content-center">
+    <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+        <thead>
+        <tr>
+            <th></th>
+            <th class="text-center text-nowrap" scope="col">Procedura optymistyczna</th>
+            <th class="text-center text-nowrap" scope="col">Procedura pesymistyczna</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for variantKlas in testValues['variantsKlas'] %}
+            <tr>
+                <th class="text-nowrap" scope="row">{{ variantKlas.variant.name }}</th>
+                <td class="text-nowrap">{{ variantKlas.optimisticAssignedKlas.name }}</td>
+                <td class="text-nowrap">{{ variantKlas.pessimisticAssignedKlas.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
