@@ -496,7 +496,7 @@ class testAndIndexService
         return $arrayCollection;
     }
 
-    private function orderByKlasOrder($collection)
+    private function orderByKlasOrderASC($collection)
     {
         $iterator = $collection->getIterator();
         $arrayCollection = new ArrayCollection();
@@ -526,18 +526,18 @@ class testAndIndexService
 
         $orderedVariantsProfilsCredibilityIndexRelationASC = $this->orderByProfilOrderASC($filteredVariantsProfilsCredibilityIndexRelation);
         $orderedVariantsProfilsCredibilityIndexRelationDESC = $this->orderByProfilOrderDESC($filteredVariantsProfilsCredibilityIndexRelation);
-        $klas = $this->orderByKlasOrder($klas);
+        $klasASC = $this->orderByKlasOrderASC($klas);
         $profilCounter =  count($orderedVariantsProfilsCredibilityIndexRelationDESC);
 
         foreach ($orderedVariantsProfilsCredibilityIndexRelationASC as $key=>$variantProfilCredibilityIndexRelation)
         {
             if ($variantProfilCredibilityIndexRelation->getRelation() == '<')
             {
-                $optimisticAssignedKlas = $klas[$key];
+                $optimisticAssignedKlas = $klasASC[$key];
             }
             else
             {
-                $optimisticAssignedKlas = $klas[$key+1];
+                $optimisticAssignedKlas = $klasASC[$key+1];
             }
         }
 
@@ -547,11 +547,16 @@ class testAndIndexService
             if ($variantProfilCredibilityIndexRelation->getRelation() == '>'
                 || $variantProfilCredibilityIndexRelation->getRelation() == 'I')
             {
-                $pessimisticAssignedKlas = $klas[$profilCounter - $key];
+                $pessimisticAssignedKlas = $klasASC[$profilCounter - $key];
+                break;
+            }
+            elseif ($variantProfilCredibilityIndexRelation->getRelation() == '<')
+            {
+                $pessimisticAssignedKlas = $klasASC[$key];
             }
             else
             {
-                $pessimisticAssignedKlas = $klas[0];
+                $pessimisticAssignedKlas = $klasASC[0];
             }
         }
 
