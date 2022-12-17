@@ -24,6 +24,17 @@
                 <td>
                     <button type="button" class="btn btn-danger" onclick="return confirm('Czy jesteś pewien że chcesz usunąć projekt?')"><a href="/projects/delete/{{ project.slug }}" class="text-white text-decoration-none">Usuń</a></button>
                 </td>
+                {% if
+                    project.critery|length and project.critery[0].VariantValue|length
+                    and project.critery[0].alfaQ and project.critery[0].betaQ
+                    and project.critery[0].alfaP and project.critery[0].betaP
+                    and project.critery[0].alfaV and project.critery[0].betaV
+                    and project.variant|length and project.klas|length
+                    and project.profil|length and project.profil[0].profilValue|length %}
+                <td>
+                    <button type="button" class="btn btn-warning"><a href="/projects/raport/{{ project.slug }}" class="text-white text-decoration-none">Raport</a></button>
+                </td>
+                {% endif %}
             </tr>
 
         {% endfor %}
