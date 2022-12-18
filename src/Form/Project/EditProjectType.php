@@ -34,19 +34,19 @@ class EditProjectType extends AbstractType
                 'label' => 'Poziom odcięcia:'
             ])
 
-            ->add('criteriesCollection', CireriesCollectionType::class,
-                [
-                    'label' => ' ',
-                    'mapped' => false,
-                    'data' => $options['data']->getCritery(),
-                ])
-
-            ->add('variantsCollection', VariantsCollectionType::class,
-                [
-                    'label' => ' ',
-                    'mapped' => false,
-                    'data' => $options['data']->getVariant(),
-                ])
+//            ->add('criteriesCollection', CireriesCollectionType::class,
+//                [
+//                    'label' => ' ',
+//                    'mapped' => false,
+//                    'data' => $options['data']->getCritery(),
+//                ])
+//
+//            ->add('variantsCollection', VariantsCollectionType::class,
+//                [
+//                    'label' => ' ',
+//                    'mapped' => false,
+//                    'data' => $options['data']->getVariant(),
+//                ])
 //
 //            ->add('variantsValuesCollection', VariantsValuesCollectionType::class,
 //                [
@@ -59,7 +59,7 @@ class EditProjectType extends AbstractType
 //                    'data' => $options['data']->getVariant(),
 //                ])
 
-            ->add('addProject', SubmitType::class,[
+            ->add('saveProject', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
                     'class' => 'btn btn-secondary'

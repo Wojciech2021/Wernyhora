@@ -17,15 +17,14 @@ class VariantsCollectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
-        //dd($options['data']);
-        if ($options['data']->isEmpty())
+        if ($options['data']->getVariant()->isEmpty())
         {
             $variants = new ArrayCollection();
             $variants->add(new Variant());
         }
         else
         {
-            $variants = $options['data'];
+            $variants = $options['data']->getVariant();
         }
 
         $builder
@@ -43,10 +42,16 @@ class VariantsCollectionType extends AbstractType
             ->add('addVariant', ButtonType::class, [
                 'label' => '+ dodaj wariant',
                 'attr' => [
-                    'class' => 'js-variant-add btn btn-success'
+                    'class' => 'js-variant-add btn btn-warning'
                 ]
             ])
-        ;
+
+            ->add('saveVariants', SubmitType::class,[
+                'label' => 'Zapisz',
+                'attr' => [
+                    'class' => 'btn btn-secondary'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projekt {{ project.name }} warianty{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+<div class="container">
+    <div class="d-flex flex-row justify-content-center">
+        <div class="js-variants-wrapper"
+             data-prototype=
+             "<tr class='js-variant-item'>
+          <td>{{ form_widget(form.variants.vars.prototype.name)|e('html_attr') }}</td>
+          <td>{{ form_widget(form.variants.vars.prototype.removeVariant)|e('html_attr') }}</td>
+      </tr>"
+             data-index="{{ form.variants|length }}"
+        >
+            <div class="col">
+                <table class="table" id="variants">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Watianty</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Nazwa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for variantsForm in form.variants %}
+                        <tr class="js-variant-item">
+                            <td>{{ form_row(variantsForm.name) }}</td>
+                            <td>{{ form_row(variantsForm.removeVariant) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ form_row(form.addVariant) }}
+            </div>
+        </div>
+    </div>
+    <div class="pt-5">
+        {{ form_widget(form.saveVariants) }}
+    </div>
+</div>
+    {{ form_end(form) }}
+{% endblock %}
+

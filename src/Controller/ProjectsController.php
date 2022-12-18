@@ -7,6 +7,8 @@ use App\Form\KlasCollectionType;
 use App\Form\ProfilesValuesCollectionType;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
+use App\Form\CireriesCollectionType;
+use App\Form\VariantsCollectionType;
 use App\Form\ThresholdCollectionType;
 use App\Form\VariantsValuesCollectionType;
 use App\Service\ChartService;
@@ -21,6 +23,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
+use Knp\Snappy\Pdf;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 
 class ProjectsController extends AbstractController
 {
@@ -52,10 +56,10 @@ class ProjectsController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/edit/critery_variant/{slug}', name: 'app_edit_critery_variant_project')]
-    public function editCriteryVariant(Request               $request,
+    #[Route('/projects/edit/{slug}', name: 'app_edit_project')]
+    public function editProject(Request               $request,
                                        Project               $project,
-                                       CriteryVariantService $criteryVariantService)
+                                       ProjectsService $projectsService)
     {
 
         $form = $this->createForm(EditProjectType::class, $project);
@@ -63,18 +67,70 @@ class ProjectsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-
-            $criteriesCollection = $form['criteriesCollection']['criteries']->getData();
-            $variantsCollection = $form['variantsCollection']['variants']->getData();
             $project = $form->getData();
+            $projectsService->updateProject($project);
+
+            $this->addFlash('success', 'Zapisano poziom odcięcia!');
+
+            return $this->redirectToRoute('app_edit_critery_project', ['slug' => $project->getSlug()]);
+        }
+
+        return $this->render('projects/project/edit.html.twig', [
+            'form' => $form->createView(),
+            'project' => $project,
+        ]);
+    }
+
+    #[Route('/projects/edit/critery/{slug}', name: 'app_edit_critery_project')]
+    public function editCritery(Request               $request,
+                                       Project               $project,
+                                       CriteryVariantService $criteryVariantService)
+    {
+
+        $form = $this->createForm(CireriesCollectionType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $criteriesCollection = $form['criteries']->getData();
+
+            $criteryVariantService->updateCritery($project, $criteriesCollection);
+
+            $this->addFlash('success', 'Zapisano kryteria!');
+
+            return $this->redirectToRoute('app_edit_variant_project', ['slug' => $project->getSlug()]);
+        }
+
+        return $this->render('/projects/critery/edit.html.twig',[
+            'form' => $form->createView(),
+            'project' => $project,
+        ]);
+    }
+
+    #[Route('/projects/edit/variant/{slug}', name: 'app_edit_variant_project')]
+    public function editVariant(Request               $request,
+                                Project               $project,
+                                CriteryVariantService $criteryVariantService)
+    {
+
+        $form = $this->createForm(VariantsCollectionType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $variantsCollection = $form['variants']->getData();
+            $criteriesCollection = $project->getCritery();
+            $criteryVariantService->updateVariant($project, $variantsCollection);
+
+            $variantsCollection = $project->getVariant();
             $criteryVariantService->updateCriteriesVariants($project, $criteriesCollection, $variantsCollection);
 
-            $this->addFlash('success', 'Zapisano kryteria i warianty');
+            $this->addFlash('success', 'Zapisano warianty!');
 
             return $this->redirectToRoute('app_edit_variants_values_project', ['slug' => $project->getSlug()]);
         }
 
-        return $this->render('projects/criteryVariant/edit.html.twig', [
+        return $this->render('/projects/variant/edit.html.twig',[
             'form' => $form->createView(),
             'project' => $project,
         ]);
@@ -117,7 +173,6 @@ class ProjectsController extends AbstractController
                              Project     $project,
                              KlasService $klasService)
     {
-
         $form = $this->createForm(KlasCollectionType::class, $project);
         $form->handleRequest($request);
 
@@ -229,13 +284,14 @@ class ProjectsController extends AbstractController
     public function raportProject(Project               $project,
                                   TheresholdService     $theresholdService)
     {
-        $testAndIndexService = new testAndIndexService($project, $theresholdService);
-        $testValues = $testAndIndexService->getTestValues();
-
         $criteries = $project->getCritery();
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
+        $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
+        $testValues = $testAndIndexService->getTestValues();
+//        dd($testValues);
+
 
         return $this->render('/projects/testValue/display.html.twig',[
             'project' => $project,
@@ -245,6 +301,38 @@ class ProjectsController extends AbstractController
             'variants' => $variants,
             'testValues' => $testValues,
         ]);
+    }
+
+    #[Route('/projects/raport/pdf/{slug}', name: 'app_raport_pdf_project')]
+    public function raportPDFProject(Project               $project,
+                                  TheresholdService     $theresholdService,
+                                        Pdf $pdf)
+    {
+
+        $testAndIndexService = new testAndIndexService($project, $theresholdService);
+        $testValues = $testAndIndexService->getTestValues();
+
+        $criteries = $project->getCritery();
+        $klass = $project->getKlas();
+        $profiles = $project->getProfil();
+        $variants = $project->getVariant();
+
+        $html = $this->renderView('/projects/testValue/display.html.twig', [
+            'project' => $project,
+            'criteries' => $criteries,
+            'klas' => $klass,
+            'profiles' =>$profiles,
+            'variants' => $variants,
+            'testValues' => $testValues,
+        ]);
+
+
+//        $pdf->getOutputFromHtml();
+
+        return new PdfResponse(
+            $pdf->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 
     #[Route('/projects/delete/{slug}', name: 'app_delete_project')]

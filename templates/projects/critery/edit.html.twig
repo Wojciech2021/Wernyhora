@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projekt {{ project.name }} kryteria{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center">
+            <div class="js-criteries-wrapper"
+                 data-prototype=
+                 "<tr class='js-critery-item'>
+                    <td>{{ form_widget(form.criteries.vars.prototype.name)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteries.vars.prototype.costGain)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteries.vars.prototype.unit)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteries.vars.prototype.weight)|e('html_attr') }}</td>
+                    <td>{{ form_widget(form.criteries.vars.prototype.removeCritery)|e('html_attr') }}</td>
+                 </tr>"
+                 data-index="{{ form.criteries|length }}"
+            >
+                <div class="col">
+                    <table class="table" id="criteries">
+                        <thead>
+                        <tr>
+                            <th class="text-center" colspan="4">Kryteria</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Nazwa</th>
+                            <th class="text-center">Zysk/Koszt</th>
+                            <th class="text-center">Jednotka</th>
+                            <th class="text-center">Waga</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for criteriesForm in form.criteries %}
+                            <tr class="js-critery-item">
+                                <td>{{ form_row(criteriesForm.name) }}</td>
+                                <td>{{ form_row(criteriesForm.costGain) }}</td>
+                                <td>{{ form_row(criteriesForm.unit) }}</td>
+                                <td>{{ form_row(criteriesForm.weight) }}</td>
+                                <td>{{ form_row(criteriesForm.removeCritery) }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ form_row(form.addCritery) }}
+                </div>
+            </div>
+        </div>
+        <div class="pt-5">
+            {{ form_widget(form.saveCriteries) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

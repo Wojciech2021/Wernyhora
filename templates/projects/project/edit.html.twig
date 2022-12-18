@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Projekt {{ project.name }} edycja{% endblock %}
+
+{% block body %}
+    {% include 'top_menu.html.twig' %}
+    {{ form_start(form) }}
+    <div class="d-flex justify-content-center mt-5">
+        <div class="flex-container col-3 justify-content-center col-1 form-group">
+            <div class="pt-3">
+                <div class="pb-1">
+                    {{ form_label(form.name) }}
+                </div>
+                <div>
+                    {{ form_widget(form.name) }}
+                </div>
+                <div class="pb-1">
+                    {{ form_label(form.cutOffLevel) }}
+                </div>
+                <div>
+                    {{ form_widget(form.cutOffLevel) }}
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="pb-1 input-group-prepend">
+                    {{ form_label(form.description) }}
+                </div>
+                <div>
+                    {{ form_widget(form.description,
+                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
+                    ) }}
+                </div>
+            </div>
+            <div class="pt-5">
+                {{ form_widget(form.saveProject) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
