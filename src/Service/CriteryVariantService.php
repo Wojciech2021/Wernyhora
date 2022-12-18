@@ -20,7 +20,7 @@ class CriteryVariantService
     public function __construct(ProjectRepository      $projectRepository,
                                 CriteryRepository      $criteryRepository,
                                 VariantRepository      $variantRepository,
-                                VariantValueRepository $variantValueRepository,)
+                                VariantValueRepository $variantValueRepository)
     {
 
         $this->projectRepository = $projectRepository;
@@ -29,11 +29,40 @@ class CriteryVariantService
         $this->variantValueRepository = $variantValueRepository;
     }
 
-    public function updateCriteriesVariants(Project $project,
-                                                    $criteries,
-                                                    $variants)
+    public function updateCritery(Project $project,
+                                        $criteries)
     {
+        foreach ($criteries as $critery)
+        {
+            $critery->setProject($project);
+            $this->criteryRepository->save($critery, false);
+            $project->addCritery($critery);
+        }
 
+        $now = new \DateTime();
+        $project->setUpdateTime($now);
+        $this->projectRepository->save($project, true);
+    }
+
+    public function updateVariant(Project $project,
+                                  $variants)
+    {
+        foreach ($variants as $variant)
+        {
+            $variant->setProject($project);
+            $this->variantRepository->save($variant, false);
+            $project->addVariant($variant);
+        }
+
+        $now = new \DateTime();
+        $project->setUpdateTime($now);
+        $this->projectRepository->save($project, true);
+    }
+
+    public function updateCriteriesVariants(Project $project,
+                                            $criteries,
+                                            $variants)
+    {
         $criteriesCounter = count($criteries);
         $variantsCouter = count($variants);
 
@@ -61,28 +90,12 @@ class CriteryVariantService
             }
         }
 
-        foreach ($variants as $variant)
-        {
-
-            $variant->setProject($project);
-            $this->variantRepository->save($variant, false);
-            $project->addVariant($variant);
-        }
-
-        foreach ($criteries as $critery)
-        {
-
-            $critery->setProject($project);
-            $this->criteryRepository->save($critery, false);
-            $project->addCritery($critery);
-        }
-
         $now = new \DateTime();
         $project->setUpdateTime($now);
         $this->projectRepository->save($project, true);
     }
 
-    public function updateVariantsValues(Project         $project,
+    public function updateVariantsValues(Project $project,
                                          ArrayCollection $variantsValues)
     {
 

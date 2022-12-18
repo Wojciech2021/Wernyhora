@@ -48,9 +48,7 @@ class KlasCollectionType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-secondary'
                 ]
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

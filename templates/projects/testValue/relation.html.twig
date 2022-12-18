@@ -19,7 +19,13 @@
                 {% for profil in profiles %}
                     {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
                         {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
-                            <td class="text-nowrap">{{ testValue.relation }}</td>
+                            {% if testValue.relation == '>' %}
+                                <td class="text-nowrap text-center">&#8827;</td>
+                            {% elseif testValue.relation == '<' %}
+                                <td class="text-nowrap text-center">&#8826;</td>
+                            {% else %}
+                                <td class="text-nowrap text-center">{{ testValue.relation }}</td>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
