@@ -42,14 +42,16 @@ class VariantsCollectionType extends AbstractType
             ->add('addVariant', ButtonType::class, [
                 'label' => '+ dodaj wariant',
                 'attr' => [
-                    'class' => 'js-variant-add btn btn-warning'
+                    'class' => 'js-variant-add btn btn-secondary',
+                    'style' => 'width: 209px;',
                 ]
             ])
 
             ->add('saveVariants', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary'
+                    'class' => 'btn btn-secondary',
+                    'style' => 'width: 209px;',
                 ]
             ]);
     }

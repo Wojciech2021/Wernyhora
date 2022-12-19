@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Projekt {{ project.name }} Wartości wariantów{% endblock %}
+{% block title %}Projekt {{ project.name }}: Wartości wariantów{% endblock %}
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
@@ -97,6 +97,4 @@
         {{ form_end(form) }}
     </div>
     {% include '/projects/thresholdValue/display.html.twig' %}
-
-
 {% endblock %}

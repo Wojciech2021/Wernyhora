@@ -31,16 +31,15 @@ class VariantsValuesCollectionType extends AbstractType
                 [
                     'entry_type' => VariantValueFormType::class,
                     'data' => $variantsValues,
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
                     'mapped' => false,
                 ]
             )
 
             ->add('addVariantsValues', SubmitType::class,[
-                'label' => 'Zapisz wartości',
+                'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary'
+                    'class' => 'btn btn-secondary',
+                    'style' => 'width: 209px;',
                 ]
             ])
 
