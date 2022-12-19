@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Projekt {{ project.name }} edycja{% endblock %}
+{% block title %}Projekt {{ project.name }}: Edycja projektu{% endblock %}
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
@@ -26,15 +26,39 @@
                 <div class="pb-1 input-group-prepend">
                     {{ form_label(form.description) }}
                 </div>
-                <div>
+                <div style="width: 209px;">
                     {{ form_widget(form.description,
-                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
+                        {'attr': {'class': 'form-control'}}
                     ) }}
                 </div>
             </div>
-            <div class="pt-5">
-                {{ form_widget(form.saveProject) }}
-            </div>
+                <div class="pt-5" style="padding-right: 5px;">
+                    {{ form_widget(form.saveProject) }}
+                </div>
+                <div class="pt-1" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/critery/{{ project.slug }}" class="text-white text-decoration-none">Kryteria</a></button>
+                </div>
+                <div class="pt-1" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/variant/{{ project.slug }}" class="text-white text-decoration-none">Warianty</a></button>
+                </div>
+                {% if project.critery|length and project.variant|length %}
+                    <div class="pt-1" style="padding-right: 5px;">
+                        <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/variants_values/{{ project.slug }}" class="text-white text-decoration-none">Wartości wariantów</a></button>
+                    </div>
+                {% endif %}
+                <div class="pt-1" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/klas/{{ project.slug }}" class="text-white text-decoration-none">Klasy</a></button>
+                </div>
+                {% if project.klas|length %}
+                <div class="pt-1" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/profils_values/{{ project.slug }}" class="text-white text-decoration-none">Profile</a></button>
+                </div>
+                {% endif %}
+            {% if project.critery|length %}
+                <div class="pt-1" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/threshold_values/{{ project.slug }}" class="text-white text-decoration-none">Progi</a></button>
+                </div>
+            {% endif %}
         </div>
     </div>
     {{ form_end(form) }}

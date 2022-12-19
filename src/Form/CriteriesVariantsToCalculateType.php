@@ -4,72 +4,62 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ThresholdCollectionType extends AbstractType
+class CriteriesVariantsToCalculateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $criteries = null;
+        $variants = null;
 
-        if (!$options['data']->isEmpty())
-        {
-            $criteries = $options['data'];
+        if ($options['data']) {
+
+            $criteries = $options['data']->getCritery();
+            $variants = $options['data']->getVariant();
         }
 
         $builder
-            ->add('threshold', CollectionType::class,
-                [
-                    'entry_type' => ThresholdType::class,
-                    'data' => $criteries,
-                    'mapped' => false,
-                ]
-            )
-
             ->add('criteriesCollection', ChoiceType::class, [
-                'label' => 'Kryteria wyświetlane na wykresie',
+                'label' => 'Kryteria brane pod udział w obliczeniach',
                 'choices'  => $criteries,
                 'choice_label' => function ($critery){
                     return $critery->getName().':';
+                },
+                'choice_attr' => function ($critery){
+                    return ['checked' => true];
                 },
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false,
             ])
 
-            ->add('thresholdTypes', ChoiceType::class, [
-                'label' => 'Progi wyświetlane na wykresie',
-                'choices'  => [
-                    'Nierozróżnialności:' => 'q',
-                    'Preferencji:' => 'p',
-                    'Weta:' => 'v'
+            ->add('variantsCollection', ChoiceType::class, [
+                'label' => 'Warianty brane pod udział w odliczeniach',
+                'label_attr' => [
+                    'class' => 'text-nowrap'
                 ],
+                'choices'  => $variants,
+                'choice_label' => function ($variant){
+                    return $variant->getName().':';
+                },
+                'choice_attr' => function ($variant){
+                    return ['checked' => true];
+                },
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false,
             ])
 
-            ->add('addThreshold', SubmitType::class,[
-                'label' => 'Zapisz',
+            ->add('getRaport', SubmitType::class,[
+                'label' => 'Generój raport',
                 'attr' => [
                     'class' => 'btn btn-secondary',
                     'style' => 'width: 209px;',
                 ]
-            ])
-
-            ->add('raport', SubmitType::class,[
-                'label' => 'Raport',
-                'attr' => [
-                    'class' => 'btn btn-secondary',
-                    'style' => 'width: 209px;',
-                ]
-            ])
-
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projekt {{ project.name }} warianty{% endblock %}
+{% block title %}Projekt {{ project.name }}: Warianty{% endblock %}
 
 {% block body %}
     {% include 'top_menu.html.twig' %}
     {{ form_start(form) }}
 <div class="container">
+    <div class="text-center">
+        <h1>Projekt {{ project.name }}: Warianty</h1>
+    </div>
     <div class="d-flex flex-row justify-content-center">
         <div class="js-variants-wrapper"
              data-prototype=
@@ -19,9 +22,6 @@
                 <table class="table" id="variants">
                     <thead>
                     <tr>
-                        <th class="text-center">Watianty</th>
-                    </tr>
-                    <tr>
                         <th class="text-center">Nazwa</th>
                     </tr>
                     </thead>
@@ -34,12 +34,14 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
                 {{ form_row(form.addVariant) }}
+                </div>
+                <div class="d-flex justify-content-center pt-1">
+                    {{ form_widget(form.saveVariants) }}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="pt-5">
-        {{ form_widget(form.saveVariants) }}
     </div>
 </div>
     {{ form_end(form) }}

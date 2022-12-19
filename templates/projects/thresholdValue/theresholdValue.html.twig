@@ -1,0 +1,42 @@
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th></th>
+        {% for profil in profiles %}
+            <th colspan="7" class="text-center">Profil {{ loop.index }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th></th>
+        {% for profil in profiles %}
+            <th class="text-center text-nowrap">Profil {{ loop.index }} - v<sub>{{ loop.index }}</sub></th>
+            <th class="text-center text-nowrap">Profil {{ loop.index }} - p<sub>{{ loop.index }}</sub></th>
+            <th class="text-center text-nowrap">Profil {{ loop.index }} - q<sub>{{ loop.index }}</sub></th>
+            <th class="text-center text-nowrap bg-warning">Profil {{ loop.index }}</th>
+            <th class="text-center text-nowrap">Profil {{ loop.index }} + q<sub>{{ loop.index }}</sub></th>
+            <th class="text-center text-nowrap">Profil {{ loop.index }} + p<sub>{{ loop.index }}</sub></th>
+            <th class="text-center text-nowrap">Profil {{ loop.index }} + v<sub>{{ loop.index }}</sub></th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for critery in criteries %}
+        <tr>
+            <th class="text-nowrap">{{ critery.name }}
+                {% if critery.unit is defined %}
+                    [{{ critery.unit }}]
+                {% endif %}
+            </th>
+            {% for profilValue in critery.profilValue %}
+                <td>{{ theresholdService.calculateVTheresgold(profilValue)['minusV'] }}</td>
+                <td>{{ theresholdService.calculatePTheresgold(profilValue)['minusP'] }}</td>
+                <td>{{ theresholdService.calculateQTheresgold(profilValue)['minusQ'] }}</td>
+                <td class="bg-warning">{{ profilValue.value }}</td>
+                <td>{{ theresholdService.calculateQTheresgold(profilValue)['plusQ'] }}</td>
+                <td>{{ theresholdService.calculatePTheresgold(profilValue)['plusP'] }}</td>
+                <td>{{ theresholdService.calculateVTheresgold(profilValue)['plusV'] }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

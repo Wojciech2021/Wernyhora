@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Form\CriteriesVariantsToCalculateType;
 use App\Form\KlasCollectionType;
 use App\Form\ProfilesValuesCollectionType;
 use App\Form\Project\AddProjectType;
@@ -242,7 +243,6 @@ class ProjectsController extends AbstractController
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-//        $testAndIndexService = new testAndIndexService($project, $theresholdService);
         $testValues = null;
 
         $form = $this->createForm(ThresholdCollectionType::class, $criteries);
@@ -281,17 +281,39 @@ class ProjectsController extends AbstractController
     }
 
     #[Route('/projects/raport/{slug}', name: 'app_raport_project')]
-    public function raportProject(Project               $project,
+    public function raportProject(Request               $request,
+                                  Project               $project,
                                   TheresholdService     $theresholdService)
     {
         $criteries = $project->getCritery();
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
+        $form = $this->createForm(CriteriesVariantsToCalculateType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $criteriesCollection = $form['criteriesCollection']->getData();
+            $variantsCollection = $form['variantsCollection']->getData();
+
+            $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteriesCollection, $variantsCollection, $profiles);
+            $testValues = $testAndIndexService->getTestValues();
+
+            return $this->render('/projects/testValue/display.html.twig',[
+                'project' => $project,
+                'criteries' => $criteriesCollection,
+                'klas' => $klass,
+                'profiles' =>$profiles,
+                'variants' => $variantsCollection,
+                'testValues' => $testValues,
+                'form' => $form,
+                'theresholdService' => $theresholdService,
+            ]);
+        }
+
         $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
         $testValues = $testAndIndexService->getTestValues();
-//        dd($testValues);
-
 
         return $this->render('/projects/testValue/display.html.twig',[
             'project' => $project,
@@ -300,6 +322,8 @@ class ProjectsController extends AbstractController
             'profiles' =>$profiles,
             'variants' => $variants,
             'testValues' => $testValues,
+            'form' => $form,
+            'theresholdService' => $theresholdService,
         ]);
     }
 

@@ -44,8 +44,6 @@ class ThresholdType extends AbstractType
                 'label' => false,
                 'required' => true,
             ])
-
-//            ->add('Project')
         ;
     }
 

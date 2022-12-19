@@ -39,14 +39,16 @@ class KlasCollectionType extends AbstractType
             ->add('addKlas', ButtonType::class, [
                 'label' => '+ dodaj klasę',
                 'attr' => [
-                    'class' => 'js-klas-add btn btn-warning'
+                    'class' => 'js-klas-add btn btn-secondary',
+                    'style' => 'width: 209px;',
                 ]
             ])
 
             ->add('saveKlas', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary'
+                    'class' => 'btn btn-secondary',
+                    'style' => 'width: 209px;',
                 ]
             ]);
     }
