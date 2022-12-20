@@ -31,8 +31,6 @@ class testAndIndexService
                                 $profils)
     {
         $this->project = $project;
-//        $this->variantsProfilsCredibilityIndexRelation = new ArrayCollection();
-//        $this->variantsKlas = new ArrayCollection();
         $this->theresholdService = $theresholdService;
         $this->criteries = $criteries;
         $this->variants = $variants;
