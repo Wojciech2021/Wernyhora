@@ -21,6 +21,7 @@ use App\Service\TheresholdService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
@@ -283,22 +284,47 @@ class ProjectsController extends AbstractController
     #[Route('/projects/raport/{slug}', name: 'app_raport_project')]
     public function raportProject(Request               $request,
                                   Project               $project,
-                                  TheresholdService     $theresholdService)
+                                  TheresholdService     $theresholdService,
+                                  Session               $session)
     {
+        $criteriesCollection = $session->get('criteriesCollection');
+        $variantsCollection = $session->get('variantsCollection');
         $criteries = $project->getCritery();
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
-        $form = $this->createForm(CriteriesVariantsToCalculateType::class, $project);
+
+        $form = $this->createForm(CriteriesVariantsToCalculateType::class,
+            [
+                'project' => $project,
+                'criteriesCollection' => $criteriesCollection,
+                'variantsCollection' => $variantsCollection
+            ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $criteriesCollection = $form['criteriesCollection']->getData();
             $variantsCollection = $form['variantsCollection']->getData();
+            $session->set('criteriesCollection', $criteriesCollection);
+            $session->set('variantsCollection', $variantsCollection);
 
-            $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteriesCollection, $variantsCollection, $profiles);
-            $testValues = $testAndIndexService->getTestValues();
+            $form = $this->createForm(CriteriesVariantsToCalculateType::class,
+                [
+                    'project' => $project,
+                    'criteriesCollection' => $criteriesCollection,
+                    'variantsCollection' => $variantsCollection
+                ]);
+
+            $testAndIndexService = null;
+            $testValues = null;
+
+            if (count($criteriesCollection) >= 1 && count($variantsCollection) >=1)
+            {
+                $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteriesCollection, $variantsCollection, $profiles);
+                $testValues = $testAndIndexService->getTestValues();
+            }
 
             return $this->render('/projects/testValue/display.html.twig',[
                 'project' => $project,

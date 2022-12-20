@@ -1,5 +1,8 @@
 <div class="container pt-5">
-    {% include'/projects/thresholdValue/theresholdValue.html.twig' %}
+    <div class="container d-flex justify-content-center">
+        {% include'/projects/thresholdValue/theresholdValue.html.twig' %}
+    </div>
+    <div class="container d-flex justify-content-center">
     <table class="table w-25 p-3">
         <thead>
         <tr>
@@ -40,7 +43,7 @@
         </tr>
         </tbody>
     </table>
-
+    </div>
     {% if chart is defined %}
         <div class="position-relative mt-5">
             <div class="position-absolute top-5 start-50 translate-middle" style="width: 75%; height: 50%; transform: rotate(90deg);">

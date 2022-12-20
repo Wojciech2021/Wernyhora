@@ -14,13 +14,25 @@ class CriteriesVariantsToCalculateType extends AbstractType
     {
         $criteries = null;
         $variants = null;
+        $criteriesCollection = null;
+        $variantsCollection = null;
 
-        if ($options['data']) {
+        if ($options['data']['project']) {
 
-            $criteries = $options['data']->getCritery();
-            $variants = $options['data']->getVariant();
+            $criteries = $options['data']['project']->getCritery();
+            $variants = $options['data']['project']->getVariant();
         }
 
+        if (count($options['data']['criteriesCollection']) >= 1)
+        {
+            $criteriesCollection = $options['data']['criteriesCollection'];
+        }
+
+        if (count($options['data']['variantsCollection']) >= 1)
+        {
+            $variantsCollection = $options['data']['variantsCollection'];
+        }
+        
         $builder
             ->add('criteriesCollection', ChoiceType::class, [
                 'label' => 'Kryteria brane pod udział w obliczeniach',
@@ -28,12 +40,27 @@ class CriteriesVariantsToCalculateType extends AbstractType
                 'choice_label' => function ($critery){
                     return $critery->getName().':';
                 },
-                'choice_attr' => function ($critery){
-                    return ['checked' => true];
+                'choice_attr' => function ($critery) use ($criteriesCollection){
+                    if ($criteriesCollection && count($criteriesCollection) >= 1)
+                    {
+                        foreach ($criteriesCollection as $item)
+                        {
+                            if ($item->getId() === $critery->getId())
+                            {
+                                return ['checked' => true];
+                            }
+                        }
+                        return ['checked' => false];
+                    }
+                    else
+                    {
+                        return ['checked' => true];
+                    }
                 },
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false,
+                'required' => true,
             ])
 
             ->add('variantsCollection', ChoiceType::class, [
@@ -45,8 +72,22 @@ class CriteriesVariantsToCalculateType extends AbstractType
                 'choice_label' => function ($variant){
                     return $variant->getName().':';
                 },
-                'choice_attr' => function ($variant){
-                    return ['checked' => true];
+                'choice_attr' => function ($variant) use ($variantsCollection){
+                    if ($variantsCollection && count($variantsCollection) >= 1)
+                    {
+                        foreach ($variantsCollection as $item)
+                        {
+                            if ($item->getId() === $variant->getId())
+                            {
+                                return ['checked' => true];
+                            }
+                        }
+                        return ['checked' => false];
+                    }
+                    else
+                    {
+                        return ['checked' => true];
+                    }
                 },
                 'multiple' => true,
                 'expanded' => true,
