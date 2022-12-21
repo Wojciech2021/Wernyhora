@@ -1,0 +1,49 @@
+<div class="d-flex flex-row justify-content-center">
+    <h2>Wskaźniki wiarygodności</h2>
+</div>
+
+{% for profil in profiles %}
+    <div class="d-flex flex-row justify-content-center">
+        <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+            <thead>
+            <tr>
+                <th class="text-center text-nowrap" scope="col" colspan="2">Profil{{ loop.index }} &sigma;(a, b<sub>{{ loop.index }}</sub>)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for variant in variants %}
+                <tr>
+                    <th scope="row">{{ variant.name }}</th>
+                    {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
+                        {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
+                            <td class="text-nowrap">{{ testValue.variantCredibilityIndex }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+            <thead>
+            <tr>
+                <th class="text-center text-nowrap" scope="col" colspan="2">Profil{{ loop.index }}	&sigma;(b<sub>{{ loop.index }}</sub>, a)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for variant in variants %}
+                <tr>
+                    <th class="text-nowrap" scope="row">{{ variant.name }}</th>
+                    {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
+                        {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
+                            <td class="text-nowrap">{{ testValue.profilCredibilityIndex }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endfor %}
+<div class="page_break"></div>

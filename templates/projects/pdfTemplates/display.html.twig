@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+{% block title %}Projekt {{ project.name }}: Raport{% endblock %}
+<body>
+{% block body %}
+    <div class="d-flex flex-row justify-content-center">
+        <h1>Raport z projektu: {{ project.name }}</h1>
+    </div>
+    {% if criteries|length >= 1 and variants|length >= 1 %}
+        <div class="d-flex flex-row justify-content-center pt-5">
+            <h2>Profile</h2>
+        </div>
+        <div class="container d-flex justify-content-center">
+            {% include'/projects/pdfTemplates/theresholdValue.html.twig' %}
+        </div>
+    {% include'/projects/pdfTemplates/compatibilityTest.html.twig' %}
+    {% include'/projects/pdfTemplates/nonCompatibilityTest.html.twig' %}
+    {% include'/projects/pdfTemplates/partialCredibilityIndex.html.twig' %}
+    {% include'/projects/pdfTemplates/credibilityIndex.html.twig' %}
+    {% include'/projects/pdfTemplates/relation.html.twig' %}
+    {% include'/projects/pdfTemplates/assignedKlas.html.twig' %}
+    {% endif %}
+{% endblock %}
+</body>
+</html>
+
