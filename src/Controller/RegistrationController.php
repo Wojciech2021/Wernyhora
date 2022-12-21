@@ -39,8 +39,6 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //dd($form->get(['department'])->getData());
-            //dd($form->get('department')->getData());
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
@@ -59,7 +57,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('overlord@localhost.com', 'Overlord Bot'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Proszę powierdź Twój email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email

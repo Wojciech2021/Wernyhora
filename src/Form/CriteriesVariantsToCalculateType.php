@@ -23,16 +23,16 @@ class CriteriesVariantsToCalculateType extends AbstractType
             $variants = $options['data']['project']->getVariant();
         }
 
-        if (count($options['data']['criteriesCollection']) >= 1)
+        if (!is_null($options['data']['criteriesCollection']) && count($options['data']['criteriesCollection']) >= 1)
         {
             $criteriesCollection = $options['data']['criteriesCollection'];
         }
 
-        if (count($options['data']['variantsCollection']) >= 1)
+        if (!is_null($options['data']['variantsCollection']) && count($options['data']['variantsCollection']) >= 1)
         {
             $variantsCollection = $options['data']['variantsCollection'];
         }
-        
+
         $builder
             ->add('criteriesCollection', ChoiceType::class, [
                 'label' => 'Kryteria brane pod udział w obliczeniach',
@@ -96,6 +96,14 @@ class CriteriesVariantsToCalculateType extends AbstractType
 
             ->add('getRaport', SubmitType::class,[
                 'label' => 'Generój raport',
+                'attr' => [
+                    'class' => 'btn btn-secondary',
+                    'style' => 'width: 209px;',
+                ]
+            ])
+
+            ->add('getPDFRaport', SubmitType::class,[
+                'label' => 'Generój raport do pliku',
                 'attr' => [
                     'class' => 'btn btn-secondary',
                     'style' => 'width: 209px;',

@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
-use Knp\Snappy\Pdf;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class ProjectsController extends AbstractController
 {
@@ -310,32 +310,46 @@ class ProjectsController extends AbstractController
             $session->set('criteriesCollection', $criteriesCollection);
             $session->set('variantsCollection', $variantsCollection);
 
-            $form = $this->createForm(CriteriesVariantsToCalculateType::class,
-                [
-                    'project' => $project,
-                    'criteriesCollection' => $criteriesCollection,
-                    'variantsCollection' => $variantsCollection
-                ]);
-
-            $testAndIndexService = null;
-            $testValues = null;
-
-            if (count($criteriesCollection) >= 1 && count($variantsCollection) >=1)
+            if ($form->getClickedButton() && 'getRaport' === $form->getClickedButton()->getName())
             {
-                $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteriesCollection, $variantsCollection, $profiles);
-                $testValues = $testAndIndexService->getTestValues();
+                $form = $this->createForm(CriteriesVariantsToCalculateType::class,
+                    [
+                        'project' => $project,
+                        'criteriesCollection' => $criteriesCollection,
+                        'variantsCollection' => $variantsCollection
+                    ]);
+
+                $testAndIndexService = null;
+                $testValues = null;
+
+                if (count($criteriesCollection) >= 1 && count($variantsCollection) >= 1)
+                {
+                    $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteriesCollection, $variantsCollection, $profiles);
+                    $testValues = $testAndIndexService->getTestValues();
+                }
+
+                return $this->render('/projects/testValue/display.html.twig',[
+                    'project' => $project,
+                    'criteries' => $criteriesCollection,
+                    'klas' => $klass,
+                    'profiles' =>$profiles,
+                    'variants' => $variantsCollection,
+                    'testValues' => $testValues,
+                    'form' => $form,
+                    'theresholdService' => $theresholdService,
+                ]);
             }
 
-            return $this->render('/projects/testValue/display.html.twig',[
-                'project' => $project,
-                'criteries' => $criteriesCollection,
-                'klas' => $klass,
-                'profiles' =>$profiles,
-                'variants' => $variantsCollection,
-                'testValues' => $testValues,
-                'form' => $form,
-                'theresholdService' => $theresholdService,
-            ]);
+            if ($form->getClickedButton() && 'getPDFRaport' === $form->getClickedButton()->getName())
+            {
+                $this->addFlash('success', 'Wygenerowano raport do pliku pdf!');
+
+                return $this->redirectToRoute('app_raport_pdf_project', [
+                    'slug' => $project->getSlug(),
+                    ]);
+            }
+
+
         }
 
         $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
@@ -355,34 +369,96 @@ class ProjectsController extends AbstractController
 
     #[Route('/projects/raport/pdf/{slug}', name: 'app_raport_pdf_project')]
     public function raportPDFProject(Project               $project,
-                                  TheresholdService     $theresholdService,
-                                        Pdf $pdf)
+                                     TheresholdService     $theresholdService,
+                                     Session               $session)
     {
-
-        $testAndIndexService = new testAndIndexService($project, $theresholdService);
-        $testValues = $testAndIndexService->getTestValues();
+        $criteriesCollection = $session->get('criteriesCollection');
+        $variantsCollection = $session->get('variantsCollection');
 
         $criteries = $project->getCritery();
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
 
-        $html = $this->renderView('/projects/testValue/display.html.twig', [
+        $testAndIndexService = null;
+        $testValues = null;
+
+        if (count($criteriesCollection) >= 1 && count($variantsCollection) >=1)
+        {
+            $criteries = $criteries->filter(function ($critery) use ($criteriesCollection) {
+                foreach ($criteriesCollection as $item)
+                {
+                    if ($critery->getId() ==  $item->getid())
+                    {
+                        return $critery;
+                    }
+                }
+            });
+
+            $variants = $variants->filter(function ($variant) use ($variantsCollection){
+                foreach ($variantsCollection as $item)
+                {
+                    if ($variant->getId() == $item->getId())
+                    {
+                        return $variant;
+                    }
+                }
+            });
+
+            $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
+            $testValues = $testAndIndexService->getTestValues();
+        }
+        else
+        {
+            $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
+            $testValues = $testAndIndexService->getTestValues();
+        }
+
+
+
+        $html = <<<EOF
+<style>
+
+table, td, th {
+  border: 1px solid;
+}
+
+table {
+  width: 100%;
+  border: 1px solid;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+body {
+    font-family: DejaVu Sans;
+}
+
+.page_break { page-break-before: always; }
+</style>
+EOF;
+
+
+
+
+        $html .= $this->renderView('/projects/pdfTemplates/display.html.twig', [
             'project' => $project,
             'criteries' => $criteries,
             'klas' => $klass,
             'profiles' =>$profiles,
             'variants' => $variants,
             'testValues' => $testValues,
+            'theresholdService' => $theresholdService,
         ]);
 
+        $options = new Options();
+        $options->set('defaultFont', 'DejaVuSans');
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream();
 
-//        $pdf->getOutputFromHtml();
-
-        return new PdfResponse(
-            $pdf->getOutputFromHtml($html),
-            'file.pdf'
-        );
     }
 
     #[Route('/projects/delete/{slug}', name: 'app_delete_project')]

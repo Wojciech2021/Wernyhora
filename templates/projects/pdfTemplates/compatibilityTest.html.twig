@@ -1,0 +1,64 @@
+<div class="d-flex flex-row justify-content-center">
+    <h2>Test zgodności</h2>
+</div>
+{% for profil in profiles %}
+    <div class="d-flex flex-row justify-content-center">
+        <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+            <thead>
+            <tr>
+                <th class="text-center text-nowrap" scope="col" colspan="{{ criteries|length + 1 }}">Profil{{ loop.index }} c(a, b<sub>{{ loop.index }}</sub>)</th>
+            </tr>
+            <tr>
+                <th></th>
+                {% for critery in criteries %}
+                    <th class="text-center text-nowrap" scope="col">{{ critery.name }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for variant in variants %}
+                <tr>
+                    <th scope="row">{{ variant.name }}</th>
+                    {% for critery in criteries %}
+                        {% for testValue in testValues['testIndex'] %}
+                            {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
+                                <td class="text-nowrap">{{ testValue.abConformanceTestValue }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+            <thead>
+            <tr>
+                <th class="text-center text-nowrap" scope="col" colspan="{{ criteries|length + 1 }}">Profil{{ loop.index }}c(b<sub>{{ loop.index }}</sub>, a)</th>
+            </tr>
+            <tr>
+                <th></th>
+                {% for critery in criteries %}
+                    <th class="text-center text-nowrap" scope="col">{{ critery.name }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for variant in variants %}
+                <tr>
+                    <th class="text-nowrap" scope="row">{{ variant.name }}</th>
+                    {% for critery in criteries %}
+                        {% for testValue in testValues['testIndex'] %}
+                            {% if(testValue.variantValue.variant is same as(variant) and testValue.variantValue.critery is same as(critery) and testValue.profilValue.profil is same as(profil)) %}
+                                <td class="text-nowrap">{{ testValue.baConformanceTestValue }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endfor %}
+<div class="page_break"></div>

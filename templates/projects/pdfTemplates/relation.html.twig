@@ -1,0 +1,38 @@
+<div class="d-flex flex-row justify-content-center">
+    <h2>Relacja</h2>
+</div>
+
+<div class="d-flex flex-row justify-content-center">
+    <table class="table-bordered mb-5" style="table-layout: fixed; width: 700px; margin-right: 15px">
+        <thead>
+        <tr>
+            <th></th>
+            {% for profil in profiles %}
+                <th class="text-center text-nowrap" scope="col">Profil{{ loop.index }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for variant in variants %}
+            <tr>
+                <th class="text-nowrap" scope="row">{{ variant.name }}</th>
+                {% for profil in profiles %}
+                    {% for testValue in testValues['variantProfilCredibilityIndexRelation'] %}
+                        {% if(testValue.variant is same as(variant) and testValue.profil is same as(profil)) %}
+                            {% if testValue.relation == '>' %}
+                                <td class="text-nowrap text-center">&#8827;</td>
+                            {% elseif testValue.relation == '<' %}
+                                <td class="text-nowrap text-center">&#8826;</td>
+                            {% else %}
+                                <td class="text-nowrap text-center">{{ testValue.relation }}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+<div class="page_break"></div>
