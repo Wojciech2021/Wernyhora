@@ -13,7 +13,7 @@ class ChartService
                                                     $criteriesOnChart,
                                                     $thresholdOnChart)
     {
-//        dd($profiles);
+
         $datasets = [];
         $labels = [];
 
@@ -28,7 +28,6 @@ class ChartService
             $arrayOfMinusV = [];
             $arrayOfPlusV = [];
             $labels = [];
-//            $data = [];
 
             foreach ($profil->getProfilValue() as $profilValue)
             {
@@ -96,15 +95,6 @@ class ChartService
                 }
             }
 
-//            dd($labels, $data, array_keys($arrayOfElements));
-//            dd($arrayOfElements);
-
-//            dd($arrayOfElements);
-
-//            $color = $this->randomColor();
-
-//            dd($arrayOfProfil);
-
             $datasets[] = [
                 'label' => 'Profil '.$key+1,
                 'backgroundColor' => 'rgb('.$profil->getColorR().','.$profil->getColorG().','.$profil->getColorB().')',
@@ -119,7 +109,6 @@ class ChartService
                     'backgroundColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
                     'borderColor' => 'rgba('.$profil->getColorRQ().','.$profil->getColorGQ().','.$profil->getColorBQ().',0.5)',
                     'data' =>  $arrayOfMinusQ,
-//                'fill' => '-1'
                 ];
 
                 $datasets[] = [
@@ -138,7 +127,6 @@ class ChartService
                     'backgroundColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
                     'borderColor' => 'rgba('.$profil->getColorRP().','.$profil->getColorGP().','.$profil->getColorBP().',0.5)',
                     'data' =>  $arrayOfMinusP,
-//                'fill' => '-3'
                 ];
 
                 $datasets[] = [
@@ -158,7 +146,6 @@ class ChartService
                     'backgroundColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.1)',
                     'borderColor' => 'rgba('.$profil->getColorRV().','.$profil->getColorGV().','.$profil->getColorBV().',0.1)',
                     'data' =>  $arrayOfMinusV,
-//                'fill' => '-2'
                 ];
 
                 $datasets[] = [
@@ -169,24 +156,7 @@ class ChartService
                 'fill' => '-1'
                 ];
             }
-
-//            dd($datasets);
-
         }
-
-//        if ($cpu)
-//        {
-//            $datasets[] = [
-//                'label' => 'CPU',
-//                'backgroundColor' => 'rgb(0, 0, 192)',
-//                'borderColor' => 'rgb(0, 0, 192)',
-//                'data' => $arrayOfElements['cpu'],
-//                'borderWidth' => 1.5,
-//                'tension' => 0.1,
-//                'fill' => false,
-//                'pointRadius' => 0,
-//            ];
-//        }
 
         $datasToMinMax = [];
 
@@ -213,29 +183,24 @@ class ChartService
 
         $chart->setOptions([
             'plugins' => [
-//                'autocolors',
                 'legend' => [
                     'display' => false,
                 ],
             ],
             'scales' => [
-//                'x' => [
-//                    'ticks' => [
-//                        'autoSkip' => false,
-//                        'maxRotation' => 90,
-//                        'minRotation' => 90,
-//                    ]
-//                ],
                 'y' => [
                     'min' => $min,
                     'max' => $max,
-                ]
+                ],
+                'x' => [
+                    'ticks' => [
+                        'autoSkip' => false,
+                        'maxRotation' => 90,
+                        'minRotation' => 90,
+                    ]
+                ],
             ]
         ]);
-
-
-
-//        dd($datasToMinMax, $min, $max);
 
         $chart->setData([
             'labels' => $labels,
@@ -244,5 +209,139 @@ class ChartService
 
 
         return $chart;
+    }
+
+    public function prepareChartToRaport($chart,
+                                         $profiles,
+                                         $variantsOnChart,
+                                         $criteriesOnChart)
+    {
+
+        $datasets = [];
+        $labels = [];
+
+        foreach ($profiles as $key => $profil)
+        {
+
+            $arrayOfProfil = [];
+            $labels = [];
+
+            foreach ($profil->getProfilValue() as $profilValue)
+            {
+                if (in_array($profilValue->getCritery(), $criteriesOnChart))
+                {
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfProfil += ['.'
+                        => $profilValue->getValue()];
+                    }
+
+                    $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
+                    => $profilValue->getValue()];
+
+
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfProfil += [','
+                        => $profilValue->getValue()];
+                    }
+                }
+            }
+
+            $datasets[] = [
+                'label' => 'Profil '.$key+1,
+                'backgroundColor' => 'rgb('.$profil->getColorR().','.$profil->getColorG().','.$profil->getColorB().')',
+                'borderColor' => 'rgb('.$profil->getColorR().','.$profil->getColorG().','.$profil->getColorB().')',
+                'data' =>  $arrayOfProfil,
+            ];
+        }
+
+        foreach ($variantsOnChart as $key => $variant)
+        {
+
+            $arrayOfVariant = [];
+            $labels = [];
+
+            foreach ($variant->getVariantValue() as $variantValue)
+            {
+                if (in_array($variantValue->getCritery(), $criteriesOnChart))
+                {
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfVariant += ['.'
+                        => $variantValue->getValue()];
+                    }
+
+                    $arrayOfVariant += [$variantValue->getCritery()->getName().' ['.$variantValue->getCritery()->getUnit().']'
+                    => $variantValue->getValue()];
+
+
+                    if (count($criteriesOnChart) == 1)
+                    {
+                        $arrayOfVariant += [','
+                        => $variantValue->getValue()];
+                    }
+                }
+            }
+
+            $datasets[] = [
+                'label' => $variant->getName(),
+                'backgroundColor' => 'rgb('.$variant->getColorR().','.$variant->getColorG().','.$variant->getColorB().')',
+                'borderColor' => 'rgb('.$variant->getColorR().','.$variant->getColorG().','.$variant->getColorB().')',
+                'data' =>  $arrayOfVariant,
+            ];
+        }
+
+        $datasToMinMax = [];
+
+        foreach ($datasets as $dataset)
+        {
+            foreach ($dataset['data'] as $data)
+            {
+                $datasToMinMax[] = $data;
+            }
+        }
+
+        $min = 0;
+        $max = 0;
+
+        if ($datasToMinMax)
+        {
+            $min = min($datasToMinMax);
+            $min = round($min - $min/10, 2);
+
+            $max = max($datasToMinMax);
+            $max = round($max + $max/30, 2);
+        }
+
+
+        $chart->setOptions([
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+            ],
+            'scales' => [
+                'y' => [
+                    'min' => $min,
+                    'max' => $max,
+                ],
+                'x' => [
+                    'ticks' => [
+                        'autoSkip' => false,
+                        'maxRotation' => 90,
+                        'minRotation' => 90,
+                    ]
+                ],
+            ]
+        ]);
+
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => $datasets
+        ]);
+
+        return $chart;
+
     }
 }
