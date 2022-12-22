@@ -7,31 +7,32 @@
     {% include 'top_menu.html.twig' %}
     {{ form_start(form) }}
     <div class="d-flex justify-content-center mt-5">
-        <div class="flex-container col-3 justify-content-center col-1 form-group">
-            <div class="pt-3">
-                <div class="pb-1">
-                    {{ form_label(form.name) }}
+        <div class="d-flex flex-container col-3 justify-content-center col-1 form-group">
+            <div>
+                <div class="pt-3">
+                    <div class="pb-1">
+                        {{ form_label(form.name) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.name) }}
+                    </div>
+                    <div class="pb-1">
+                        {{ form_label(form.cutOffLevel) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.cutOffLevel) }}
+                    </div>
                 </div>
-                <div>
-                    {{ form_widget(form.name) }}
+                <div class="pt-3">
+                    <div class="pb-1 input-group-prepend">
+                        {{ form_label(form.description) }}
+                    </div>
+                    <div style="width: 209px;">
+                        {{ form_widget(form.description,
+                            {'attr': {'class': 'form-control'}}
+                        ) }}
+                    </div>
                 </div>
-                <div class="pb-1">
-                    {{ form_label(form.cutOffLevel) }}
-                </div>
-                <div>
-                    {{ form_widget(form.cutOffLevel) }}
-                </div>
-            </div>
-            <div class="pt-3">
-                <div class="pb-1 input-group-prepend">
-                    {{ form_label(form.description) }}
-                </div>
-                <div style="width: 209px;">
-                    {{ form_widget(form.description,
-                        {'attr': {'class': 'form-control'}}
-                    ) }}
-                </div>
-            </div>
                 <div class="pt-5" style="padding-right: 5px;">
                     {{ form_widget(form.saveProject) }}
                 </div>
@@ -50,15 +51,16 @@
                     <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/klas/{{ project.slug }}" class="text-white text-decoration-none">Klasy</a></button>
                 </div>
                 {% if project.klas|length %}
-                <div class="pt-1" style="padding-right: 5px;">
-                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/profils_values/{{ project.slug }}" class="text-white text-decoration-none">Profile</a></button>
-                </div>
+                    <div class="pt-1" style="padding-right: 5px;">
+                        <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/profils_values/{{ project.slug }}" class="text-white text-decoration-none">Profile</a></button>
+                    </div>
                 {% endif %}
-            {% if project.critery|length %}
-                <div class="pt-1" style="padding-right: 5px;">
-                    <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/threshold_values/{{ project.slug }}" class="text-white text-decoration-none">Progi</a></button>
-                </div>
-            {% endif %}
+                {% if project.critery|length %}
+                    <div class="pt-1" style="padding-right: 5px;">
+                        <button type="button" class="btn btn-secondary" style="width: 209px;"><a href="/projects/edit/threshold_values/{{ project.slug }}" class="text-white text-decoration-none">Progi</a></button>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
     {{ form_end(form) }}

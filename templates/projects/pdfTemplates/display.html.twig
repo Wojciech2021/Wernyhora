@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-
-{% block title %}Projekt {{ project.name }}: Raport{% endblock %}
 <body>
 {% block body %}
     <div class="d-flex flex-row justify-content-center">
         <h1>Raport z projektu: {{ project.name }}</h1>
     </div>
+    {% include'/projects/pdfTemplates/variantsCriteries.html.twig' %}
     {% if criteries|length >= 1 and variants|length >= 1 %}
         <div class="d-flex flex-row justify-content-center pt-5">
             <h2>Profile</h2>

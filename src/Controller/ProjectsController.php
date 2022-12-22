@@ -18,6 +18,7 @@ use App\Service\CriteryVariantService;
 use App\Service\KlasService;
 use App\Service\testAndIndexService;
 use App\Service\TheresholdService;
+use App\Service\VariantCriteryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -285,7 +286,9 @@ class ProjectsController extends AbstractController
     public function raportProject(Request               $request,
                                   Project               $project,
                                   TheresholdService     $theresholdService,
-                                  Session               $session)
+                                  Session               $session,
+                                  ChartService          $chartService,
+                                  ChartBuilderInterface $chartBuilder,)
     {
         $criteriesCollection = $session->get('criteriesCollection');
         $variantsCollection = $session->get('variantsCollection');
@@ -293,6 +296,8 @@ class ProjectsController extends AbstractController
         $klass = $project->getKlas();
         $profiles = $project->getProfil();
         $variants = $project->getVariant();
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart = $chartService->prepareChartToRaport($chart, $profiles, $variants->toArray(), $criteries->toArray());
 
         $form = $this->createForm(CriteriesVariantsToCalculateType::class,
             [
@@ -328,6 +333,8 @@ class ProjectsController extends AbstractController
                     $testValues = $testAndIndexService->getTestValues();
                 }
 
+                $chart = $chartService->prepareChartToRaport($chart, $profiles, $variantsCollection, $criteriesCollection);
+
                 return $this->render('/projects/testValue/display.html.twig',[
                     'project' => $project,
                     'criteries' => $criteriesCollection,
@@ -337,6 +344,7 @@ class ProjectsController extends AbstractController
                     'testValues' => $testValues,
                     'form' => $form,
                     'theresholdService' => $theresholdService,
+                    'chart' => $chart,
                 ]);
             }
 
@@ -364,13 +372,15 @@ class ProjectsController extends AbstractController
             'testValues' => $testValues,
             'form' => $form,
             'theresholdService' => $theresholdService,
+            'chart' => $chart,
         ]);
     }
 
     #[Route('/projects/raport/pdf/{slug}', name: 'app_raport_pdf_project')]
     public function raportPDFProject(Project               $project,
                                      TheresholdService     $theresholdService,
-                                     Session               $session)
+                                     Session               $session,
+                                    VariantCriteryService $variantCriteryService)
     {
         $criteriesCollection = $session->get('criteriesCollection');
         $variantsCollection = $session->get('variantsCollection');
@@ -385,26 +395,8 @@ class ProjectsController extends AbstractController
 
         if (count($criteriesCollection) >= 1 && count($variantsCollection) >=1)
         {
-            $criteries = $criteries->filter(function ($critery) use ($criteriesCollection) {
-                foreach ($criteriesCollection as $item)
-                {
-                    if ($critery->getId() ==  $item->getid())
-                    {
-                        return $critery;
-                    }
-                }
-            });
-
-            $variants = $variants->filter(function ($variant) use ($variantsCollection){
-                foreach ($variantsCollection as $item)
-                {
-                    if ($variant->getId() == $item->getId())
-                    {
-                        return $variant;
-                    }
-                }
-            });
-
+            $criteries = $variantCriteryService->filterVariantCritery($criteries, $criteriesCollection);
+            $variants = $variantCriteryService->filterVariantCritery($variants, $variantsCollection);
             $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
             $testValues = $testAndIndexService->getTestValues();
         }
@@ -413,8 +405,6 @@ class ProjectsController extends AbstractController
             $testAndIndexService = new testAndIndexService($project, $theresholdService, $criteries, $variants, $profiles);
             $testValues = $testAndIndexService->getTestValues();
         }
-
-
 
         $html = <<<EOF
 <style>
@@ -457,7 +447,7 @@ EOF;
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $dompdf->stream();
+        $dompdf->stream($project->getName().".pdf");
 
     }
 

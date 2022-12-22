@@ -1,0 +1,56 @@
+<div class="d-flex flex-row justify-content-center pt-5">
+    <h2>Kryteria</h2>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <table class="table w-25 p-3">
+            <thead>
+            <tr>
+                <th class="text-center text-nowrap">Nazwa</th>
+                <th class="text-center text-nowrap">Jednostka</th>
+                <th class="text-center text-nowrap">Waga</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for critery in criteries %}
+                    <tr>
+                        <td class="text-center text-nowrap">{{ critery.name }}</td>
+                        <td class="text-center text-nowrap">{{ critery.unit }}</td>
+                        <td class="text-center text-nowrap">{{ critery.weight }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="d-flex flex-row justify-content-center pt-5">
+    <h2>Warianty</h2>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <table class="table w-25 p-3">
+            <thead>
+                <tr>
+                    <th class="text-center text-nowrap">Nazwa</th>
+                    {% for critery in criteries %}
+                    <th class="text-center text-nowrap">{{ critery.name }}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for variant in variants %}
+                    <tr>
+                        <td class="text-nowrap">{{ variant.name }}</td>
+                        {% for critery in criteries %}
+                            {% for variantValue in variant.variantValue %}
+                                {% if variantValue.variant is same as(variant) and variantValue.critery is same as(critery) %}
+                                    <td class="text-center">{{ variantValue.value }}</td>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

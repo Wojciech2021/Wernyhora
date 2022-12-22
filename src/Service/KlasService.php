@@ -55,12 +55,15 @@ class KlasService
                                         $klass)
     {
 
+
         $klassCounter = count($klass);
         $profilesCouter = count($project->getProfil());
-
+//        dd($profilesCouter);
 
         if ($profilesCouter < $klassCounter - 1)
         {
+
+
 
             for($i = 0; $i < $klassCounter - 1; $i++)
             {
@@ -71,32 +74,32 @@ class KlasService
                 $this->profilRepository->save($profil, false);
                 $project->addProfil($profil);
             }
+        }
 
-            $profiles = $project->getProfil();
-            $criteries = $project->getCritery();
+        $profiles = $project->getProfil();
+        $criteries = $project->getCritery();
 
-            $criteriesCounter = count($criteries);
-            $profilesCouter = count($profiles);
+        $criteriesCounter = count($criteries);
+        $profilesCouter = count($profiles);
 
-            foreach ($criteries as $critery)
-            {
+        foreach ($criteries as $critery)
+        {
 
-                if (count($critery->getProfilValue()) < $profilesCouter){
+            if (count($critery->getProfilValue()) < $profilesCouter){
 
-                    foreach ($profiles as $profil)
+                foreach ($profiles as $profil)
+                {
+
+                    if (count($profil->getProfilValue()) < $criteriesCounter)
                     {
 
-                        if (count($profil->getProfilValue()) < $criteriesCounter)
-                        {
+                        $profilValue = new ProfilValue();
+                        $profilValue->setCritery($critery);
+                        $profilValue->setProfil($profil);
+                        $this->profilValueRepository->save($profilValue, false);
 
-                            $profilValue = new ProfilValue();
-                            $profilValue->setCritery($critery);
-                            $profilValue->setProfil($profil);
-                            $this->profilValueRepository->save($profilValue, false);
-
-                            $critery->addProfilValue($profilValue);
-                            $profil->addProfilValue($profilValue);
-                        }
+                        $critery->addProfilValue($profilValue);
+                        $profil->addProfilValue($profilValue);
                     }
                 }
             }
