@@ -72,7 +72,7 @@ class __TwigTemplate_bdb470fa80583d67d207104a41c9ff69 extends Template
         $context["status_color"] = (((((twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 5, $this->source); })()), "memory", [], "any", false, false, false, 5) / 1024) / 1024) > 50)) ? ("yellow") : (""));
         // line 6
         echo "        ";
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/memory.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/memory.svg");
         echo "
         <span class=\"sf-toolbar-value\">";
         // line 7
@@ -141,7 +141,7 @@ class __TwigTemplate_bdb470fa80583d67d207104a41c9ff69 extends Template
 {% block toolbar %}
     {% set icon %}
         {% set status_color = (collector.memory / 1024 / 1024) > 50 ? 'yellow' %}
-        {{ include('@WebProfiler/Icon/memory.svg') }}
+        {{ source('@WebProfiler/Icon/memory.svg') }}
         <span class=\"sf-toolbar-value\">{{ '%.1f'|format(collector.memory / 1024 / 1024) }}</span>
         <span class=\"sf-toolbar-label\">MiB</span>
     {% endset %}

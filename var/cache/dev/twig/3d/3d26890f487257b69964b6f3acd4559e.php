@@ -72,7 +72,7 @@ class __TwigTemplate_c53f96aedc9759e0b18aca0766068e5a extends Template
         echo "<span class=\"label\">
     <span class=\"icon\">";
         // line 7
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/event.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/event.svg");
         echo "</span>
     <strong>Events</strong>
 </span>
@@ -102,7 +102,7 @@ class __TwigTemplate_c53f96aedc9759e0b18aca0766068e5a extends Template
         // line 15
         if (twig_test_empty(twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 15, $this->source); })()), "calledlisteners", [], "any", false, false, false, 15))) {
             // line 16
-            echo "        <div class=\"empty\">
+            echo "        <div class=\"empty empty-panel\">
             <p>No events have been recorded. Check that debugging is enabled in the kernel.</p>
         </div>
     ";
@@ -369,7 +369,7 @@ class __TwigTemplate_c53f96aedc9759e0b18aca0766068e5a extends Template
 
 {% block menu %}
 <span class=\"label\">
-    <span class=\"icon\">{{ include('@WebProfiler/Icon/event.svg') }}</span>
+    <span class=\"icon\">{{ source('@WebProfiler/Icon/event.svg') }}</span>
     <strong>Events</strong>
 </span>
 {% endblock %}
@@ -378,7 +378,7 @@ class __TwigTemplate_c53f96aedc9759e0b18aca0766068e5a extends Template
     <h2>Event Dispatcher</h2>
 
     {% if collector.calledlisteners is empty %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No events have been recorded. Check that debugging is enabled in the kernel.</p>
         </div>
     {% else %}

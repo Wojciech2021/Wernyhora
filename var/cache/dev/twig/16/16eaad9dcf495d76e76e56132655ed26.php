@@ -42,7 +42,7 @@ class __TwigTemplate_85d90f9bf27b0ccc1775700acafdbc17 extends Template
         // line 1
         if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 1, $this->source); })()), "user", [], "any", false, false, false, 1)) {
             // line 2
-            echo "    <div class=\"d-flex\">
+            echo "    <div class=\"d-flex container\">
         <div class=\"col-6 justify-content-start m\">
             <a href=\"";
             // line 4
@@ -86,7 +86,7 @@ class __TwigTemplate_85d90f9bf27b0ccc1775700acafdbc17 extends Template
     public function getSourceContext()
     {
         return new Source("{% if app.user %}
-    <div class=\"d-flex\">
+    <div class=\"d-flex container\">
         <div class=\"col-6 justify-content-start m\">
             <a href=\"{{ path('app_manage_projects') }}\">WERNYHORA</a>
         </div>

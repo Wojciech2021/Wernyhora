@@ -80,9 +80,10 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
             ob_start();
             // line 8
             echo "            ";
-            $this->loadTemplate("@WebProfiler/Icon/notifier.svg", "@WebProfiler/Collector/notifier.html.twig", 8)->display($context);
+            echo twig_source($this->env, "@WebProfiler/Icon/notifier.svg");
+            echo "
+            <span class=\"sf-toolbar-value\">";
             // line 9
-            echo "            <span class=\"sf-toolbar-value\">";
             echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["events"]) || array_key_exists("events", $context) ? $context["events"] : (function () { throw new RuntimeError('Variable "events" does not exist.', 9, $this->source); })()), "messages", [], "any", false, false, false, 9)), "html", null, true);
             echo "</span>
         ";
@@ -218,7 +219,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
         echo "\">
         <span class=\"icon\">";
         // line 71
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/notifier.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/notifier.svg");
         echo "</span>
 
         <strong>Notifications</strong>
@@ -266,7 +267,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
         // line 87
         if ( !twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["events"]) || array_key_exists("events", $context) ? $context["events"] : (function () { throw new RuntimeError('Variable "events" does not exist.', 87, $this->source); })()), "messages", [], "any", false, false, false, 87))) {
             // line 88
-            echo "        <div class=\"empty\">
+            echo "        <div class=\"empty empty-panel\">
             <p>No notifications were sent.</p>
         </div>
     ";
@@ -471,7 +472,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
 
     public function getDebugInfo()
     {
-        return array (  447 => 165,  425 => 156,  422 => 154,  419 => 152,  417 => 151,  412 => 147,  404 => 142,  401 => 141,  398 => 140,  395 => 139,  392 => 138,  389 => 137,  386 => 135,  384 => 134,  380 => 132,  378 => 131,  374 => 129,  366 => 124,  361 => 122,  355 => 118,  353 => 117,  348 => 115,  338 => 110,  335 => 109,  332 => 108,  315 => 107,  307 => 103,  303 => 102,  299 => 100,  290 => 97,  286 => 96,  283 => 95,  279 => 94,  275 => 92,  269 => 88,  267 => 87,  262 => 84,  259 => 83,  249 => 82,  238 => 79,  232 => 76,  229 => 75,  227 => 74,  221 => 71,  217 => 70,  214 => 69,  211 => 68,  201 => 67,  155 => 31,  145 => 30,  132 => 26,  129 => 25,  126 => 24,  117 => 21,  113 => 20,  110 => 19,  106 => 18,  100 => 15,  96 => 13,  94 => 12,  91 => 11,  85 => 9,  82 => 8,  79 => 7,  77 => 6,  74 => 5,  71 => 4,  61 => 3,  38 => 1,);
+        return array (  448 => 165,  426 => 156,  423 => 154,  420 => 152,  418 => 151,  413 => 147,  405 => 142,  402 => 141,  399 => 140,  396 => 139,  393 => 138,  390 => 137,  387 => 135,  385 => 134,  381 => 132,  379 => 131,  375 => 129,  367 => 124,  362 => 122,  356 => 118,  354 => 117,  349 => 115,  339 => 110,  336 => 109,  333 => 108,  316 => 107,  308 => 103,  304 => 102,  300 => 100,  291 => 97,  287 => 96,  284 => 95,  280 => 94,  276 => 92,  270 => 88,  268 => 87,  263 => 84,  260 => 83,  250 => 82,  239 => 79,  233 => 76,  230 => 75,  228 => 74,  222 => 71,  218 => 70,  215 => 69,  212 => 68,  202 => 67,  156 => 31,  146 => 30,  133 => 26,  130 => 25,  127 => 24,  118 => 21,  114 => 20,  111 => 19,  107 => 18,  101 => 15,  97 => 13,  95 => 12,  92 => 11,  87 => 9,  82 => 8,  79 => 7,  77 => 6,  74 => 5,  71 => 4,  61 => 3,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -483,7 +484,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
 
     {% if events.messages|length %}
         {% set icon %}
-            {% include('@WebProfiler/Icon/notifier.svg') %}
+            {{ source('@WebProfiler/Icon/notifier.svg') }}
             <span class=\"sf-toolbar-value\">{{ events.messages|length }}</span>
         {% endset %}
 
@@ -546,7 +547,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
     {% set events = collector.events %}
 
     <span class=\"label {{ events.messages|length ? '' : 'disabled' }}\">
-        <span class=\"icon\">{{ include('@WebProfiler/Icon/notifier.svg') }}</span>
+        <span class=\"icon\">{{ source('@WebProfiler/Icon/notifier.svg') }}</span>
 
         <strong>Notifications</strong>
         {% if events.messages|length > 0 %}
@@ -563,7 +564,7 @@ class __TwigTemplate_8664fabfd768edb48925695c0243bea9 extends Template
     <h2>Notifications</h2>
 
     {% if not events.messages|length %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No notifications were sent.</p>
         </div>
     {% endif %}

@@ -158,34 +158,34 @@ class __TwigTemplate_80d5b520c8083bb3f05cc583089272df extends Template
 ";
         // line 225
         $this->displayBlock('form_label', $context, $blocks);
-        // line 269
+        // line 247
         echo "
 ";
-        // line 270
+        // line 248
         $this->displayBlock('checkbox_radio_label', $context, $blocks);
-        // line 318
+        // line 274
         echo "
 ";
-        // line 320
+        // line 276
         echo "
 ";
-        // line 321
+        // line 277
         $this->displayBlock('form_row', $context, $blocks);
-        // line 335
+        // line 291
         echo "
 ";
-        // line 337
+        // line 293
         echo "
 ";
-        // line 338
+        // line 294
         $this->displayBlock('form_errors', $context, $blocks);
-        // line 349
+        // line 305
         echo "
 ";
-        // line 351
+        // line 307
         echo "
 ";
-        // line 352
+        // line 308
         $this->displayBlock('form_help', $context, $blocks);
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -212,7 +212,7 @@ class __TwigTemplate_80d5b520c8083bb3f05cc583089272df extends Template
         // line 8
         if (((isset($context["prepend"]) || array_key_exists("prepend", $context) ? $context["prepend"] : (function () { throw new RuntimeError('Variable "prepend" does not exist.', 8, $this->source); })()) || (isset($context["append"]) || array_key_exists("append", $context) ? $context["append"] : (function () { throw new RuntimeError('Variable "append" does not exist.', 8, $this->source); })()))) {
             // line 9
-            echo "<div class=\"input-group";
+            echo "<div class=\"input-group ";
             echo twig_escape_filter($this->env, ((array_key_exists("group_class", $context)) ? (_twig_default_filter((isset($context["group_class"]) || array_key_exists("group_class", $context) ? $context["group_class"] : (function () { throw new RuntimeError('Variable "group_class" does not exist.', 9, $this->source); })()), "")) : ("")), "html", null, true);
             echo "\">";
             // line 10
@@ -870,26 +870,13 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
                 $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 234, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 234)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 234), "")) : ("")) . " required"))]);
             }
             // line 236
-            if (twig_test_empty((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 236, $this->source); })()))) {
-                // line 237
-                if ( !twig_test_empty((isset($context["label_format"]) || array_key_exists("label_format", $context) ? $context["label_format"] : (function () { throw new RuntimeError('Variable "label_format" does not exist.', 237, $this->source); })()))) {
-                    // line 238
-                    $context["label"] = twig_replace_filter((isset($context["label_format"]) || array_key_exists("label_format", $context) ? $context["label_format"] : (function () { throw new RuntimeError('Variable "label_format" does not exist.', 238, $this->source); })()), ["%name%" =>                     // line 239
-(isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 239, $this->source); })()), "%id%" =>                     // line 240
-(isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 240, $this->source); })())]);
-                } else {
-                    // line 243
-                    $context["label"] = $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->humanize((isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 243, $this->source); })()));
-                }
-            }
-            // line 246
             echo "<";
-            echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 246, $this->source); })()), "label")) : ("label")), "html", null, true);
-            if ((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 246, $this->source); })())) {
+            echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 236, $this->source); })()), "label")) : ("label")), "html", null, true);
+            if ((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 236, $this->source); })())) {
                 $__internal_compile_6 = $context;
-                $__internal_compile_7 = ["attr" => (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 246, $this->source); })())];
+                $__internal_compile_7 = ["attr" => (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 236, $this->source); })())];
                 if (!twig_test_iterable($__internal_compile_7)) {
-                    throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 246, $this->getSourceContext());
+                    throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 236, $this->getSourceContext());
                 }
                 $__internal_compile_7 = twig_to_array($__internal_compile_7);
                 $context = $this->env->mergeGlobals(array_merge($context, $__internal_compile_7));
@@ -897,41 +884,23 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
                 $context = $__internal_compile_6;
             }
             echo ">";
-            // line 247
-            if (((isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 247, $this->source); })()) === false)) {
-                // line 248
-                if (((isset($context["label_html"]) || array_key_exists("label_html", $context) ? $context["label_html"] : (function () { throw new RuntimeError('Variable "label_html" does not exist.', 248, $this->source); })()) === false)) {
-                    // line 249
-                    echo twig_escape_filter($this->env, (isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 249, $this->source); })()), "html", null, true);
-                } else {
-                    // line 251
-                    echo (isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 251, $this->source); })());
-                }
-            } else {
-                // line 254
-                if (((isset($context["label_html"]) || array_key_exists("label_html", $context) ? $context["label_html"] : (function () { throw new RuntimeError('Variable "label_html" does not exist.', 254, $this->source); })()) === false)) {
-                    // line 255
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 255, $this->source); })()), (isset($context["label_translation_parameters"]) || array_key_exists("label_translation_parameters", $context) ? $context["label_translation_parameters"] : (function () { throw new RuntimeError('Variable "label_translation_parameters" does not exist.', 255, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 255, $this->source); })())), "html", null, true);
-                } else {
-                    // line 257
-                    echo $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 257, $this->source); })()), (isset($context["label_translation_parameters"]) || array_key_exists("label_translation_parameters", $context) ? $context["label_translation_parameters"] : (function () { throw new RuntimeError('Variable "label_translation_parameters" does not exist.', 257, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 257, $this->source); })()));
-                }
-            }
-            // line 260
+            // line 237
+            $this->displayBlock("form_label_content", $context, $blocks);
+            // line 238
             $this->displayBlock('form_label_errors', $context, $blocks);
             echo "</";
-            echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 260, $this->source); })()), "label")) : ("label")), "html", null, true);
+            echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 238, $this->source); })()), "label")) : ("label")), "html", null, true);
             echo ">";
         } else {
-            // line 262
-            if ((twig_length_filter($this->env, (isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 262, $this->source); })())) > 0)) {
-                // line 263
+            // line 240
+            if ((twig_length_filter($this->env, (isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 240, $this->source); })())) > 0)) {
+                // line 241
                 echo "<div id=\"";
-                echo twig_escape_filter($this->env, (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 263, $this->source); })()), "html", null, true);
+                echo twig_escape_filter($this->env, (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 241, $this->source); })()), "html", null, true);
                 echo "_errors\" class=\"mb-2\">";
-                // line 264
-                echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 264, $this->source); })()), 'errors');
-                // line 265
+                // line 242
+                echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 242, $this->source); })()), 'errors');
+                // line 243
                 echo "</div>";
             }
         }
@@ -943,7 +912,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     }
 
-    // line 260
+    // line 238
     public function block_form_label_errors($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -953,7 +922,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "form_label_errors"));
 
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 260, $this->source); })()), 'errors');
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 238, $this->source); })()), 'errors');
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -962,7 +931,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     }
 
-    // line 270
+    // line 248
     public function block_checkbox_radio_label($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -972,85 +941,54 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "checkbox_radio_label"));
 
-        // line 272
+        // line 250
         if (array_key_exists("widget", $context)) {
-            // line 273
-            $context["is_parent_custom"] = (array_key_exists("parent_label_class", $context) && ((twig_in_filter("checkbox-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 273, $this->source); })())) || twig_in_filter("radio-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 273, $this->source); })()))) || twig_in_filter("switch-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 273, $this->source); })()))));
-            // line 274
+            // line 251
+            $context["is_parent_custom"] = (array_key_exists("parent_label_class", $context) && ((twig_in_filter("checkbox-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 251, $this->source); })())) || twig_in_filter("radio-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 251, $this->source); })()))) || twig_in_filter("switch-custom", (isset($context["parent_label_class"]) || array_key_exists("parent_label_class", $context) ? $context["parent_label_class"] : (function () { throw new RuntimeError('Variable "parent_label_class" does not exist.', 251, $this->source); })()))));
+            // line 252
             echo "        ";
-            $context["is_custom"] = (twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 274) && ((twig_in_filter("checkbox-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 274, $this->source); })()), "class", [], "any", false, false, false, 274)) || twig_in_filter("radio-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 274, $this->source); })()), "class", [], "any", false, false, false, 274))) || twig_in_filter("switch-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 274, $this->source); })()), "class", [], "any", false, false, false, 274))));
-            // line 275
-            if (((isset($context["is_parent_custom"]) || array_key_exists("is_parent_custom", $context) ? $context["is_parent_custom"] : (function () { throw new RuntimeError('Variable "is_parent_custom" does not exist.', 275, $this->source); })()) || (isset($context["is_custom"]) || array_key_exists("is_custom", $context) ? $context["is_custom"] : (function () { throw new RuntimeError('Variable "is_custom" does not exist.', 275, $this->source); })()))) {
-                // line 276
-                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 276, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 276)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 276), "")) : ("")) . " custom-control-label"))]);
+            $context["is_custom"] = (twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 252) && ((twig_in_filter("checkbox-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 252, $this->source); })()), "class", [], "any", false, false, false, 252)) || twig_in_filter("radio-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 252, $this->source); })()), "class", [], "any", false, false, false, 252))) || twig_in_filter("switch-custom", twig_get_attribute($this->env, $this->source, (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 252, $this->source); })()), "class", [], "any", false, false, false, 252))));
+            // line 253
+            if (((isset($context["is_parent_custom"]) || array_key_exists("is_parent_custom", $context) ? $context["is_parent_custom"] : (function () { throw new RuntimeError('Variable "is_parent_custom" does not exist.', 253, $this->source); })()) || (isset($context["is_custom"]) || array_key_exists("is_custom", $context) ? $context["is_custom"] : (function () { throw new RuntimeError('Variable "is_custom" does not exist.', 253, $this->source); })()))) {
+                // line 254
+                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 254, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 254)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 254), "")) : ("")) . " custom-control-label"))]);
             } else {
-                // line 278
-                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 278, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 278)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 278), "")) : ("")) . " form-check-label"))]);
+                // line 256
+                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 256, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 256)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 256), "")) : ("")) . " form-check-label"))]);
             }
-            // line 280
-            if ( !(isset($context["compound"]) || array_key_exists("compound", $context) ? $context["compound"] : (function () { throw new RuntimeError('Variable "compound" does not exist.', 280, $this->source); })())) {
-                // line 281
-                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 281, $this->source); })()), ["for" => (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 281, $this->source); })())]);
+            // line 258
+            if ( !(isset($context["compound"]) || array_key_exists("compound", $context) ? $context["compound"] : (function () { throw new RuntimeError('Variable "compound" does not exist.', 258, $this->source); })())) {
+                // line 259
+                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 259, $this->source); })()), ["for" => (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 259, $this->source); })())]);
             }
-            // line 283
-            if ((isset($context["required"]) || array_key_exists("required", $context) ? $context["required"] : (function () { throw new RuntimeError('Variable "required" does not exist.', 283, $this->source); })())) {
-                // line 284
-                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 284, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 284)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 284), "")) : ("")) . " required"))]);
+            // line 261
+            if ((isset($context["required"]) || array_key_exists("required", $context) ? $context["required"] : (function () { throw new RuntimeError('Variable "required" does not exist.', 261, $this->source); })())) {
+                // line 262
+                $context["label_attr"] = twig_array_merge((isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 262, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", true, true, false, 262)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["label_attr"] ?? null), "class", [], "any", false, false, false, 262), "")) : ("")) . " required"))]);
             }
-            // line 286
-            if (( !((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 286, $this->source); })()) === false) && twig_test_empty((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 286, $this->source); })())))) {
-                // line 287
-                if ( !twig_test_empty((isset($context["label_format"]) || array_key_exists("label_format", $context) ? $context["label_format"] : (function () { throw new RuntimeError('Variable "label_format" does not exist.', 287, $this->source); })()))) {
-                    // line 288
-                    $context["label"] = twig_replace_filter((isset($context["label_format"]) || array_key_exists("label_format", $context) ? $context["label_format"] : (function () { throw new RuntimeError('Variable "label_format" does not exist.', 288, $this->source); })()), ["%name%" =>                     // line 289
-(isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 289, $this->source); })()), "%id%" =>                     // line 290
-(isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 290, $this->source); })())]);
-                } else {
-                    // line 293
-                    $context["label"] = $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->humanize((isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 293, $this->source); })()));
-                }
-            }
-            // line 297
-            echo (isset($context["widget"]) || array_key_exists("widget", $context) ? $context["widget"] : (function () { throw new RuntimeError('Variable "widget" does not exist.', 297, $this->source); })());
+            // line 265
+            echo (isset($context["widget"]) || array_key_exists("widget", $context) ? $context["widget"] : (function () { throw new RuntimeError('Variable "widget" does not exist.', 265, $this->source); })());
             echo "
         <label";
-            // line 298
+            // line 266
             $__internal_compile_8 = $context;
-            $__internal_compile_9 = ["attr" => (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 298, $this->source); })())];
+            $__internal_compile_9 = ["attr" => (isset($context["label_attr"]) || array_key_exists("label_attr", $context) ? $context["label_attr"] : (function () { throw new RuntimeError('Variable "label_attr" does not exist.', 266, $this->source); })())];
             if (!twig_test_iterable($__internal_compile_9)) {
-                throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 298, $this->getSourceContext());
+                throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 266, $this->getSourceContext());
             }
             $__internal_compile_9 = twig_to_array($__internal_compile_9);
             $context = $this->env->mergeGlobals(array_merge($context, $__internal_compile_9));
             $this->displayBlock("attributes", $context, $blocks);
             $context = $__internal_compile_8;
             echo ">";
-            // line 299
-            if ( !((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 299, $this->source); })()) === false)) {
-                // line 300
-                if (((isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 300, $this->source); })()) === false)) {
-                    // line 301
-                    if (((isset($context["label_html"]) || array_key_exists("label_html", $context) ? $context["label_html"] : (function () { throw new RuntimeError('Variable "label_html" does not exist.', 301, $this->source); })()) === false)) {
-                        // line 302
-                        echo twig_escape_filter($this->env, (isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 302, $this->source); })()), "html", null, true);
-                    } else {
-                        // line 304
-                        echo (isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 304, $this->source); })());
-                    }
-                } else {
-                    // line 307
-                    if (((isset($context["label_html"]) || array_key_exists("label_html", $context) ? $context["label_html"] : (function () { throw new RuntimeError('Variable "label_html" does not exist.', 307, $this->source); })()) === false)) {
-                        // line 308
-                        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 308, $this->source); })()), (isset($context["label_translation_parameters"]) || array_key_exists("label_translation_parameters", $context) ? $context["label_translation_parameters"] : (function () { throw new RuntimeError('Variable "label_translation_parameters" does not exist.', 308, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 308, $this->source); })())), "html", null, true);
-                    } else {
-                        // line 310
-                        echo $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 310, $this->source); })()), (isset($context["label_translation_parameters"]) || array_key_exists("label_translation_parameters", $context) ? $context["label_translation_parameters"] : (function () { throw new RuntimeError('Variable "label_translation_parameters" does not exist.', 310, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 310, $this->source); })()));
-                    }
-                }
+            // line 267
+            if ( !((isset($context["label"]) || array_key_exists("label", $context) ? $context["label"] : (function () { throw new RuntimeError('Variable "label" does not exist.', 267, $this->source); })()) === false)) {
+                // line 268
+                $this->displayBlock("form_label_content", $context, $blocks);
             }
-            // line 314
-            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 314, $this->source); })()), 'errors');
-            // line 315
+            // line 270
+            echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 270, $this->source); })()), 'errors');
+            // line 271
             echo "</label>";
         }
         
@@ -1061,7 +999,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     }
 
-    // line 321
+    // line 277
     public function block_form_row($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -1071,40 +1009,40 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "form_row"));
 
-        // line 322
-        if ((array_key_exists("compound", $context) && (isset($context["compound"]) || array_key_exists("compound", $context) ? $context["compound"] : (function () { throw new RuntimeError('Variable "compound" does not exist.', 322, $this->source); })()))) {
-            // line 323
+        // line 278
+        if ((array_key_exists("compound", $context) && (isset($context["compound"]) || array_key_exists("compound", $context) ? $context["compound"] : (function () { throw new RuntimeError('Variable "compound" does not exist.', 278, $this->source); })()))) {
+            // line 279
             $context["element"] = "fieldset";
         }
-        // line 325
+        // line 281
         $context["widget_attr"] = [];
-        // line 326
-        if ( !twig_test_empty((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 326, $this->source); })()))) {
-            // line 327
-            $context["widget_attr"] = ["attr" => ["aria-describedby" => ((isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 327, $this->source); })()) . "_help")]];
+        // line 282
+        if ( !twig_test_empty((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 282, $this->source); })()))) {
+            // line 283
+            $context["widget_attr"] = ["attr" => ["aria-describedby" => ((isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 283, $this->source); })()) . "_help")]];
         }
-        // line 329
+        // line 285
         echo "<";
-        echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 329, $this->source); })()), "div")) : ("div")), "html", null, true);
+        echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 285, $this->source); })()), "div")) : ("div")), "html", null, true);
         $__internal_compile_10 = $context;
-        $__internal_compile_11 = ["attr" => twig_array_merge((isset($context["row_attr"]) || array_key_exists("row_attr", $context) ? $context["row_attr"] : (function () { throw new RuntimeError('Variable "row_attr" does not exist.', 329, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["row_attr"] ?? null), "class", [], "any", true, true, false, 329)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["row_attr"] ?? null), "class", [], "any", false, false, false, 329), "")) : ("")) . " form-group"))])];
+        $__internal_compile_11 = ["attr" => twig_array_merge((isset($context["row_attr"]) || array_key_exists("row_attr", $context) ? $context["row_attr"] : (function () { throw new RuntimeError('Variable "row_attr" does not exist.', 285, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["row_attr"] ?? null), "class", [], "any", true, true, false, 285)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["row_attr"] ?? null), "class", [], "any", false, false, false, 285), "")) : ("")) . " form-group"))])];
         if (!twig_test_iterable($__internal_compile_11)) {
-            throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 329, $this->getSourceContext());
+            throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 285, $this->getSourceContext());
         }
         $__internal_compile_11 = twig_to_array($__internal_compile_11);
         $context = $this->env->mergeGlobals(array_merge($context, $__internal_compile_11));
         $this->displayBlock("attributes", $context, $blocks);
         $context = $__internal_compile_10;
         echo ">";
-        // line 330
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 330, $this->source); })()), 'label');
-        // line 331
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 331, $this->source); })()), 'widget', (isset($context["widget_attr"]) || array_key_exists("widget_attr", $context) ? $context["widget_attr"] : (function () { throw new RuntimeError('Variable "widget_attr" does not exist.', 331, $this->source); })()));
-        // line 332
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 332, $this->source); })()), 'help');
-        // line 333
+        // line 286
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 286, $this->source); })()), 'label');
+        // line 287
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 287, $this->source); })()), 'widget', (isset($context["widget_attr"]) || array_key_exists("widget_attr", $context) ? $context["widget_attr"] : (function () { throw new RuntimeError('Variable "widget_attr" does not exist.', 287, $this->source); })()));
+        // line 288
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 288, $this->source); })()), 'help');
+        // line 289
         echo "</";
-        echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 333, $this->source); })()), "div")) : ("div")), "html", null, true);
+        echo twig_escape_filter($this->env, ((array_key_exists("element", $context)) ? (_twig_default_filter((isset($context["element"]) || array_key_exists("element", $context) ? $context["element"] : (function () { throw new RuntimeError('Variable "element" does not exist.', 289, $this->source); })()), "div")) : ("div")), "html", null, true);
         echo ">";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -1114,7 +1052,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     }
 
-    // line 338
+    // line 294
     public function block_form_errors($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -1124,34 +1062,34 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "form_errors"));
 
-        // line 339
-        if ((twig_length_filter($this->env, (isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 339, $this->source); })())) > 0)) {
-            // line 340
+        // line 295
+        if ((twig_length_filter($this->env, (isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 295, $this->source); })())) > 0)) {
+            // line 296
             echo "<span class=\"";
-            if ( !Symfony\Bridge\Twig\Extension\twig_is_root_form((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 340, $this->source); })()))) {
+            if ( !Symfony\Bridge\Twig\Extension\twig_is_root_form((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 296, $this->source); })()))) {
                 echo "invalid-feedback";
             } else {
                 echo "alert alert-danger";
             }
             echo " d-block\">";
-            // line 341
+            // line 297
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 341, $this->source); })()));
+            $context['_seq'] = twig_ensure_traversable((isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 297, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 342
+                // line 298
                 echo "<span class=\"d-block\">
                     <span class=\"form-error-icon badge badge-danger text-uppercase\">";
-                // line 343
+                // line 299
                 echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("Error", [], "validators"), "html", null, true);
                 echo "</span> <span class=\"form-error-message\">";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["error"], "message", [], "any", false, false, false, 343), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["error"], "message", [], "any", false, false, false, 299), "html", null, true);
                 echo "</span>
                 </span>";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 346
+            // line 302
             echo "</span>";
         }
         
@@ -1162,7 +1100,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     }
 
-    // line 352
+    // line 308
     public function block_form_help($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -1172,45 +1110,27 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "form_help"));
 
-        // line 353
-        if ( !twig_test_empty((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 353, $this->source); })()))) {
-            // line 354
-            $context["help_attr"] = twig_array_merge((isset($context["help_attr"]) || array_key_exists("help_attr", $context) ? $context["help_attr"] : (function () { throw new RuntimeError('Variable "help_attr" does not exist.', 354, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["help_attr"] ?? null), "class", [], "any", true, true, false, 354)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["help_attr"] ?? null), "class", [], "any", false, false, false, 354), "")) : ("")) . " form-text text-muted"))]);
-            // line 355
+        // line 309
+        if ( !twig_test_empty((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 309, $this->source); })()))) {
+            // line 310
+            $context["help_attr"] = twig_array_merge((isset($context["help_attr"]) || array_key_exists("help_attr", $context) ? $context["help_attr"] : (function () { throw new RuntimeError('Variable "help_attr" does not exist.', 310, $this->source); })()), ["class" => twig_trim_filter((((twig_get_attribute($this->env, $this->source, ($context["help_attr"] ?? null), "class", [], "any", true, true, false, 310)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["help_attr"] ?? null), "class", [], "any", false, false, false, 310), "")) : ("")) . " form-text text-muted"))]);
+            // line 311
             echo "<small id=\"";
-            echo twig_escape_filter($this->env, (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 355, $this->source); })()), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["id"]) || array_key_exists("id", $context) ? $context["id"] : (function () { throw new RuntimeError('Variable "id" does not exist.', 311, $this->source); })()), "html", null, true);
             echo "_help\"";
             $__internal_compile_12 = $context;
-            $__internal_compile_13 = ["attr" => (isset($context["help_attr"]) || array_key_exists("help_attr", $context) ? $context["help_attr"] : (function () { throw new RuntimeError('Variable "help_attr" does not exist.', 355, $this->source); })())];
+            $__internal_compile_13 = ["attr" => (isset($context["help_attr"]) || array_key_exists("help_attr", $context) ? $context["help_attr"] : (function () { throw new RuntimeError('Variable "help_attr" does not exist.', 311, $this->source); })())];
             if (!twig_test_iterable($__internal_compile_13)) {
-                throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 355, $this->getSourceContext());
+                throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 311, $this->getSourceContext());
             }
             $__internal_compile_13 = twig_to_array($__internal_compile_13);
             $context = $this->env->mergeGlobals(array_merge($context, $__internal_compile_13));
             $this->displayBlock("attributes", $context, $blocks);
             $context = $__internal_compile_12;
             echo ">";
-            // line 356
-            if (((isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 356, $this->source); })()) === false)) {
-                // line 357
-                if (((isset($context["help_html"]) || array_key_exists("help_html", $context) ? $context["help_html"] : (function () { throw new RuntimeError('Variable "help_html" does not exist.', 357, $this->source); })()) === false)) {
-                    // line 358
-                    echo twig_escape_filter($this->env, (isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 358, $this->source); })()), "html", null, true);
-                } else {
-                    // line 360
-                    echo (isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 360, $this->source); })());
-                }
-            } else {
-                // line 363
-                if (((isset($context["help_html"]) || array_key_exists("help_html", $context) ? $context["help_html"] : (function () { throw new RuntimeError('Variable "help_html" does not exist.', 363, $this->source); })()) === false)) {
-                    // line 364
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 364, $this->source); })()), (isset($context["help_translation_parameters"]) || array_key_exists("help_translation_parameters", $context) ? $context["help_translation_parameters"] : (function () { throw new RuntimeError('Variable "help_translation_parameters" does not exist.', 364, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 364, $this->source); })())), "html", null, true);
-                } else {
-                    // line 366
-                    echo $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans((isset($context["help"]) || array_key_exists("help", $context) ? $context["help"] : (function () { throw new RuntimeError('Variable "help" does not exist.', 366, $this->source); })()), (isset($context["help_translation_parameters"]) || array_key_exists("help_translation_parameters", $context) ? $context["help_translation_parameters"] : (function () { throw new RuntimeError('Variable "help_translation_parameters" does not exist.', 366, $this->source); })()), (isset($context["translation_domain"]) || array_key_exists("translation_domain", $context) ? $context["translation_domain"] : (function () { throw new RuntimeError('Variable "translation_domain" does not exist.', 366, $this->source); })()));
-                }
-            }
-            // line 369
+            // line 312
+            $this->displayBlock("form_help_content", $context, $blocks);
+            // line 313
             echo "</small>";
         }
         
@@ -1228,7 +1148,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
 
     public function getDebugInfo()
     {
-        return array (  1214 => 369,  1210 => 366,  1207 => 364,  1205 => 363,  1201 => 360,  1198 => 358,  1196 => 357,  1194 => 356,  1180 => 355,  1178 => 354,  1176 => 353,  1166 => 352,  1155 => 346,  1145 => 343,  1142 => 342,  1138 => 341,  1130 => 340,  1128 => 339,  1118 => 338,  1106 => 333,  1104 => 332,  1102 => 331,  1100 => 330,  1087 => 329,  1084 => 327,  1082 => 326,  1080 => 325,  1077 => 323,  1075 => 322,  1065 => 321,  1054 => 315,  1052 => 314,  1047 => 310,  1044 => 308,  1042 => 307,  1038 => 304,  1035 => 302,  1033 => 301,  1031 => 300,  1029 => 299,  1018 => 298,  1014 => 297,  1010 => 293,  1007 => 290,  1006 => 289,  1005 => 288,  1003 => 287,  1001 => 286,  998 => 284,  996 => 283,  993 => 281,  991 => 280,  988 => 278,  985 => 276,  983 => 275,  980 => 274,  978 => 273,  976 => 272,  966 => 270,  947 => 260,  935 => 265,  933 => 264,  929 => 263,  927 => 262,  921 => 260,  917 => 257,  914 => 255,  912 => 254,  908 => 251,  905 => 249,  903 => 248,  901 => 247,  886 => 246,  882 => 243,  879 => 240,  878 => 239,  877 => 238,  875 => 237,  873 => 236,  870 => 234,  868 => 233,  865 => 231,  862 => 229,  860 => 228,  858 => 227,  856 => 226,  846 => 225,  836 => 220,  830 => 217,  829 => 216,  828 => 215,  827 => 214,  823 => 213,  819 => 212,  809 => 211,  799 => 208,  797 => 207,  787 => 206,  776 => 202,  774 => 201,  770 => 200,  768 => 199,  765 => 197,  763 => 196,  759 => 195,  757 => 194,  755 => 193,  753 => 192,  743 => 191,  732 => 187,  730 => 186,  726 => 185,  724 => 184,  721 => 182,  719 => 181,  715 => 180,  713 => 179,  711 => 178,  709 => 177,  707 => 176,  703 => 175,  701 => 174,  699 => 173,  697 => 172,  687 => 171,  677 => 168,  675 => 167,  665 => 166,  655 => 163,  653 => 162,  643 => 161,  633 => 158,  630 => 156,  628 => 155,  618 => 154,  608 => 151,  605 => 149,  603 => 148,  601 => 147,  598 => 145,  595 => 143,  593 => 142,  591 => 141,  589 => 140,  587 => 139,  585 => 138,  575 => 137,  563 => 134,  560 => 133,  557 => 131,  555 => 130,  541 => 129,  539 => 128,  537 => 127,  535 => 126,  531 => 125,  529 => 124,  527 => 123,  523 => 122,  513 => 121,  502 => 117,  496 => 113,  493 => 112,  491 => 111,  489 => 110,  487 => 109,  477 => 108,  466 => 104,  462 => 103,  457 => 100,  453 => 99,  450 => 98,  448 => 97,  443 => 94,  439 => 93,  436 => 92,  434 => 91,  429 => 88,  425 => 87,  422 => 86,  420 => 85,  415 => 82,  411 => 81,  408 => 80,  406 => 79,  401 => 76,  397 => 75,  394 => 74,  392 => 73,  387 => 70,  383 => 69,  380 => 68,  378 => 67,  373 => 64,  369 => 63,  366 => 62,  364 => 61,  360 => 60,  358 => 59,  355 => 57,  353 => 56,  350 => 54,  348 => 53,  346 => 52,  336 => 51,  326 => 48,  323 => 46,  321 => 45,  319 => 44,  309 => 43,  299 => 40,  296 => 38,  294 => 37,  292 => 36,  282 => 35,  272 => 32,  269 => 30,  267 => 29,  265 => 28,  255 => 27,  244 => 23,  241 => 21,  236 => 18,  233 => 17,  231 => 16,  229 => 15,  224 => 12,  221 => 11,  219 => 10,  215 => 9,  213 => 8,  211 => 7,  209 => 6,  199 => 5,  189 => 352,  186 => 351,  183 => 349,  181 => 338,  178 => 337,  175 => 335,  173 => 321,  170 => 320,  167 => 318,  165 => 270,  162 => 269,  160 => 225,  157 => 224,  154 => 222,  152 => 211,  149 => 210,  147 => 206,  144 => 205,  142 => 191,  139 => 190,  137 => 171,  134 => 170,  132 => 166,  129 => 165,  127 => 161,  124 => 160,  122 => 154,  119 => 153,  117 => 137,  114 => 136,  112 => 121,  109 => 120,  107 => 108,  104 => 107,  102 => 51,  99 => 50,  97 => 43,  94 => 42,  92 => 35,  89 => 34,  87 => 27,  84 => 26,  82 => 5,  79 => 4,  76 => 2,  30 => 1,);
+        return array (  1134 => 313,  1132 => 312,  1118 => 311,  1116 => 310,  1114 => 309,  1104 => 308,  1093 => 302,  1083 => 299,  1080 => 298,  1076 => 297,  1068 => 296,  1066 => 295,  1056 => 294,  1044 => 289,  1042 => 288,  1040 => 287,  1038 => 286,  1025 => 285,  1022 => 283,  1020 => 282,  1018 => 281,  1015 => 279,  1013 => 278,  1003 => 277,  992 => 271,  990 => 270,  987 => 268,  985 => 267,  974 => 266,  970 => 265,  967 => 262,  965 => 261,  962 => 259,  960 => 258,  957 => 256,  954 => 254,  952 => 253,  949 => 252,  947 => 251,  945 => 250,  935 => 248,  916 => 238,  904 => 243,  902 => 242,  898 => 241,  896 => 240,  890 => 238,  888 => 237,  873 => 236,  870 => 234,  868 => 233,  865 => 231,  862 => 229,  860 => 228,  858 => 227,  856 => 226,  846 => 225,  836 => 220,  830 => 217,  829 => 216,  828 => 215,  827 => 214,  823 => 213,  819 => 212,  809 => 211,  799 => 208,  797 => 207,  787 => 206,  776 => 202,  774 => 201,  770 => 200,  768 => 199,  765 => 197,  763 => 196,  759 => 195,  757 => 194,  755 => 193,  753 => 192,  743 => 191,  732 => 187,  730 => 186,  726 => 185,  724 => 184,  721 => 182,  719 => 181,  715 => 180,  713 => 179,  711 => 178,  709 => 177,  707 => 176,  703 => 175,  701 => 174,  699 => 173,  697 => 172,  687 => 171,  677 => 168,  675 => 167,  665 => 166,  655 => 163,  653 => 162,  643 => 161,  633 => 158,  630 => 156,  628 => 155,  618 => 154,  608 => 151,  605 => 149,  603 => 148,  601 => 147,  598 => 145,  595 => 143,  593 => 142,  591 => 141,  589 => 140,  587 => 139,  585 => 138,  575 => 137,  563 => 134,  560 => 133,  557 => 131,  555 => 130,  541 => 129,  539 => 128,  537 => 127,  535 => 126,  531 => 125,  529 => 124,  527 => 123,  523 => 122,  513 => 121,  502 => 117,  496 => 113,  493 => 112,  491 => 111,  489 => 110,  487 => 109,  477 => 108,  466 => 104,  462 => 103,  457 => 100,  453 => 99,  450 => 98,  448 => 97,  443 => 94,  439 => 93,  436 => 92,  434 => 91,  429 => 88,  425 => 87,  422 => 86,  420 => 85,  415 => 82,  411 => 81,  408 => 80,  406 => 79,  401 => 76,  397 => 75,  394 => 74,  392 => 73,  387 => 70,  383 => 69,  380 => 68,  378 => 67,  373 => 64,  369 => 63,  366 => 62,  364 => 61,  360 => 60,  358 => 59,  355 => 57,  353 => 56,  350 => 54,  348 => 53,  346 => 52,  336 => 51,  326 => 48,  323 => 46,  321 => 45,  319 => 44,  309 => 43,  299 => 40,  296 => 38,  294 => 37,  292 => 36,  282 => 35,  272 => 32,  269 => 30,  267 => 29,  265 => 28,  255 => 27,  244 => 23,  241 => 21,  236 => 18,  233 => 17,  231 => 16,  229 => 15,  224 => 12,  221 => 11,  219 => 10,  215 => 9,  213 => 8,  211 => 7,  209 => 6,  199 => 5,  189 => 308,  186 => 307,  183 => 305,  181 => 294,  178 => 293,  175 => 291,  173 => 277,  170 => 276,  167 => 274,  165 => 248,  162 => 247,  160 => 225,  157 => 224,  154 => 222,  152 => 211,  149 => 210,  147 => 206,  144 => 205,  142 => 191,  139 => 190,  137 => 171,  134 => 170,  132 => 166,  129 => 165,  127 => 161,  124 => 160,  122 => 154,  119 => 153,  117 => 137,  114 => 136,  112 => 121,  109 => 120,  107 => 108,  104 => 107,  102 => 51,  99 => 50,  97 => 43,  94 => 42,  92 => 35,  89 => 34,  87 => 27,  84 => 26,  82 => 5,  79 => 4,  76 => 2,  30 => 1,);
     }
 
     public function getSourceContext()
@@ -1241,7 +1161,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
     {%- set prepend = not (money_pattern starts with '{{') -%}
     {%- set append = not (money_pattern ends with '}}') -%}
     {%- if prepend or append -%}
-        <div class=\"input-group{{ group_class|default('') }}\">
+        <div class=\"input-group {{ group_class|default('') }}\">
             {%- if prepend -%}
                 <div class=\"input-group-prepend\">
                     <span class=\"input-group-text\">{{ money_pattern|form_encode_currency }}</span>
@@ -1468,30 +1388,8 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         {% if required -%}
             {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
         {%- endif -%}
-        {% if label is empty -%}
-            {%- if label_format is not empty -%}
-                {% set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
-                }) %}
-            {%- else -%}
-                {% set label = name|humanize %}
-            {%- endif -%}
-        {%- endif -%}
         <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-        {%- if translation_domain is same as(false) -%}
-            {%- if label_html is same as(false) -%}
-                {{- label -}}
-            {%- else -%}
-                {{- label|raw -}}
-            {%- endif -%}
-        {%- else -%}
-            {%- if label_html is same as(false) -%}
-                {{- label|trans(label_translation_parameters, translation_domain) -}}
-            {%- else -%}
-                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
-            {%- endif -%}
-        {%- endif -%}
+        {{- block('form_label_content') -}}
         {% block form_label_errors %}{{- form_errors(form) -}}{% endblock form_label_errors %}</{{ element|default('label') }}>
     {%- else -%}
         {%- if errors|length > 0 -%}
@@ -1518,33 +1416,11 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
         {%- if required -%}
             {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
         {%- endif -%}
-        {%- if label is not same as(false) and label is empty -%}
-            {%- if label_format is not empty -%}
-                {%- set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
-                }) -%}
-            {%- else -%}
-                {%- set label = name|humanize -%}
-            {%- endif -%}
-        {%- endif -%}
 
         {{ widget|raw }}
         <label{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}>
             {%- if label is not same as(false) -%}
-                {%- if translation_domain is same as(false) -%}
-                    {%- if label_html is same as(false) -%}
-                        {{- label -}}
-                    {%- else -%}
-                        {{- label|raw -}}
-                    {%- endif -%}
-                {%- else -%}
-                    {%- if label_html is same as(false) -%}
-                        {{- label|trans(label_translation_parameters, translation_domain) -}}
-                    {%- else -%}
-                        {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
-                    {%- endif -%}
-                {%- endif -%}
+                {{- block('form_label_content') -}}
             {%- endif -%}
             {{- form_errors(form) -}}
         </label>
@@ -1588,19 +1464,7 @@ array_key_exists("type", $context)) ? (_twig_default_filter((isset($context["typ
     {%- if help is not empty -%}
         {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' form-text text-muted')|trim}) -%}
         <small id=\"{{ id }}_help\"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
-            {%- if translation_domain is same as(false) -%}
-                {%- if help_html is same as(false) -%}
-                    {{- help -}}
-                {%- else -%}
-                    {{- help|raw -}}
-                {%- endif -%}
-            {%- else -%}
-                {%- if help_html is same as(false) -%}
-                    {{- help|trans(help_translation_parameters, translation_domain) -}}
-                {%- else -%}
-                    {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
-                {%- endif -%}
-            {%- endif -%}
+            {{- block('form_help_content') -}}
         </small>
     {%- endif -%}
 {%- endblock form_help %}

@@ -31,10 +31,13 @@ class TokenProviderConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @default {"enabled":false,"connection":null}
      * @return \Symfony\Config\Security\FirewallConfig\RememberMe\TokenProvider\DoctrineConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Security\FirewallConfig\RememberMe\TokenProvider\DoctrineConfig : static)
      */
-    public function doctrine(mixed $value = []): \Symfony\Config\Security\FirewallConfig\RememberMe\TokenProvider\DoctrineConfig|static
+    public function doctrine(array $value = []): \Symfony\Config\Security\FirewallConfig\RememberMe\TokenProvider\DoctrineConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['doctrine'] = true;

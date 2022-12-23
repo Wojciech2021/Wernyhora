@@ -17,7 +17,10 @@ class DoctrineConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     private $_usedProperties = [];
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Doctrine\DbalConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\DbalConfig : static)
      */
     public function dbal(mixed $value = []): \Symfony\Config\Doctrine\DbalConfig|static
     {
@@ -39,7 +42,10 @@ class DoctrineConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Doctrine\OrmConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\OrmConfig : static)
      */
     public function orm(mixed $value = []): \Symfony\Config\Doctrine\OrmConfig|static
     {

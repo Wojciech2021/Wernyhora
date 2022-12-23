@@ -146,7 +146,10 @@ class CacheConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Framework\Cache\PoolConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Cache\PoolConfig : static)
      */
     public function pool(string $name, mixed $value = []): \Symfony\Config\Framework\Cache\PoolConfig|static
     {

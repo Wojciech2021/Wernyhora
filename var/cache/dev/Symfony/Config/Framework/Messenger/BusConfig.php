@@ -2,9 +2,9 @@
 
 namespace Symfony\Config\Framework\Messenger;
 
+require_once __DIR__.\DIRECTORY_SEPARATOR.'BusConfig'.\DIRECTORY_SEPARATOR.'DefaultMiddlewareConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'BusConfig'.\DIRECTORY_SEPARATOR.'MiddlewareConfig.php';
 
-use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
@@ -17,20 +17,36 @@ class BusConfig
     private $_usedProperties = [];
 
     /**
-     * @default true
-     * @param ParamConfigurator|true|false|'allow_no_handlers' $value
-     * @return $this
+     * @template TValue
+     * @param TValue $value
+     * @default {"enabled":true,"allow_no_handlers":false,"allow_no_senders":true}
+     * @return \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig : static)
      */
-    public function defaultMiddleware($value): static
+    public function defaultMiddleware(mixed $value = []): \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig|static
     {
-        $this->_usedProperties['defaultMiddleware'] = true;
-        $this->defaultMiddleware = $value;
+        if (!\is_array($value)) {
+            $this->_usedProperties['defaultMiddleware'] = true;
+            $this->defaultMiddleware = $value;
 
-        return $this;
+            return $this;
+        }
+
+        if (!$this->defaultMiddleware instanceof \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig) {
+            $this->_usedProperties['defaultMiddleware'] = true;
+            $this->defaultMiddleware = new \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "defaultMiddleware()" has already been initialized. You cannot pass values the second time you call defaultMiddleware().');
+        }
+
+        return $this->defaultMiddleware;
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig : static)
      */
     public function middleware(mixed $value = []): \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig|static
     {
@@ -48,7 +64,7 @@ class BusConfig
     {
         if (array_key_exists('default_middleware', $value)) {
             $this->_usedProperties['defaultMiddleware'] = true;
-            $this->defaultMiddleware = $value['default_middleware'];
+            $this->defaultMiddleware = \is_array($value['default_middleware']) ? new \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig($value['default_middleware']) : $value['default_middleware'];
             unset($value['default_middleware']);
         }
 
@@ -67,7 +83,7 @@ class BusConfig
     {
         $output = [];
         if (isset($this->_usedProperties['defaultMiddleware'])) {
-            $output['default_middleware'] = $this->defaultMiddleware;
+            $output['default_middleware'] = $this->defaultMiddleware instanceof \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig ? $this->defaultMiddleware->toArray() : $this->defaultMiddleware;
         }
         if (isset($this->_usedProperties['middleware'])) {
             $output['middleware'] = array_map(function ($v) { return $v instanceof \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig ? $v->toArray() : $v; }, $this->middleware);

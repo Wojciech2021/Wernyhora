@@ -13,11 +13,8 @@ import './bootstrap';
 
 import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
-// import autocolors from 'chartjs-plugin-autocolors';
-
 
 Chart.register(annotationPlugin);
-// Chart.register(autocolors);
 
 jQuery( document ).ready(function() {
     setTimeout(function(){
@@ -26,5 +23,10 @@ jQuery( document ).ready(function() {
         }
     }, 5000)
 });
+
+
+
+
+
 
 

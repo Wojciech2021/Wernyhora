@@ -87,11 +87,11 @@ class LdapConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function defaultRoles(mixed $value): static
+    public function defaultRoles(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['defaultRoles'] = true;
         $this->defaultRoles = $value;

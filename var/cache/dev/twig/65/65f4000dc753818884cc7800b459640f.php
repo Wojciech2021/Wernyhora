@@ -199,7 +199,7 @@ class __TwigTemplate_d60fbc42d1ae946ed244088212aa0856 extends Template
         echo "    ";
         if (((isset($context["prepend"]) || array_key_exists("prepend", $context) ? $context["prepend"] : (function () { throw new RuntimeError('Variable "prepend" does not exist.', 13, $this->source); })()) || (isset($context["append"]) || array_key_exists("append", $context) ? $context["append"] : (function () { throw new RuntimeError('Variable "append" does not exist.', 13, $this->source); })()))) {
             // line 14
-            echo "        <div class=\"input-group";
+            echo "        <div class=\"input-group ";
             echo twig_escape_filter($this->env, ((array_key_exists("group_class", $context)) ? (_twig_default_filter((isset($context["group_class"]) || array_key_exists("group_class", $context) ? $context["group_class"] : (function () { throw new RuntimeError('Variable "group_class" does not exist.', 14, $this->source); })()), "")) : ("")), "html", null, true);
             echo "\">
             ";
@@ -865,7 +865,7 @@ $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBl
     {% set prepend = not (money_pattern starts with '{{') %}
     {% set append = not (money_pattern ends with '}}') %}
     {% if prepend or append %}
-        <div class=\"input-group{{ group_class|default('') }}\">
+        <div class=\"input-group {{ group_class|default('') }}\">
             {% if prepend %}
                 <span class=\"input-group-addon\">{{ money_pattern|form_encode_currency }}</span>
             {% endif %}

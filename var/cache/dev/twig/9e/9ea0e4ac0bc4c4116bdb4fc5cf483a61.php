@@ -40,7 +40,10 @@ class __TwigTemplate_482f4c5b400cf24d69b49da09db309d9 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Icon/yes.svg"));
 
         // line 1
-        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 12 12\"><path fill=\"#5E976E\" d=\"M12 3.1c0 .4-.1.8-.4 1.1L5.9 9.8c-.3.3-.6.4-1 .4s-.7-.1-1-.4L.4 6.3C.1 6 0 5.6 0 5.2c0-.4.2-.7.4-.9.2-.3.6-.4.9-.4.4 0 .8.1 1.1.4l2.5 2.5 4.7-4.7c.3-.3.7-.4 1-.4.4 0 .7.2.9.4.3.3.5.6.5 1z\"/></svg>
+        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-check\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <path d=\"M5 12l5 5l10 -10\"></path>
+</svg>
 ";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -62,7 +65,10 @@ class __TwigTemplate_482f4c5b400cf24d69b49da09db309d9 extends Template
 
     public function getSourceContext()
     {
-        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 12 12\"><path fill=\"#5E976E\" d=\"M12 3.1c0 .4-.1.8-.4 1.1L5.9 9.8c-.3.3-.6.4-1 .4s-.7-.1-1-.4L.4 6.3C.1 6 0 5.6 0 5.2c0-.4.2-.7.4-.9.2-.3.6-.4.9-.4.4 0 .8.1 1.1.4l2.5 2.5 4.7-4.7c.3-.3.7-.4 1-.4.4 0 .7.2.9.4.3.3.5.6.5 1z\"/></svg>
+        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-check\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"3\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <path d=\"M5 12l5 5l10 -10\"></path>
+</svg>
 ", "@WebProfiler/Icon/yes.svg", "D:\\Studia\\Praca magisterska\\Projekt_Wernyhora\\Wernyhora\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\yes.svg");
     }
 }

@@ -80,7 +80,7 @@ class __TwigTemplate_7ae709dcfe1ee0e6d9123f6db5e24584 extends Template
             $context["status_color"] = ((twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 8, $this->source); })()), "counterrors", [], "any", false, false, false, 8)) ? ("red") : (((twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 8, $this->source); })()), "countwarnings", [], "any", false, false, false, 8)) ? ("yellow") : ("none"))));
             // line 9
             echo "            ";
-            echo twig_include($this->env, $context, "@WebProfiler/Icon/logger.svg");
+            echo twig_source($this->env, "@WebProfiler/Icon/logger.svg");
             echo "
             <span class=\"sf-toolbar-value\">";
             // line 10
@@ -159,7 +159,7 @@ class __TwigTemplate_7ae709dcfe1ee0e6d9123f6db5e24584 extends Template
         echo "\">
         <span class=\"icon\">";
         // line 36
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/logger.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/logger.svg");
         echo "</span>
         <strong>Logs</strong>
         ";
@@ -202,7 +202,7 @@ class __TwigTemplate_7ae709dcfe1ee0e6d9123f6db5e24584 extends Template
         // line 49
         if (twig_test_empty(twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 49, $this->source); })()), "processedLogs", [], "any", false, false, false, 49))) {
             // line 50
-            echo "        <div class=\"empty\">
+            echo "        <div class=\"empty empty-panel\">
             <p>No log messages available.</p>
         </div>
     ";
@@ -277,7 +277,7 @@ class __TwigTemplate_7ae709dcfe1ee0e6d9123f6db5e24584 extends Template
                 <summary>
                     <span class=\"icon\">";
             // line 86
-            echo twig_include($this->env, $context, "@WebProfiler/Icon/filter.svg");
+            echo twig_source($this->env, "@WebProfiler/Icon/filter.svg");
             echo "</span>
                     Level (<span class=\"filter-active-num\">";
             // line 87
@@ -328,7 +328,7 @@ class __TwigTemplate_7ae709dcfe1ee0e6d9123f6db5e24584 extends Template
                 <summary>
                     <span class=\"icon\">";
             // line 107
-            echo twig_include($this->env, $context, "@WebProfiler/Icon/filter.svg");
+            echo twig_source($this->env, "@WebProfiler/Icon/filter.svg");
             echo "</span>
                     Channel (<span class=\"filter-active-num\">";
             // line 108
@@ -741,51 +741,41 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
                 echo "            <span><button type=\"button\" class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#";
                 echo twig_escape_filter($this->env, (isset($context["trace_id"]) || array_key_exists("trace_id", $context) ? $context["trace_id"] : (function () { throw new RuntimeError('Variable "trace_id" does not exist.', 255, $this->source); })()), "html", null, true);
                 echo "\" data-toggle-alt-content=\"Hide trace\">Show trace</button></span>
-
-            <div id=\"";
-                // line 257
-                echo twig_escape_filter($this->env, (isset($context["trace_id"]) || array_key_exists("trace_id", $context) ? $context["trace_id"] : (function () { throw new RuntimeError('Variable "trace_id" does not exist.', 257, $this->source); })()), "html", null, true);
-                echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
-                ";
-                // line 258
-                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 258, $this->source); })()), "context", [], "any", false, false, false, 258), "exception", [], "any", false, false, false, 258), "trace", [], "any", false, false, false, 258), 1);
-                echo "
-            </div>
         ";
             }
-            // line 261
+            // line 257
             echo "
         ";
-            // line 262
-            if ((isset($context["has_context"]) || array_key_exists("has_context", $context) ? $context["has_context"] : (function () { throw new RuntimeError('Variable "has_context" does not exist.', 262, $this->source); })())) {
-                // line 263
+            // line 258
+            if ((isset($context["has_context"]) || array_key_exists("has_context", $context) ? $context["has_context"] : (function () { throw new RuntimeError('Variable "has_context" does not exist.', 258, $this->source); })())) {
+                // line 259
                 echo "            <div id=\"";
-                echo twig_escape_filter($this->env, (isset($context["context_id"]) || array_key_exists("context_id", $context) ? $context["context_id"] : (function () { throw new RuntimeError('Variable "context_id" does not exist.', 263, $this->source); })()), "html", null, true);
+                echo twig_escape_filter($this->env, (isset($context["context_id"]) || array_key_exists("context_id", $context) ? $context["context_id"] : (function () { throw new RuntimeError('Variable "context_id" does not exist.', 259, $this->source); })()), "html", null, true);
                 echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
                 ";
-                // line 264
-                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 264, $this->source); })()), "context", [], "any", false, false, false, 264), 1);
+                // line 260
+                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 260, $this->source); })()), "context", [], "any", false, false, false, 260), 1);
                 echo "
             </div>
         ";
             }
-            // line 267
+            // line 263
             echo "
         ";
-            // line 268
-            if ((isset($context["has_trace"]) || array_key_exists("has_trace", $context) ? $context["has_trace"] : (function () { throw new RuntimeError('Variable "has_trace" does not exist.', 268, $this->source); })())) {
-                // line 269
+            // line 264
+            if ((isset($context["has_trace"]) || array_key_exists("has_trace", $context) ? $context["has_trace"] : (function () { throw new RuntimeError('Variable "has_trace" does not exist.', 264, $this->source); })())) {
+                // line 265
                 echo "            <div id=\"";
-                echo twig_escape_filter($this->env, (isset($context["trace_id"]) || array_key_exists("trace_id", $context) ? $context["trace_id"] : (function () { throw new RuntimeError('Variable "trace_id" does not exist.', 269, $this->source); })()), "html", null, true);
+                echo twig_escape_filter($this->env, (isset($context["trace_id"]) || array_key_exists("trace_id", $context) ? $context["trace_id"] : (function () { throw new RuntimeError('Variable "trace_id" does not exist.', 265, $this->source); })()), "html", null, true);
                 echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
                 ";
-                // line 270
-                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 270, $this->source); })()), "context", [], "any", false, false, false, 270), "exception", [], "any", false, false, false, 270), "trace", [], "any", false, false, false, 270), 1);
+                // line 266
+                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 266, $this->source); })()), "context", [], "any", false, false, false, 266), "exception", [], "any", false, false, false, 266), "trace", [], "any", false, false, false, 266), 1);
                 echo "
             </div>
         ";
             }
-            // line 273
+            // line 269
             echo "    </div>
 ";
             
@@ -813,7 +803,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
 
     public function getDebugInfo()
     {
-        return array (  789 => 273,  783 => 270,  778 => 269,  776 => 268,  773 => 267,  767 => 264,  762 => 263,  760 => 262,  757 => 261,  751 => 258,  747 => 257,  741 => 255,  738 => 254,  736 => 253,  733 => 252,  727 => 250,  724 => 249,  722 => 248,  719 => 247,  713 => 245,  711 => 244,  708 => 243,  702 => 241,  700 => 240,  696 => 238,  690 => 236,  684 => 234,  682 => 233,  679 => 232,  676 => 231,  673 => 230,  652 => 229,  641 => 226,  636 => 223,  618 => 218,  609 => 216,  605 => 215,  600 => 213,  591 => 211,  588 => 210,  586 => 209,  581 => 207,  578 => 206,  561 => 205,  550 => 196,  544 => 192,  542 => 191,  535 => 187,  530 => 184,  524 => 183,  521 => 182,  516 => 181,  514 => 180,  511 => 179,  500 => 170,  482 => 166,  477 => 163,  471 => 160,  466 => 159,  462 => 157,  456 => 155,  450 => 153,  448 => 152,  443 => 151,  441 => 150,  435 => 147,  429 => 146,  415 => 144,  413 => 142,  412 => 141,  410 => 140,  393 => 139,  375 => 123,  364 => 120,  354 => 119,  351 => 118,  347 => 117,  335 => 108,  331 => 107,  324 => 102,  313 => 99,  303 => 98,  300 => 97,  296 => 96,  284 => 87,  280 => 86,  267 => 78,  261 => 75,  257 => 74,  248 => 70,  242 => 67,  238 => 66,  231 => 62,  227 => 61,  222 => 58,  220 => 57,  217 => 56,  214 => 55,  211 => 54,  205 => 50,  203 => 49,  199 => 47,  189 => 46,  178 => 43,  172 => 40,  169 => 39,  167 => 38,  162 => 36,  155 => 35,  145 => 34,  132 => 30,  129 => 29,  121 => 26,  111 => 21,  101 => 16,  97 => 14,  95 => 13,  92 => 12,  87 => 10,  82 => 9,  79 => 8,  76 => 7,  73 => 6,  63 => 5,  52 => 1,  50 => 3,  37 => 1,);
+        return array (  779 => 269,  773 => 266,  768 => 265,  766 => 264,  763 => 263,  757 => 260,  752 => 259,  750 => 258,  747 => 257,  741 => 255,  738 => 254,  736 => 253,  733 => 252,  727 => 250,  724 => 249,  722 => 248,  719 => 247,  713 => 245,  711 => 244,  708 => 243,  702 => 241,  700 => 240,  696 => 238,  690 => 236,  684 => 234,  682 => 233,  679 => 232,  676 => 231,  673 => 230,  652 => 229,  641 => 226,  636 => 223,  618 => 218,  609 => 216,  605 => 215,  600 => 213,  591 => 211,  588 => 210,  586 => 209,  581 => 207,  578 => 206,  561 => 205,  550 => 196,  544 => 192,  542 => 191,  535 => 187,  530 => 184,  524 => 183,  521 => 182,  516 => 181,  514 => 180,  511 => 179,  500 => 170,  482 => 166,  477 => 163,  471 => 160,  466 => 159,  462 => 157,  456 => 155,  450 => 153,  448 => 152,  443 => 151,  441 => 150,  435 => 147,  429 => 146,  415 => 144,  413 => 142,  412 => 141,  410 => 140,  393 => 139,  375 => 123,  364 => 120,  354 => 119,  351 => 118,  347 => 117,  335 => 108,  331 => 107,  324 => 102,  313 => 99,  303 => 98,  300 => 97,  296 => 96,  284 => 87,  280 => 86,  267 => 78,  261 => 75,  257 => 74,  248 => 70,  242 => 67,  238 => 66,  231 => 62,  227 => 61,  222 => 58,  220 => 57,  217 => 56,  214 => 55,  211 => 54,  205 => 50,  203 => 49,  199 => 47,  189 => 46,  178 => 43,  172 => 40,  169 => 39,  167 => 38,  162 => 36,  155 => 35,  145 => 34,  132 => 30,  129 => 29,  121 => 26,  111 => 21,  101 => 16,  97 => 14,  95 => 13,  92 => 12,  87 => 10,  82 => 9,  79 => 8,  76 => 7,  73 => 6,  63 => 5,  52 => 1,  50 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -826,7 +816,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
     {% if collector.counterrors or collector.countdeprecations or collector.countwarnings %}
         {% set icon %}
             {% set status_color = collector.counterrors ? 'red' : collector.countwarnings ? 'yellow' : 'none' %}
-            {{ include('@WebProfiler/Icon/logger.svg') }}
+            {{ source('@WebProfiler/Icon/logger.svg') }}
             <span class=\"sf-toolbar-value\">{{ collector.counterrors ?: (collector.countdeprecations + collector.countwarnings) }}</span>
         {% endset %}
 
@@ -853,7 +843,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
 
 {% block menu %}
     <span class=\"label label-status-{{ collector.counterrors ? 'error' : collector.countwarnings ? 'warning' : 'none' }} {{ collector.logs is empty ? 'disabled' }}\">
-        <span class=\"icon\">{{ include('@WebProfiler/Icon/logger.svg') }}</span>
+        <span class=\"icon\">{{ source('@WebProfiler/Icon/logger.svg') }}</span>
         <strong>Logs</strong>
         {% if collector.counterrors or collector.countdeprecations or collector.countwarnings %}
             <span class=\"count\">
@@ -867,7 +857,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
     <h2>Log Messages</h2>
 
     {% if collector.processedLogs is empty %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No log messages available.</p>
         </div>
     {% else %}
@@ -903,7 +893,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
 
             <details id=\"log-filter-priority\" class=\"log-filter\">
                 <summary>
-                    <span class=\"icon\">{{ include('@WebProfiler/Icon/filter.svg') }}</span>
+                    <span class=\"icon\">{{ source('@WebProfiler/Icon/filter.svg') }}</span>
                     Level (<span class=\"filter-active-num\">{{ filters.priority|length - 1 }}</span>)
                 </summary>
 
@@ -924,7 +914,7 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
 
             <details id=\"log-filter-channel\" class=\"log-filter\">
                 <summary>
-                    <span class=\"icon\">{{ include('@WebProfiler/Icon/filter.svg') }}</span>
+                    <span class=\"icon\">{{ source('@WebProfiler/Icon/filter.svg') }}</span>
                     Channel (<span class=\"filter-active-num\">{{ filters.channel|length - 1 }}</span>)
                 </summary>
 
@@ -1073,10 +1063,6 @@ $context["log"], "type", [], "any", false, false, false, 142))) ? ("silenced") :
         {% if has_trace %}
             {% set trace_id = 'trace-' ~ category ~ '-' ~ log_index %}
             <span><button type=\"button\" class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#{{ trace_id }}\" data-toggle-alt-content=\"Hide trace\">Show trace</button></span>
-
-            <div id=\"{{ trace_id }}\" class=\"context sf-toggle-content sf-toggle-hidden\">
-                {{ profiler_dump(log.context.exception.trace, maxDepth=1) }}
-            </div>
         {% endif %}
 
         {% if has_context %}

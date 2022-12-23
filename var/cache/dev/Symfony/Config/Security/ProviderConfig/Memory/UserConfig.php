@@ -28,11 +28,11 @@ class UserConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function roles(mixed $value): static
+    public function roles(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['roles'] = true;
         $this->roles = $value;

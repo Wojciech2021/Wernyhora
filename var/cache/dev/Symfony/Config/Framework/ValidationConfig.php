@@ -134,12 +134,15 @@ class ValidationConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * A collection of namespaces for which auto-mapping will be enabled by default, or null to opt-in with the EnableAutoMapping constraint.
      * @example []
      * @example ["validator.property_info_loader"]
      * @return \Symfony\Config\Framework\Validation\AutoMappingConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Validation\AutoMappingConfig : static)
      */
-    public function autoMapping(string $namespace, mixed $value = []): \Symfony\Config\Framework\Validation\AutoMappingConfig|static
+    public function autoMapping(string $namespace, array $value = []): \Symfony\Config\Framework\Validation\AutoMappingConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['autoMapping'] = true;

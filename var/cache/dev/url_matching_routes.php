@@ -12,11 +12,8 @@ return [
         '/_profiler/search' => [[['_route' => '_profiler_search', '_controller' => 'web_profiler.controller.profiler::searchAction'], null, null, null, false, false, null]],
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
+        '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
-        '/admin' => [[['_route' => 'app_admin', '_controller' => 'App\\Controller\\AdminController::index'], null, null, null, false, false, null]],
-        '/admin/users' => [[['_route' => 'app_admin_users', '_controller' => 'App\\Controller\\AdminController::users'], null, null, null, false, false, null]],
-        '/admin/chart' => [[['_route' => 'app_chart', '_controller' => 'App\\Controller\\AdminController::chart'], null, null, null, false, false, null]],
-        '/display' => [[['_route' => 'app_display_computer_log', '_controller' => 'App\\Controller\\DisplayComputerLogController::index'], null, null, null, false, false, null]],
         '/projects' => [[['_route' => 'app_manage_projects', '_controller' => 'App\\Controller\\ProjectsController::index'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/verify/email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], null, null, null, false, false, null]],
@@ -41,8 +38,24 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/admin/users/([^/]++)(*:190)'
-                .'|/projects/edit/([^/]++)(*:221)'
+                .'|/projects/(?'
+                    .'|edit/(?'
+                        .'|([^/]++)(*:198)'
+                        .'|critery/([^/]++)(*:222)'
+                        .'|variant(?'
+                            .'|/([^/]++)(*:249)'
+                            .'|s_values/([^/]++)(*:274)'
+                        .')'
+                        .'|klas/([^/]++)(*:296)'
+                        .'|profils_values/([^/]++)(*:327)'
+                        .'|threshold_values/([^/]++)(*:360)'
+                    .')'
+                    .'|raport/(?'
+                        .'|([^/]++)(*:387)'
+                        .'|pdf/([^/]++)(*:407)'
+                    .')'
+                    .'|delete/([^/]++)(*:431)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -53,9 +66,17 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        190 => [[['_route' => 'app_admin_users_assign_roles', '_controller' => 'App\\Controller\\AdminController::users_assign_roles'], ['id'], null, null, false, true, null]],
-        221 => [
-            [['_route' => 'app_edit_project', '_controller' => 'App\\Controller\\ProjectsController::editProject'], ['id'], null, null, false, true, null],
+        198 => [[['_route' => 'app_edit_project', '_controller' => 'App\\Controller\\ProjectsController::editProject'], ['slug'], null, null, false, true, null]],
+        222 => [[['_route' => 'app_edit_critery_project', '_controller' => 'App\\Controller\\ProjectsController::editCritery'], ['slug'], null, null, false, true, null]],
+        249 => [[['_route' => 'app_edit_variant_project', '_controller' => 'App\\Controller\\ProjectsController::editVariant'], ['slug'], null, null, false, true, null]],
+        274 => [[['_route' => 'app_edit_variants_values_project', '_controller' => 'App\\Controller\\ProjectsController::editVariantValue'], ['slug'], null, null, false, true, null]],
+        296 => [[['_route' => 'app_edit_klas_project', '_controller' => 'App\\Controller\\ProjectsController::editKlas'], ['slug'], null, null, false, true, null]],
+        327 => [[['_route' => 'app_edit_profils_values_project', '_controller' => 'App\\Controller\\ProjectsController::editProfilValue'], ['slug'], null, null, false, true, null]],
+        360 => [[['_route' => 'app_edit_threshold_values_project', '_controller' => 'App\\Controller\\ProjectsController::editThresholdValue'], ['slug'], null, null, false, true, null]],
+        387 => [[['_route' => 'app_raport_project', '_controller' => 'App\\Controller\\ProjectsController::raportProject'], ['slug'], null, null, false, true, null]],
+        407 => [[['_route' => 'app_raport_pdf_project', '_controller' => 'App\\Controller\\ProjectsController::raportPDFProject'], ['slug'], null, null, false, true, null]],
+        431 => [
+            [['_route' => 'app_delete_project', '_controller' => 'App\\Controller\\ProjectsController::deleteProject'], ['slug'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

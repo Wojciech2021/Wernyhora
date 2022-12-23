@@ -74,7 +74,10 @@ class HttpClientConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Framework\HttpClient\ScopedClientConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\HttpClient\ScopedClientConfig : static)
      */
     public function scopedClient(string $name, mixed $value = []): \Symfony\Config\Framework\HttpClient\ScopedClientConfig|static
     {

@@ -40,10 +40,13 @@ class EntityManagerConfig
     private $_usedProperties = [];
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @default {"type":null}
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\QueryCacheDriverConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\QueryCacheDriverConfig : static)
      */
-    public function queryCacheDriver(mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\QueryCacheDriverConfig|static
+    public function queryCacheDriver(string|array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\QueryCacheDriverConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['queryCacheDriver'] = true;
@@ -63,9 +66,12 @@ class EntityManagerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MetadataCacheDriverConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MetadataCacheDriverConfig : static)
      */
-    public function metadataCacheDriver(mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MetadataCacheDriverConfig|static
+    public function metadataCacheDriver(string|array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MetadataCacheDriverConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['metadataCacheDriver'] = true;
@@ -85,10 +91,13 @@ class EntityManagerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @default {"type":null}
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\ResultCacheDriverConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\ResultCacheDriverConfig : static)
      */
-    public function resultCacheDriver(mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\ResultCacheDriverConfig|static
+    public function resultCacheDriver(string|array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\ResultCacheDriverConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['resultCacheDriver'] = true;
@@ -108,7 +117,10 @@ class EntityManagerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\EntityListenersConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\EntityListenersConfig : static)
      */
     public function entityListeners(mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\EntityListenersConfig|static
     {
@@ -270,9 +282,12 @@ class EntityManagerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MappingConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MappingConfig : static)
      */
-    public function mapping(string $name, mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MappingConfig|static
+    public function mapping(string $name, string|array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\MappingConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['mappings'] = true;
@@ -304,8 +319,11 @@ class EntityManagerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * Register SQL Filters in the entity manager
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\FilterConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\FilterConfig : static)
      */
     public function filter(string $name, mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\FilterConfig|static
     {

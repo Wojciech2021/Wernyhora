@@ -40,7 +40,15 @@ class __TwigTemplate_5e0b806977a88dc87fc53f601383270a extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Icon/time.svg"));
 
         // line 1
-        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#AAA\" d=\"M15.1 4.3a13 13 0 0 0-6.2 0c-.3 0-.7-.2-.7-.5v-.4c0-1.2 1-2.3 2.3-2.3h3c1.2 0 2.3 1 2.3 2.3v.3c0 .4-.4.6-.7.6zm5.8 9.7a9 9 0 0 1-17.8 0 9 9 0 0 1 17.8 0zm-4.2 1c0-.6-.4-1-1-1H13V8.4c0-.6-.4-1-1-1s-1 .4-1 1v6.2c0 .6.4 1.3 1 1.3h3.7c.5.1 1-.3 1-.9z\"/></svg>
+        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-chart-infographic\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <circle cx=\"7\" cy=\"7\" r=\"4\"></circle>
+    <path d=\"M7 3v4h4\"></path>
+    <line x1=\"9\" y1=\"17\" x2=\"9\" y2=\"21\"></line>
+    <line x1=\"17\" y1=\"14\" x2=\"17\" y2=\"21\"></line>
+    <line x1=\"13\" y1=\"13\" x2=\"13\" y2=\"21\"></line>
+    <line x1=\"21\" y1=\"12\" x2=\"21\" y2=\"21\"></line>
+</svg>
 ";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -62,7 +70,15 @@ class __TwigTemplate_5e0b806977a88dc87fc53f601383270a extends Template
 
     public function getSourceContext()
     {
-        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#AAA\" d=\"M15.1 4.3a13 13 0 0 0-6.2 0c-.3 0-.7-.2-.7-.5v-.4c0-1.2 1-2.3 2.3-2.3h3c1.2 0 2.3 1 2.3 2.3v.3c0 .4-.4.6-.7.6zm5.8 9.7a9 9 0 0 1-17.8 0 9 9 0 0 1 17.8 0zm-4.2 1c0-.6-.4-1-1-1H13V8.4c0-.6-.4-1-1-1s-1 .4-1 1v6.2c0 .6.4 1.3 1 1.3h3.7c.5.1 1-.3 1-.9z\"/></svg>
+        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-chart-infographic\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <circle cx=\"7\" cy=\"7\" r=\"4\"></circle>
+    <path d=\"M7 3v4h4\"></path>
+    <line x1=\"9\" y1=\"17\" x2=\"9\" y2=\"21\"></line>
+    <line x1=\"17\" y1=\"14\" x2=\"17\" y2=\"21\"></line>
+    <line x1=\"13\" y1=\"13\" x2=\"13\" y2=\"21\"></line>
+    <line x1=\"21\" y1=\"12\" x2=\"21\" y2=\"21\"></line>
+</svg>
 ", "@WebProfiler/Icon/time.svg", "D:\\Studia\\Praca magisterska\\Projekt_Wernyhora\\Wernyhora\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\time.svg");
     }
 }

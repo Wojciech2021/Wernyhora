@@ -46,11 +46,11 @@ class TransitionConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function from(mixed $value): static
+    public function from(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['from'] = true;
         $this->from = $value;
@@ -59,11 +59,11 @@ class TransitionConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function to(mixed $value): static
+    public function to(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['to'] = true;
         $this->to = $value;

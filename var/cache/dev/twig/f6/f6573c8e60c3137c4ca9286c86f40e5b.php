@@ -45,10 +45,11 @@ class __TwigTemplate_d32c4453aebee1ceb2731a0547a4c0c2 extends Template
         echo "\" class=\"sf-toolbar sf-display-none\" role=\"region\" aria-label=\"Symfony Web Debug Toolbar\">
     ";
         // line 2
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar.html.twig", "@WebProfiler/Profiler/toolbar_js.html.twig", 2)->display(twig_array_merge($context, ["templates" => ["request" => "@WebProfiler/Profiler/cancel.html.twig"], "profile" => null, "profiler_url" => $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("_profiler", ["token" =>         // line 7
-(isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 7, $this->source); })())]), "profiler_markup_version" => 2]));
-        // line 10
-        echo "</div>
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar.html.twig", ["templates" => ["request" => "@WebProfiler/Profiler/cancel.html.twig"], "profile" => null, "profiler_url" => $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("_profiler", ["token" =>         // line 7
+(isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 7, $this->source); })())]), "profiler_markup_version" => 3]);
+        // line 9
+        echo "
+</div>
 
 ";
         // line 12
@@ -104,20 +105,20 @@ class __TwigTemplate_d32c4453aebee1ceb2731a0547a4c0c2 extends Template
 
     public function getDebugInfo()
     {
-        return array (  82 => 19,  73 => 17,  68 => 15,  60 => 14,  55 => 12,  51 => 10,  49 => 7,  48 => 2,  43 => 1,);
+        return array (  83 => 19,  74 => 17,  69 => 15,  61 => 14,  56 => 12,  51 => 9,  49 => 7,  48 => 2,  43 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<div id=\"sfwdt{{ token }}\" class=\"sf-toolbar sf-display-none\" role=\"region\" aria-label=\"Symfony Web Debug Toolbar\">
-    {% include('@WebProfiler/Profiler/toolbar.html.twig') with {
+    {{ include('@WebProfiler/Profiler/toolbar.html.twig', {
         templates: {
             'request': '@WebProfiler/Profiler/cancel.html.twig'
         },
         profile: null,
         profiler_url: url('_profiler', {token: token}),
-        profiler_markup_version: 2,
-    } %}
+        profiler_markup_version: 3,
+    }) }}
 </div>
 
 {{ include('@WebProfiler/Profiler/base_js.html.twig') }}

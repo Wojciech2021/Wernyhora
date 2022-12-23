@@ -81,7 +81,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
             ob_start();
             // line 8
             echo "            ";
-            echo twig_include($this->env, $context, "@WebProfiler/Icon/translation.svg");
+            echo twig_source($this->env, "@WebProfiler/Icon/translation.svg");
             echo "
             ";
             // line 9
@@ -179,7 +179,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
         echo "\">
         <span class=\"icon\">";
         // line 47
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/translation.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/translation.svg");
         echo "</span>
         <strong>Translation</strong>
         ";
@@ -247,7 +247,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
         // line 74
         if (twig_test_empty(twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 74, $this->source); })()), "messages", [], "any", false, false, false, 74))) {
             // line 75
-            echo "        <div class=\"empty\">
+            echo "        <div class=\"empty empty-panel\">
             <p>No translations have been called.</p>
         </div>
     ";
@@ -590,8 +590,10 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
                 echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["message"], "count", [], "any", false, false, false, 187), "html", null, true);
                 echo "</td>
                 <td>
-                    <span class=\"nowrap\">";
+                    <span class=\"";
                 // line 189
+                echo (((twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["message"], "id", [], "any", false, false, false, 189)) < 64)) ? ("nowrap") : (""));
+                echo "\">";
                 echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["message"], "id", [], "any", false, false, false, 189), "html", null, true);
                 echo "</span>
 
@@ -683,7 +685,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
 
     public function getDebugInfo()
     {
-        return array (  658 => 208,  641 => 205,  638 => 204,  634 => 202,  625 => 200,  621 => 199,  617 => 198,  611 => 196,  609 => 195,  606 => 194,  602 => 192,  600 => 191,  595 => 189,  590 => 187,  585 => 186,  579 => 184,  577 => 183,  573 => 182,  566 => 181,  549 => 180,  540 => 173,  536 => 171,  534 => 170,  528 => 166,  508 => 165,  495 => 151,  485 => 150,  472 => 129,  462 => 128,  449 => 108,  439 => 107,  423 => 154,  420 => 153,  417 => 150,  411 => 146,  409 => 145,  395 => 136,  391 => 135,  386 => 132,  383 => 131,  380 => 128,  374 => 124,  372 => 123,  359 => 115,  353 => 111,  350 => 110,  347 => 107,  341 => 103,  339 => 102,  329 => 95,  325 => 94,  321 => 92,  315 => 91,  312 => 90,  309 => 89,  306 => 88,  303 => 87,  300 => 86,  297 => 85,  294 => 84,  289 => 83,  286 => 82,  283 => 80,  273 => 79,  262 => 162,  259 => 161,  256 => 79,  250 => 75,  248 => 74,  239 => 68,  235 => 67,  228 => 63,  222 => 59,  212 => 58,  201 => 55,  195 => 52,  192 => 51,  189 => 50,  187 => 49,  182 => 47,  175 => 46,  165 => 45,  152 => 41,  149 => 40,  143 => 37,  134 => 31,  130 => 30,  121 => 24,  117 => 23,  109 => 18,  104 => 15,  102 => 14,  99 => 13,  93 => 11,  90 => 10,  88 => 9,  83 => 8,  80 => 7,  77 => 6,  67 => 5,  56 => 1,  54 => 3,  41 => 1,);
+        return array (  660 => 208,  643 => 205,  640 => 204,  636 => 202,  627 => 200,  623 => 199,  619 => 198,  613 => 196,  611 => 195,  608 => 194,  604 => 192,  602 => 191,  595 => 189,  590 => 187,  585 => 186,  579 => 184,  577 => 183,  573 => 182,  566 => 181,  549 => 180,  540 => 173,  536 => 171,  534 => 170,  528 => 166,  508 => 165,  495 => 151,  485 => 150,  472 => 129,  462 => 128,  449 => 108,  439 => 107,  423 => 154,  420 => 153,  417 => 150,  411 => 146,  409 => 145,  395 => 136,  391 => 135,  386 => 132,  383 => 131,  380 => 128,  374 => 124,  372 => 123,  359 => 115,  353 => 111,  350 => 110,  347 => 107,  341 => 103,  339 => 102,  329 => 95,  325 => 94,  321 => 92,  315 => 91,  312 => 90,  309 => 89,  306 => 88,  303 => 87,  300 => 86,  297 => 85,  294 => 84,  289 => 83,  286 => 82,  283 => 80,  273 => 79,  262 => 162,  259 => 161,  256 => 79,  250 => 75,  248 => 74,  239 => 68,  235 => 67,  228 => 63,  222 => 59,  212 => 58,  201 => 55,  195 => 52,  192 => 51,  189 => 50,  187 => 49,  182 => 47,  175 => 46,  165 => 45,  152 => 41,  149 => 40,  143 => 37,  134 => 31,  130 => 30,  121 => 24,  117 => 23,  109 => 18,  104 => 15,  102 => 14,  99 => 13,  93 => 11,  90 => 10,  88 => 9,  83 => 8,  80 => 7,  77 => 6,  67 => 5,  56 => 1,  54 => 3,  41 => 1,);
     }
 
     public function getSourceContext()
@@ -695,7 +697,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
 {% block toolbar %}
     {% if collector.messages|length %}
         {% set icon %}
-            {{ include('@WebProfiler/Icon/translation.svg') }}
+            {{ source('@WebProfiler/Icon/translation.svg') }}
             {% set status_color = collector.countMissings ? 'red' : collector.countFallbacks ? 'yellow' %}
             {% set error_count = collector.countMissings + collector.countFallbacks %}
             <span class=\"sf-toolbar-value\">{{ error_count ?: collector.countDefines }}</span>
@@ -734,7 +736,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
 
 {% block menu %}
     <span class=\"label label-status-{{ collector.countMissings ? 'error' : collector.countFallbacks ? 'warning' }} {{ collector.messages is empty ? 'disabled' }}\">
-        <span class=\"icon\">{{ include('@WebProfiler/Icon/translation.svg') }}</span>
+        <span class=\"icon\">{{ source('@WebProfiler/Icon/translation.svg') }}</span>
         <strong>Translation</strong>
         {% if collector.countMissings or collector.countFallbacks %}
             {% set error_count = collector.countMissings + collector.countFallbacks %}
@@ -762,7 +764,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
     <h2>Messages</h2>
 
     {% if collector.messages is empty %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No translations have been called.</p>
         </div>
     {% else %}
@@ -876,7 +878,7 @@ class __TwigTemplate_b5780f4c24888c1d96cae0c1c18c71c0 extends Template
                 <td class=\"font-normal text-small text-bold nowrap\">{{ message.domain }}</td>
                 <td class=\"font-normal text-small nowrap\">{{ message.count }}</td>
                 <td>
-                    <span class=\"nowrap\">{{ message.id }}</span>
+                    <span class=\"{{ message.id|length < 64 ? 'nowrap' }}\">{{ message.id }}</span>
 
                     {% if message.transChoiceNumber is not null %}
                         <small class=\"newline\">(pluralization is used)</small>

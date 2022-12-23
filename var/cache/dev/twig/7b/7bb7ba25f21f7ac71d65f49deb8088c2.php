@@ -65,7 +65,7 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
     margin: 1em 0;
     width: 100%;
     background-color: var(--table-background);
-    border: 1px solid var(--table-border);
+    border: 1px solid var(--table-border-color);
 }
 
 /* Typography */
@@ -86,7 +86,7 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
 .timeline-graph .timeline-subrequest,
 .timeline-graph .timeline-border {
     fill: none;
-    stroke: var(--table-border);
+    stroke: var(--table-border-color);
     stroke-width: 1px;
 }
 
@@ -96,7 +96,10 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
 }
 
 .timeline-subrequest-pattern {
-    fill: var(--table-border);
+    fill: var(--gray-200);
+}
+.theme-dark .timeline-subrequest-pattern {
+    fill: var(--gray-600);
 }
 
 /* Timeline periods */
@@ -150,7 +153,7 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
     margin: 1em 0;
     width: 100%;
     background-color: var(--table-background);
-    border: 1px solid var(--table-border);
+    border: 1px solid var(--table-border-color);
 }
 
 /* Typography */
@@ -171,7 +174,7 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
 .timeline-graph .timeline-subrequest,
 .timeline-graph .timeline-border {
     fill: none;
-    stroke: var(--table-border);
+    stroke: var(--table-border-color);
     stroke-width: 1px;
 }
 
@@ -181,7 +184,10 @@ class __TwigTemplate_7373c8df300aeb4757072905d8604780 extends Template
 }
 
 .timeline-subrequest-pattern {
-    fill: var(--table-border);
+    fill: var(--gray-200);
+}
+.theme-dark .timeline-subrequest-pattern {
+    fill: var(--gray-600);
 }
 
 /* Timeline periods */

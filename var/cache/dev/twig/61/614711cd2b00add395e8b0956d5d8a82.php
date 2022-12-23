@@ -40,7 +40,19 @@ class __TwigTemplate_d12b931faeaa6edce5930a9484fc49ae extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Icon/memory.svg"));
 
         // line 1
-        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#AAA\" d=\"M6 18.9V15h12v3.9c0 .7-.2 1.1-1 1.1H7c-.8 0-1-.4-1-1.1zM20 1c-.6 0-1 .5-1 1.1v18c0 .5-.4.9-.9.9H5.9a.9.9 0 0 1-.9-.9v-18C5 1.5 4.6 1 4 1c-.5 0-1 .5-1 1.1v18C3 21.7 4.3 23 5.9 23h12.2c1.6 0 2.9-1.3 2.9-2.9v-18c0-.6-.4-1.1-1-1.1zm-2 8H6v5h12V9z\"/></svg>
+        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-cpu\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <rect x=\"5\" y=\"5\" width=\"14\" height=\"14\" rx=\"1\"></rect>
+    <path d=\"M9 9h6v6h-6z\"></path>
+    <path d=\"M3 10h2\"></path>
+    <path d=\"M3 14h2\"></path>
+    <path d=\"M10 3v2\"></path>
+    <path d=\"M14 3v2\"></path>
+    <path d=\"M21 10h-2\"></path>
+    <path d=\"M21 14h-2\"></path>
+    <path d=\"M14 21v-2\"></path>
+    <path d=\"M10 21v-2\"></path>
+</svg>
 ";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -62,7 +74,19 @@ class __TwigTemplate_d12b931faeaa6edce5930a9484fc49ae extends Template
 
     public function getSourceContext()
     {
-        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#AAA\" d=\"M6 18.9V15h12v3.9c0 .7-.2 1.1-1 1.1H7c-.8 0-1-.4-1-1.1zM20 1c-.6 0-1 .5-1 1.1v18c0 .5-.4.9-.9.9H5.9a.9.9 0 0 1-.9-.9v-18C5 1.5 4.6 1 4 1c-.5 0-1 .5-1 1.1v18C3 21.7 4.3 23 5.9 23h12.2c1.6 0 2.9-1.3 2.9-2.9v-18c0-.6-.4-1.1-1-1.1zm-2 8H6v5h12V9z\"/></svg>
+        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-cpu\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <rect x=\"5\" y=\"5\" width=\"14\" height=\"14\" rx=\"1\"></rect>
+    <path d=\"M9 9h6v6h-6z\"></path>
+    <path d=\"M3 10h2\"></path>
+    <path d=\"M3 14h2\"></path>
+    <path d=\"M10 3v2\"></path>
+    <path d=\"M14 3v2\"></path>
+    <path d=\"M21 10h-2\"></path>
+    <path d=\"M21 14h-2\"></path>
+    <path d=\"M14 21v-2\"></path>
+    <path d=\"M10 21v-2\"></path>
+</svg>
 ", "@WebProfiler/Icon/memory.svg", "D:\\Studia\\Praca magisterska\\Projekt_Wernyhora\\Wernyhora\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\memory.svg");
     }
 }

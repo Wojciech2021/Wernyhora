@@ -41,20 +41,17 @@ class __TwigTemplate_b42f7e526efd83f77bd4d2d8e43e3fbb extends Template
 
         // line 1
         echo "<div id=\"header\">
-    <div class=\"container\">
-        <h1>";
-        // line 3
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/symfony.svg");
-        echo " Symfony <span>Profiler</span></h1>
+    <h1>";
+        // line 2
+        echo twig_source($this->env, "@WebProfiler/Icon/symfony.svg");
+        echo " Symfony Profiler</h1>
 
-        <div class=\"search\">
-            <form method=\"get\" action=\"https://symfony.com/search\" target=\"_blank\">
-                <div class=\"form-row\">
-                    <input name=\"q\" id=\"search-id\" type=\"search\" placeholder=\"search on symfony.com\">
-                    <button type=\"submit\" class=\"btn\">Search</button>
-                </div>
-           </form>
-        </div>
+    <div class=\"search\">
+        <form method=\"get\" action=\"https://symfony.com/search\" target=\"_blank\">
+            <div class=\"form-row\">
+                <input name=\"q\" id=\"search-id\" type=\"search\" placeholder=\"search on symfony.com\">
+            </div>
+       </form>
     </div>
 </div>
 ";
@@ -78,23 +75,20 @@ class __TwigTemplate_b42f7e526efd83f77bd4d2d8e43e3fbb extends Template
 
     public function getDebugInfo()
     {
-        return array (  47 => 3,  43 => 1,);
+        return array (  46 => 2,  43 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<div id=\"header\">
-    <div class=\"container\">
-        <h1>{{ include('@WebProfiler/Icon/symfony.svg') }} Symfony <span>Profiler</span></h1>
+    <h1>{{ source('@WebProfiler/Icon/symfony.svg') }} Symfony Profiler</h1>
 
-        <div class=\"search\">
-            <form method=\"get\" action=\"https://symfony.com/search\" target=\"_blank\">
-                <div class=\"form-row\">
-                    <input name=\"q\" id=\"search-id\" type=\"search\" placeholder=\"search on symfony.com\">
-                    <button type=\"submit\" class=\"btn\">Search</button>
-                </div>
-           </form>
-        </div>
+    <div class=\"search\">
+        <form method=\"get\" action=\"https://symfony.com/search\" target=\"_blank\">
+            <div class=\"form-row\">
+                <input name=\"q\" id=\"search-id\" type=\"search\" placeholder=\"search on symfony.com\">
+            </div>
+       </form>
     </div>
 </div>
 ", "@WebProfiler/Profiler/header.html.twig", "D:\\Studia\\Praca magisterska\\Projekt_Wernyhora\\Wernyhora\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\header.html.twig");

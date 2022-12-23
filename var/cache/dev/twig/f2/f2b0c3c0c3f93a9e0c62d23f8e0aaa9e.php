@@ -26,6 +26,7 @@ class __TwigTemplate_8414680a2d9b2c342e3288b3f071697b extends Template
 
         $this->blocks = [
             'title' => [$this, 'block_title'],
+            'head' => [$this, 'block_head'],
             'body' => [$this, 'block_body'],
         ];
     }
@@ -74,7 +75,54 @@ class __TwigTemplate_8414680a2d9b2c342e3288b3f071697b extends Template
 
     }
 
-    // line 5
+    // line 6
+    public function block_head($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "head"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "head"));
+
+        // line 7
+        echo "    ";
+        $this->displayParentBlock("head", $context, $blocks);
+        echo "
+
+    <style>
+        .sf-redirection-details {
+            background: var(--page-background);
+            box-shadow: inset 0 0 0 1px var(--menu-border-color), 0 0 0 5px var(--page-background);
+            border-radius: 6px;
+            margin: 45px auto 30px;
+            max-width: 800px;
+            padding: 30px 45px;
+        }
+        .sf-redirection-details h1 {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0 0 10px;
+        }
+        .sf-redirection-details p {
+            margin-top: 0;
+        }
+        .sf-redirection-details .sf-redirection-help {
+            color: var(--color-muted);
+            font-size: 14px;
+            margin: 45px 0 0;
+        }
+    </style>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 34
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -84,22 +132,35 @@ class __TwigTemplate_8414680a2d9b2c342e3288b3f071697b extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 6
-        echo "    <div class=\"sf-reset\">
-        <div class=\"block-exception\">
-            <h1>This request redirects to <a href=\"";
-        // line 8
-        echo twig_escape_filter($this->env, (isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 8, $this->source); })()), "html", null, true);
-        echo "\">";
-        echo twig_escape_filter($this->env, (isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 8, $this->source); })()), "html", null, true);
-        echo "</a>.</h1>
+        // line 35
+        echo "    <div class=\"container\">
+        ";
+        // line 36
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/header.html.twig", array(), false);
+        echo "
 
-            <p>
-                <small>
-                    The redirect was intercepted by the web debug toolbar to help debugging.
+        <div class=\"sf-reset sf-redirection-details\">
+            <div class=\"block-exception\">
+                <h1>Redirection Intercepted</h1>
+
+                ";
+        // line 42
+        $context["absolute_url"] = ((twig_in_filter((isset($context["host"]) || array_key_exists("host", $context) ? $context["host"] : (function () { throw new RuntimeError('Variable "host" does not exist.', 42, $this->source); })()), (isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 42, $this->source); })()))) ? ((isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 42, $this->source); })())) : (((isset($context["host"]) || array_key_exists("host", $context) ? $context["host"] : (function () { throw new RuntimeError('Variable "host" does not exist.', 42, $this->source); })()) . (isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 42, $this->source); })()))));
+        // line 43
+        echo "                <p>This request redirects to <strong>";
+        echo twig_escape_filter($this->env, (isset($context["absolute_url"]) || array_key_exists("absolute_url", $context) ? $context["absolute_url"] : (function () { throw new RuntimeError('Variable "absolute_url" does not exist.', 43, $this->source); })()), "html", null, true);
+        echo "</strong></p>
+
+                <p><a class=\"btn\" href=\"";
+        // line 45
+        echo twig_escape_filter($this->env, (isset($context["location"]) || array_key_exists("location", $context) ? $context["location"] : (function () { throw new RuntimeError('Variable "location" does not exist.', 45, $this->source); })()), "html", null, true);
+        echo "\">Follow redirect</a></p>
+
+                <p class=\"sf-redirection-help\">
+                    The redirect was intercepted by the Symfony Web Debug toolbar to help debugging.
                     For more information, see the \"intercept-redirects\" option of the Profiler.
-                </small>
-            </p>
+                </p>
+            </div>
         </div>
     </div>
 ";
@@ -123,7 +184,7 @@ class __TwigTemplate_8414680a2d9b2c342e3288b3f071697b extends Template
 
     public function getDebugInfo()
     {
-        return array (  92 => 8,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  156 => 45,  150 => 43,  148 => 42,  139 => 36,  136 => 35,  126 => 34,  89 => 7,  79 => 6,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -132,17 +193,53 @@ class __TwigTemplate_8414680a2d9b2c342e3288b3f071697b extends Template
 
 {% block title 'Redirection Intercepted' %}
 
-{% block body %}
-    <div class=\"sf-reset\">
-        <div class=\"block-exception\">
-            <h1>This request redirects to <a href=\"{{ location }}\">{{ location }}</a>.</h1>
 
-            <p>
-                <small>
-                    The redirect was intercepted by the web debug toolbar to help debugging.
+{% block head %}
+    {{ parent() }}
+
+    <style>
+        .sf-redirection-details {
+            background: var(--page-background);
+            box-shadow: inset 0 0 0 1px var(--menu-border-color), 0 0 0 5px var(--page-background);
+            border-radius: 6px;
+            margin: 45px auto 30px;
+            max-width: 800px;
+            padding: 30px 45px;
+        }
+        .sf-redirection-details h1 {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 0 0 10px;
+        }
+        .sf-redirection-details p {
+            margin-top: 0;
+        }
+        .sf-redirection-details .sf-redirection-help {
+            color: var(--color-muted);
+            font-size: 14px;
+            margin: 45px 0 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class=\"container\">
+        {{ include('@WebProfiler/Profiler/header.html.twig', with_context = false) }}
+
+        <div class=\"sf-reset sf-redirection-details\">
+            <div class=\"block-exception\">
+                <h1>Redirection Intercepted</h1>
+
+                {% set absolute_url = host in location ? location : host ~ location %}
+                <p>This request redirects to <strong>{{ absolute_url }}</strong></p>
+
+                <p><a class=\"btn\" href=\"{{ location }}\">Follow redirect</a></p>
+
+                <p class=\"sf-redirection-help\">
+                    The redirect was intercepted by the Symfony Web Debug toolbar to help debugging.
                     For more information, see the \"intercept-redirects\" option of the Profiler.
-                </small>
-            </p>
+                </p>
+            </div>
         </div>
     </div>
 {% endblock %}

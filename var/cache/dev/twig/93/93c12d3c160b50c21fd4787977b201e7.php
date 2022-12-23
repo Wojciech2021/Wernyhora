@@ -77,7 +77,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
             ob_start();
             // line 7
             echo "            ";
-            echo twig_include($this->env, $context, "@WebProfiler/Icon/validator.svg");
+            echo twig_source($this->env, "@WebProfiler/Icon/validator.svg");
             echo "
             <span class=\"sf-toolbar-value\">
                 ";
@@ -145,7 +145,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
         echo "\">
         <span class=\"icon\">";
         // line 30
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/validator.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/validator.svg");
         echo "</span>
         <strong>Validator</strong>
         ";
@@ -343,7 +343,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
         }
         if (!$context['_iterated']) {
             // line 99
-            echo "        <div class=\"empty\">
+            echo "        <div class=\"empty empty-panel\">
             <p>No calls to the validator were collected during this request.</p>
         </div>
     ";
@@ -382,7 +382,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
     {% if collector.violationsCount > 0 or collector.calls|length %}
         {% set status_color = collector.violationsCount ? 'red' %}
         {% set icon %}
-            {{ include('@WebProfiler/Icon/validator.svg') }}
+            {{ source('@WebProfiler/Icon/validator.svg') }}
             <span class=\"sf-toolbar-value\">
                 {{ collector.violationsCount ?: collector.calls|length }}
             </span>
@@ -405,7 +405,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
 
 {% block menu %}
     <span class=\"label {{- collector.violationsCount ? ' label-status-error' }} {{ collector.calls is empty ? 'disabled' }}\">
-        <span class=\"icon\">{{ include('@WebProfiler/Icon/validator.svg') }}</span>
+        <span class=\"icon\">{{ source('@WebProfiler/Icon/validator.svg') }}</span>
         <strong>Validator</strong>
         {% if collector.violationsCount > 0 %}
             <span class=\"count\">
@@ -474,7 +474,7 @@ class __TwigTemplate_452d18c000e2b863ab6e83ca9b2fb868 extends Template
             {% endif %}
         </div>
     {% else %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No calls to the validator were collected during this request.</p>
         </div>
     {% endfor %}

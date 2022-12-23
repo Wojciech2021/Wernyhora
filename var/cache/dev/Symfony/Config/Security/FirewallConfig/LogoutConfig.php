@@ -12,14 +12,41 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  */
 class LogoutConfig 
 {
+    private $enableCsrf;
+    private $csrfTokenId;
     private $csrfParameter;
     private $csrfTokenGenerator;
-    private $csrfTokenId;
     private $path;
     private $target;
     private $invalidateSession;
     private $deleteCookies;
     private $_usedProperties = [];
+
+    /**
+     * @default null
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enableCsrf($value): static
+    {
+        $this->_usedProperties['enableCsrf'] = true;
+        $this->enableCsrf = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default 'logout'
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
+    public function csrfTokenId($value): static
+    {
+        $this->_usedProperties['csrfTokenId'] = true;
+        $this->csrfTokenId = $value;
+
+        return $this;
+    }
 
     /**
      * @default '_csrf_token'
@@ -43,19 +70,6 @@ class LogoutConfig
     {
         $this->_usedProperties['csrfTokenGenerator'] = true;
         $this->csrfTokenGenerator = $value;
-
-        return $this;
-    }
-
-    /**
-     * @default 'logout'
-     * @param ParamConfigurator|mixed $value
-     * @return $this
-     */
-    public function csrfTokenId($value): static
-    {
-        $this->_usedProperties['csrfTokenId'] = true;
-        $this->csrfTokenId = $value;
 
         return $this;
     }
@@ -100,9 +114,12 @@ class LogoutConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Security\FirewallConfig\Logout\DeleteCookieConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Security\FirewallConfig\Logout\DeleteCookieConfig : static)
      */
-    public function deleteCookie(string $name, mixed $value = []): \Symfony\Config\Security\FirewallConfig\Logout\DeleteCookieConfig|static
+    public function deleteCookie(string $name, array $value = []): \Symfony\Config\Security\FirewallConfig\Logout\DeleteCookieConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['deleteCookies'] = true;
@@ -123,6 +140,18 @@ class LogoutConfig
 
     public function __construct(array $value = [])
     {
+        if (array_key_exists('enable_csrf', $value)) {
+            $this->_usedProperties['enableCsrf'] = true;
+            $this->enableCsrf = $value['enable_csrf'];
+            unset($value['enable_csrf']);
+        }
+
+        if (array_key_exists('csrf_token_id', $value)) {
+            $this->_usedProperties['csrfTokenId'] = true;
+            $this->csrfTokenId = $value['csrf_token_id'];
+            unset($value['csrf_token_id']);
+        }
+
         if (array_key_exists('csrf_parameter', $value)) {
             $this->_usedProperties['csrfParameter'] = true;
             $this->csrfParameter = $value['csrf_parameter'];
@@ -133,12 +162,6 @@ class LogoutConfig
             $this->_usedProperties['csrfTokenGenerator'] = true;
             $this->csrfTokenGenerator = $value['csrf_token_generator'];
             unset($value['csrf_token_generator']);
-        }
-
-        if (array_key_exists('csrf_token_id', $value)) {
-            $this->_usedProperties['csrfTokenId'] = true;
-            $this->csrfTokenId = $value['csrf_token_id'];
-            unset($value['csrf_token_id']);
         }
 
         if (array_key_exists('path', $value)) {
@@ -173,14 +196,17 @@ class LogoutConfig
     public function toArray(): array
     {
         $output = [];
+        if (isset($this->_usedProperties['enableCsrf'])) {
+            $output['enable_csrf'] = $this->enableCsrf;
+        }
+        if (isset($this->_usedProperties['csrfTokenId'])) {
+            $output['csrf_token_id'] = $this->csrfTokenId;
+        }
         if (isset($this->_usedProperties['csrfParameter'])) {
             $output['csrf_parameter'] = $this->csrfParameter;
         }
         if (isset($this->_usedProperties['csrfTokenGenerator'])) {
             $output['csrf_token_generator'] = $this->csrfTokenGenerator;
-        }
-        if (isset($this->_usedProperties['csrfTokenId'])) {
-            $output['csrf_token_id'] = $this->csrfTokenId;
         }
         if (isset($this->_usedProperties['path'])) {
             $output['path'] = $this->path;

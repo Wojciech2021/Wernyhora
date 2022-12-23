@@ -28,11 +28,11 @@ class EnvelopeConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
      * @return $this
      */
-    public function recipients(mixed $value): static
+    public function recipients(ParamConfigurator|array $value): static
     {
         $this->_usedProperties['recipients'] = true;
         $this->recipients = $value;

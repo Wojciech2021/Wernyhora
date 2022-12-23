@@ -30,7 +30,10 @@ class WorkflowsConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Framework\Workflows\WorkflowsConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Workflows\WorkflowsConfig : static)
      */
     public function workflows(string $name, mixed $value = []): \Symfony\Config\Framework\Workflows\WorkflowsConfig|static
     {

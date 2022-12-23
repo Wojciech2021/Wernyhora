@@ -88,7 +88,10 @@ class MailerConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @return \Symfony\Config\Framework\Mailer\HeaderConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\Mailer\HeaderConfig : static)
      */
     public function header(string $name, mixed $value = []): \Symfony\Config\Framework\Mailer\HeaderConfig|static
     {

@@ -70,11 +70,11 @@ class SanitizerConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function blockElements(mixed $value): static
+    public function blockElements(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['blockElements'] = true;
         $this->blockElements = $value;
@@ -83,11 +83,11 @@ class SanitizerConfig
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function dropElements(mixed $value): static
+    public function dropElements(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['dropElements'] = true;
         $this->dropElements = $value;

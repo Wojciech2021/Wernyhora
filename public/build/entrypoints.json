@@ -3,11 +3,19 @@
     "app": {
       "js": [
         "/build/runtime.61b1725c.js",
-        "/build/897.1ba3e743.js",
-        "/build/app.d2ca07b2.js"
+        "/build/222.c27df430.js",
+        "/build/524.eb17f2c9.js",
+        "/build/app.9372b3d0.js"
       ],
       "css": [
-        "/build/app.b75294ae.css"
+        "/build/app.873633eb.css"
+      ]
+    },
+    "app_collection": {
+      "js": [
+        "/build/runtime.61b1725c.js",
+        "/build/222.c27df430.js",
+        "/build/app_collection.a889aae3.js"
       ]
     }
   }

@@ -50,10 +50,13 @@ class RetryFailedConfig
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * A list of HTTP status code that triggers a retry
      * @return \Symfony\Config\Framework\HttpClient\DefaultOptions\RetryFailed\HttpCodeConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Framework\HttpClient\DefaultOptions\RetryFailed\HttpCodeConfig : static)
      */
-    public function httpCode(string $code, mixed $value = []): \Symfony\Config\Framework\HttpClient\DefaultOptions\RetryFailed\HttpCodeConfig|static
+    public function httpCode(string $code, array $value = []): \Symfony\Config\Framework\HttpClient\DefaultOptions\RetryFailed\HttpCodeConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['httpCodes'] = true;

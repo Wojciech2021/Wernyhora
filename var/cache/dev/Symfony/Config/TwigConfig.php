@@ -5,6 +5,7 @@ namespace Symfony\Config;
 require_once __DIR__.\DIRECTORY_SEPARATOR.'Twig'.\DIRECTORY_SEPARATOR.'GlobalConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'Twig'.\DIRECTORY_SEPARATOR.'DateConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'Twig'.\DIRECTORY_SEPARATOR.'NumberFormatConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'Twig'.\DIRECTORY_SEPARATOR.'MailerConfig.php';
 
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -31,6 +32,7 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
     private $paths;
     private $date;
     private $numberFormat;
+    private $mailer;
     private $_usedProperties = [];
 
     /**
@@ -47,9 +49,12 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @example "@bar"
      * @example 3.14
      * @return \Symfony\Config\Twig\GlobalConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Twig\GlobalConfig : static)
      */
     public function global(string $key, mixed $value = []): \Symfony\Config\Twig\GlobalConfig|static
     {
@@ -218,11 +223,11 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
     }
 
     /**
-     * @param mixed $value
+     * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
      * @return $this
      */
-    public function fileNamePattern(mixed $value): static
+    public function fileNamePattern(ParamConfigurator|string|array $value): static
     {
         $this->_usedProperties['fileNamePattern'] = true;
         $this->fileNamePattern = $value;
@@ -271,6 +276,18 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
         }
 
         return $this->numberFormat;
+    }
+
+    public function mailer(array $value = []): \Symfony\Config\Twig\MailerConfig
+    {
+        if (null === $this->mailer) {
+            $this->_usedProperties['mailer'] = true;
+            $this->mailer = new \Symfony\Config\Twig\MailerConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "mailer()" has already been initialized. You cannot pass values the second time you call mailer().');
+        }
+
+        return $this->mailer;
     }
 
     public function getExtensionAlias(): string
@@ -382,6 +399,12 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
             unset($value['number_format']);
         }
 
+        if (array_key_exists('mailer', $value)) {
+            $this->_usedProperties['mailer'] = true;
+            $this->mailer = new \Symfony\Config\Twig\MailerConfig($value['mailer']);
+            unset($value['mailer']);
+        }
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
@@ -440,6 +463,9 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
         }
         if (isset($this->_usedProperties['numberFormat'])) {
             $output['number_format'] = $this->numberFormat->toArray();
+        }
+        if (isset($this->_usedProperties['mailer'])) {
+            $output['mailer'] = $this->mailer->toArray();
         }
 
         return $output;

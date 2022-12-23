@@ -85,6 +85,7 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     /**
      * @default true
      * @param ParamConfigurator|bool $value
+     * @deprecated The "enable_authenticator_manager" option at "security" is deprecated.
      * @return $this
      */
     public function enableAuthenticatorManager($value): static
@@ -111,11 +112,14 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     }
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @example "auto"
      * @example {"algorithm":"auto","time_cost":8,"cost":13}
      * @return \Symfony\Config\Security\PasswordHasherConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Security\PasswordHasherConfig : static)
      */
-    public function passwordHasher(string $class, mixed $value = []): \Symfony\Config\Security\PasswordHasherConfig|static
+    public function passwordHasher(string $class, string|array $value = []): \Symfony\Config\Security\PasswordHasherConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['passwordHashers'] = true;

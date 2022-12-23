@@ -80,17 +80,42 @@ class __TwigTemplate_60084e7df369298047236b19adbbabea extends Template
                 <td>
                     <button type=\"button\" class=\"btn btn-primary\"><a href=\"/projects/edit/";
             // line 22
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["project"], "id", [], "any", false, false, false, 22), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["project"], "slug", [], "any", false, false, false, 22), "html", null, true);
             echo "\" class=\"text-white text-decoration-none\">Edycja</a></button>
                 </td>
-            </tr>
+                <td>
+                    <button type=\"button\" class=\"btn btn-danger\" onclick=\"return confirm('Czy jesteś pewien że chcesz usunąć projekt?')\"><a href=\"/projects/delete/";
+            // line 25
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["project"], "slug", [], "any", false, false, false, 25), "html", null, true);
+            echo "\" class=\"text-white text-decoration-none\">Usuń</a></button>
+                </td>
+                ";
+            // line 27
+            if ((((((((((((twig_length_filter($this->env, twig_get_attribute($this->env, $this->source,             // line 28
+$context["project"], "critery", [], "any", false, false, false, 28)) && twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["project"], "critery", [], "any", false, false, false, 28), 0, [], "array", false, false, false, 28), "VariantValue", [], "any", false, false, false, 28))) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,             // line 29
+$context["project"], "critery", [], "any", false, false, false, 29), 0, [], "array", false, false, false, 29), "alfaQ", [], "any", false, false, false, 29)) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["project"], "critery", [], "any", false, false, false, 29), 0, [], "array", false, false, false, 29), "betaQ", [], "any", false, false, false, 29)) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,             // line 30
+$context["project"], "critery", [], "any", false, false, false, 30), 0, [], "array", false, false, false, 30), "alfaP", [], "any", false, false, false, 30)) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["project"], "critery", [], "any", false, false, false, 30), 0, [], "array", false, false, false, 30), "betaP", [], "any", false, false, false, 30)) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,             // line 31
+$context["project"], "critery", [], "any", false, false, false, 31), 0, [], "array", false, false, false, 31), "alfaV", [], "any", false, false, false, 31)) && twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["project"], "critery", [], "any", false, false, false, 31), 0, [], "array", false, false, false, 31), "betaV", [], "any", false, false, false, 31)) && twig_length_filter($this->env, twig_get_attribute($this->env, $this->source,             // line 32
+$context["project"], "variant", [], "any", false, false, false, 32))) && twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["project"], "klas", [], "any", false, false, false, 32))) && twig_length_filter($this->env, twig_get_attribute($this->env, $this->source,             // line 33
+$context["project"], "profil", [], "any", false, false, false, 33))) && twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["project"], "profil", [], "any", false, false, false, 33), 0, [], "array", false, false, false, 33), "profilValue", [], "any", false, false, false, 33)))) {
+                // line 34
+                echo "                <td>
+                    <button type=\"button\" class=\"btn btn-warning\"><a href=\"/projects/raport/";
+                // line 35
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["project"], "slug", [], "any", false, false, false, 35), "html", null, true);
+                echo "\" class=\"text-white text-decoration-none\">Raport</a></button>
+                </td>
+                ";
+            }
+            // line 38
+            echo "            </tr>
 
         ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['project'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 27
+        // line 41
         echo "
         </tbody>
     </table>
@@ -116,7 +141,7 @@ class __TwigTemplate_60084e7df369298047236b19adbbabea extends Template
 
     public function getDebugInfo()
     {
-        return array (  94 => 27,  83 => 22,  78 => 20,  74 => 19,  70 => 18,  66 => 17,  63 => 16,  59 => 15,  43 => 1,);
+        return array (  119 => 41,  111 => 38,  105 => 35,  102 => 34,  100 => 33,  99 => 32,  98 => 31,  97 => 30,  96 => 29,  95 => 28,  94 => 27,  89 => 25,  83 => 22,  78 => 20,  74 => 19,  70 => 18,  66 => 17,  63 => 16,  59 => 15,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -142,8 +167,22 @@ class __TwigTemplate_60084e7df369298047236b19adbbabea extends Template
                 <td>{{ project.creationTime|date(\"Y-m-d H:i:s\") }}</td>
                 <td>{{ project.updateTime|date(\"Y-m-d H:i:s\") }}</td>
                 <td>
-                    <button type=\"button\" class=\"btn btn-primary\"><a href=\"/projects/edit/{{ project.id }}\" class=\"text-white text-decoration-none\">Edycja</a></button>
+                    <button type=\"button\" class=\"btn btn-primary\"><a href=\"/projects/edit/{{ project.slug }}\" class=\"text-white text-decoration-none\">Edycja</a></button>
                 </td>
+                <td>
+                    <button type=\"button\" class=\"btn btn-danger\" onclick=\"return confirm('Czy jesteś pewien że chcesz usunąć projekt?')\"><a href=\"/projects/delete/{{ project.slug }}\" class=\"text-white text-decoration-none\">Usuń</a></button>
+                </td>
+                {% if
+                    project.critery|length and project.critery[0].VariantValue|length
+                    and project.critery[0].alfaQ and project.critery[0].betaQ
+                    and project.critery[0].alfaP and project.critery[0].betaP
+                    and project.critery[0].alfaV and project.critery[0].betaV
+                    and project.variant|length and project.klas|length
+                    and project.profil|length and project.profil[0].profilValue|length %}
+                <td>
+                    <button type=\"button\" class=\"btn btn-warning\"><a href=\"/projects/raport/{{ project.slug }}\" class=\"text-white text-decoration-none\">Raport</a></button>
+                </td>
+                {% endif %}
             </tr>
 
         {% endfor %}

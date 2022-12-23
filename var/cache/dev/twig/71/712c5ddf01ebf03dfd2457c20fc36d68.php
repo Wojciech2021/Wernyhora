@@ -64,7 +64,7 @@ class __TwigTemplate_d7e34237e5008e33758612c9d626e4aa extends Template
         ob_start();
         // line 3
         echo "        ";
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/symfony.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/symfony.svg");
         echo "
 
         <span class=\"sf-toolbar-value sf-toolbar-ajax-request-counter\">
@@ -126,7 +126,7 @@ class __TwigTemplate_d7e34237e5008e33758612c9d626e4aa extends Template
     {
         return new Source("{% block toolbar %}
     {% set icon %}
-        {{ include('@WebProfiler/Icon/symfony.svg') }}
+        {{ source('@WebProfiler/Icon/symfony.svg') }}
 
         <span class=\"sf-toolbar-value sf-toolbar-ajax-request-counter\">
             Loading&hellip;

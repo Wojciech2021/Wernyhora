@@ -25,10 +25,13 @@ class SecondLevelCacheConfig
     private $_usedProperties = [];
 
     /**
+     * @template TValue
+     * @param TValue $value
      * @default {"type":null}
      * @return \Symfony\Config\Doctrine\Orm\EntityManagerConfig\SecondLevelCache\RegionCacheDriverConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Doctrine\Orm\EntityManagerConfig\SecondLevelCache\RegionCacheDriverConfig : static)
      */
-    public function regionCacheDriver(mixed $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\SecondLevelCache\RegionCacheDriverConfig|static
+    public function regionCacheDriver(string|array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig\SecondLevelCache\RegionCacheDriverConfig|static
     {
         if (!\is_array($value)) {
             $this->_usedProperties['regionCacheDriver'] = true;

@@ -84,11 +84,29 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
         }
 
         if (navigator.clipboard) {
-            document.querySelectorAll('[data-clipboard-text]').forEach(function(element) {
-                removeClass(element, 'hidden');
-                element.addEventListener('click', function() {
-                    navigator.clipboard.writeText(element.getAttribute('data-clipboard-text'));
-                })
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState !== 'complete') {
+                    return;
+                }
+
+                document.querySelectorAll('[data-clipboard-text]').forEach(function (element) {
+                    removeClass(element, 'hidden');
+                    element.addEventListener('click', function () {
+                        navigator.clipboard.writeText(element.getAttribute('data-clipboard-text'));
+
+                        if (element.classList.contains(\"label\")) {
+                            let oldContent = element.textContent;
+
+                            element.textContent = \"✅ Copied!\";
+                            element.classList.add(\"status-success\");
+
+                            setTimeout(() => {
+                                element.textContent = oldContent;
+                                element.classList.remove(\"status-success\");
+                            }, 7000);
+                        }
+                    });
+                });
             });
         }
 
@@ -335,9 +353,9 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
         };
 
         ";
-        // line 292
+        // line 310
         if (array_key_exists("excluded_ajax_paths", $context)) {
-            // line 293
+            // line 311
             echo "            if (window.fetch && window.fetch.polyfill === undefined) {
                 var oldFetch = window.fetch;
                 window.fetch = function () {
@@ -358,8 +376,8 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                         url = String(url);
                     }
                     if (!url.match(new RegExp(";
-            // line 312
-            echo json_encode((isset($context["excluded_ajax_paths"]) || array_key_exists("excluded_ajax_paths", $context) ? $context["excluded_ajax_paths"] : (function () { throw new RuntimeError('Variable "excluded_ajax_paths" does not exist.', 312, $this->source); })()));
+            // line 330
+            echo json_encode((isset($context["excluded_ajax_paths"]) || array_key_exists("excluded_ajax_paths", $context) ? $context["excluded_ajax_paths"] : (function () { throw new RuntimeError('Variable "excluded_ajax_paths" does not exist.', 330, $this->source); })()));
             echo "))) {
                         var method = 'GET';
                         if (params && params.method !== undefined) {
@@ -404,28 +422,28 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                     var path = url;
                     if (url.slice(0, 1) === '/') {
                         if (0 === url.indexOf('";
-            // line 355
-            echo twig_escape_filter($this->env, twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 355, $this->source); })()), "basePath", [], "any", false, false, false, 355), "js"), "html", null, true);
+            // line 373
+            echo twig_escape_filter($this->env, twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 373, $this->source); })()), "basePath", [], "any", false, false, false, 373), "js"), "html", null, true);
             echo "')) {
                             path = url.slice(";
-            // line 356
-            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 356, $this->source); })()), "basePath", [], "any", false, false, false, 356)), "html", null, true);
+            // line 374
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 374, $this->source); })()), "basePath", [], "any", false, false, false, 374)), "html", null, true);
             echo ");
                         }
                     }
                     else if (0 === url.indexOf('";
-            // line 359
-            echo twig_escape_filter($this->env, twig_escape_filter($this->env, (twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 359, $this->source); })()), "schemeAndHttpHost", [], "any", false, false, false, 359) . twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 359, $this->source); })()), "basePath", [], "any", false, false, false, 359)), "js"), "html", null, true);
+            // line 377
+            echo twig_escape_filter($this->env, twig_escape_filter($this->env, (twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 377, $this->source); })()), "schemeAndHttpHost", [], "any", false, false, false, 377) . twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 377, $this->source); })()), "basePath", [], "any", false, false, false, 377)), "js"), "html", null, true);
             echo "')) {
                         path = url.slice(";
-            // line 360
-            echo twig_escape_filter($this->env, twig_length_filter($this->env, (twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 360, $this->source); })()), "schemeAndHttpHost", [], "any", false, false, false, 360) . twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 360, $this->source); })()), "basePath", [], "any", false, false, false, 360))), "html", null, true);
+            // line 378
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, (twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 378, $this->source); })()), "schemeAndHttpHost", [], "any", false, false, false, 378) . twig_get_attribute($this->env, $this->source, (isset($context["request"]) || array_key_exists("request", $context) ? $context["request"] : (function () { throw new RuntimeError('Variable "request" does not exist.', 378, $this->source); })()), "basePath", [], "any", false, false, false, 378))), "html", null, true);
             echo ");
                     }
 
                     if (!path.match(new RegExp(";
-            // line 363
-            echo json_encode((isset($context["excluded_ajax_paths"]) || array_key_exists("excluded_ajax_paths", $context) ? $context["excluded_ajax_paths"] : (function () { throw new RuntimeError('Variable "excluded_ajax_paths" does not exist.', 363, $this->source); })()));
+            // line 381
+            echo json_encode((isset($context["excluded_ajax_paths"]) || array_key_exists("excluded_ajax_paths", $context) ? $context["excluded_ajax_paths"] : (function () { throw new RuntimeError('Variable "excluded_ajax_paths" does not exist.', 381, $this->source); })()));
             echo "))) {
                         var stackElement = {
                             error: false,
@@ -456,7 +474,7 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
             }
         ";
         }
-        // line 392
+        // line 410
         echo "
         return {
             hasClass: hasClass,
@@ -606,7 +624,7 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                 this.load(
                     'sfwdt' + token,
                     '";
-        // line 540
+        // line 558
         echo twig_escape_filter($this->env, twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("_wdt", ["token" => "xxxxxx"]), "js"), "html", null, true);
         echo "'.replace(/xxxxxx/, newToken),
                     function(xhr, el) {
@@ -687,10 +705,10 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                         if (xhr.status !== 0 && !options.stop) {
                             var sfwdt = that.getSfwdt(token);
                             sfwdt.innerHTML = '\\
-                                <div class=\"sf-toolbarreset\">\\
+                                <div class=\"sf-toolbarreset notranslate\">\\
                                     <div class=\"sf-toolbar-icon\"><svg width=\"26\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 26 28\" enable-background=\"new 0 0 26 28\" xml:space=\"preserve\"><path fill=\"#FFFFFF\" d=\"M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M20 7.5 c-0.6 0-1-0.3-1-0.9c0-0.2 0-0.4 0.2-0.6c0.1-0.3 0.2-0.3 0.2-0.4c0-0.3-0.5-0.4-0.7-0.4c-2 0.1-2.5 2.7-2.9 4.8l-0.2 1.1 c1.1 0.2 1.9 0 2.4-0.3c0.6-0.4-0.2-0.8-0.1-1.3C18 9.2 18.4 9 18.7 8.9c0.5 0 0.8 0.5 0.8 1c0 0.8-1.1 2-3.3 1.9 c-0.3 0-0.5 0-0.7-0.1L15 14.1c-0.4 1.7-0.9 4.1-2.6 6.2c-1.5 1.8-3.1 2.1-3.8 2.1c-1.3 0-2.1-0.6-2.2-1.6c0-0.9 0.8-1.4 1.3-1.4 c0.7 0 1.2 0.5 1.2 1.1c0 0.5-0.2 0.6-0.4 0.7c-0.1 0.1-0.3 0.2-0.3 0.4c0 0.1 0.1 0.3 0.4 0.3c0.5 0 0.9-0.3 1.2-0.5 c1.3-1 1.7-2.9 2.4-6.2l0.1-0.8c0.2-1.1 0.5-2.3 0.8-3.5c-0.9-0.7-1.4-1.5-2.6-1.8c-0.8-0.2-1.3 0-1.7 0.4C8.4 10 8.6 10.7 9 11.1 l0.7 0.7c0.8 0.9 1.3 1.7 1.1 2.7c-0.3 1.6-2.1 2.8-4.3 2.1c-1.9-0.6-2.2-1.9-2-2.7c0.2-0.6 0.7-0.8 1.2-0.6 c0.5 0.2 0.7 0.8 0.6 1.3c0 0.1 0 0.1-0.1 0.3C6 15 5.9 15.2 5.9 15.3c-0.1 0.4 0.4 0.7 0.8 0.8c0.8 0.3 1.7-0.2 1.9-0.9 c0.2-0.6-0.2-1.1-0.4-1.2l-0.8-0.9c-0.4-0.4-1.2-1.5-0.8-2.8c0.2-0.5 0.5-1 0.9-1.4c1-0.7 2-0.8 3-0.6c1.3 0.4 1.9 1.2 2.8 1.9 c0.5-1.3 1.1-2.6 2-3.8c0.9-1 2-1.7 3.3-1.8C20 4.8 21 5.4 21 6.3C21 6.7 20.8 7.5 20 7.5z\"/></svg></div>\\
                                     An error occurred while loading the web debug toolbar. <a href=\"";
-        // line 621
+        // line 639
         echo twig_escape_filter($this->env, twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("_profiler_home"), "js"), "html", null, true);
         echo "' + newToken + '>Open the web profiler.</a>\\
                                 </div>\\
@@ -890,6 +908,22 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                 });
             },
 
+            initializeMailerTable: function() {
+                const emailRows = document.querySelectorAll('.mailer-email-summary-table-row');
+
+                emailRows.forEach((emailRow) => {
+                    emailRow.addEventListener('click', () => {
+                        emailRow.addEventListener('click', () => {
+                            emailRows.forEach((row) => row.classList.remove('active'));
+                            emailRow.classList.add('active');
+
+                            document.querySelectorAll('.mailer-email-details').forEach((emailDetails) => emailDetails.style.display = 'none');
+                            document.querySelector(emailRow.getAttribute('data-target')).style.display = 'block';
+                        });
+                    });
+                });
+            },
+
             updateLogsTable: function() {
                 const selectedType = document.querySelector('#log-filter-type input:checked').value;
                 const priorities = document.querySelectorAll('#log-filter-priority input');
@@ -967,7 +1001,7 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
 
     public function getDebugInfo()
     {
-        return array (  694 => 621,  610 => 540,  460 => 392,  428 => 363,  422 => 360,  418 => 359,  412 => 356,  408 => 355,  362 => 312,  341 => 293,  339 => 292,  52 => 7,  43 => 3,);
+        return array (  712 => 639,  628 => 558,  478 => 410,  446 => 381,  440 => 378,  436 => 377,  430 => 374,  426 => 373,  380 => 330,  359 => 311,  357 => 310,  52 => 7,  43 => 3,);
     }
 
     public function getSourceContext()
@@ -1013,11 +1047,29 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
         }
 
         if (navigator.clipboard) {
-            document.querySelectorAll('[data-clipboard-text]').forEach(function(element) {
-                removeClass(element, 'hidden');
-                element.addEventListener('click', function() {
-                    navigator.clipboard.writeText(element.getAttribute('data-clipboard-text'));
-                })
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState !== 'complete') {
+                    return;
+                }
+
+                document.querySelectorAll('[data-clipboard-text]').forEach(function (element) {
+                    removeClass(element, 'hidden');
+                    element.addEventListener('click', function () {
+                        navigator.clipboard.writeText(element.getAttribute('data-clipboard-text'));
+
+                        if (element.classList.contains(\"label\")) {
+                            let oldContent = element.textContent;
+
+                            element.textContent = \"✅ Copied!\";
+                            element.classList.add(\"status-success\");
+
+                            setTimeout(() => {
+                                element.textContent = oldContent;
+                                element.classList.remove(\"status-success\");
+                            }, 7000);
+                        }
+                    });
+                });
             });
         }
 
@@ -1590,7 +1642,7 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                         if (xhr.status !== 0 && !options.stop) {
                             var sfwdt = that.getSfwdt(token);
                             sfwdt.innerHTML = '\\
-                                <div class=\"sf-toolbarreset\">\\
+                                <div class=\"sf-toolbarreset notranslate\">\\
                                     <div class=\"sf-toolbar-icon\"><svg width=\"26\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 26 28\" enable-background=\"new 0 0 26 28\" xml:space=\"preserve\"><path fill=\"#FFFFFF\" d=\"M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M20 7.5 c-0.6 0-1-0.3-1-0.9c0-0.2 0-0.4 0.2-0.6c0.1-0.3 0.2-0.3 0.2-0.4c0-0.3-0.5-0.4-0.7-0.4c-2 0.1-2.5 2.7-2.9 4.8l-0.2 1.1 c1.1 0.2 1.9 0 2.4-0.3c0.6-0.4-0.2-0.8-0.1-1.3C18 9.2 18.4 9 18.7 8.9c0.5 0 0.8 0.5 0.8 1c0 0.8-1.1 2-3.3 1.9 c-0.3 0-0.5 0-0.7-0.1L15 14.1c-0.4 1.7-0.9 4.1-2.6 6.2c-1.5 1.8-3.1 2.1-3.8 2.1c-1.3 0-2.1-0.6-2.2-1.6c0-0.9 0.8-1.4 1.3-1.4 c0.7 0 1.2 0.5 1.2 1.1c0 0.5-0.2 0.6-0.4 0.7c-0.1 0.1-0.3 0.2-0.3 0.4c0 0.1 0.1 0.3 0.4 0.3c0.5 0 0.9-0.3 1.2-0.5 c1.3-1 1.7-2.9 2.4-6.2l0.1-0.8c0.2-1.1 0.5-2.3 0.8-3.5c-0.9-0.7-1.4-1.5-2.6-1.8c-0.8-0.2-1.3 0-1.7 0.4C8.4 10 8.6 10.7 9 11.1 l0.7 0.7c0.8 0.9 1.3 1.7 1.1 2.7c-0.3 1.6-2.1 2.8-4.3 2.1c-1.9-0.6-2.2-1.9-2-2.7c0.2-0.6 0.7-0.8 1.2-0.6 c0.5 0.2 0.7 0.8 0.6 1.3c0 0.1 0 0.1-0.1 0.3C6 15 5.9 15.2 5.9 15.3c-0.1 0.4 0.4 0.7 0.8 0.8c0.8 0.3 1.7-0.2 1.9-0.9 c0.2-0.6-0.2-1.1-0.4-1.2l-0.8-0.9c-0.4-0.4-1.2-1.5-0.8-2.8c0.2-0.5 0.5-1 0.9-1.4c1-0.7 2-0.8 3-0.6c1.3 0.4 1.9 1.2 2.8 1.9 c0.5-1.3 1.1-2.6 2-3.8c0.9-1 2-1.7 3.3-1.8C20 4.8 21 5.4 21 6.3C21 6.7 20.8 7.5 20 7.5z\"/></svg></div>\\
                                     An error occurred while loading the web debug toolbar. <a href=\"{{ url(\"_profiler_home\")|escape('js') }}' + newToken + '>Open the web profiler.</a>\\
                                 </div>\\
@@ -1786,6 +1838,22 @@ if (typeof Sfjs === 'undefined' || typeof Sfjs.loadToolbar === 'undefined') {
                         if (!filterElement.contains(event.target) && filterElement.open) {
                             filterElement.open = false;
                         }
+                    });
+                });
+            },
+
+            initializeMailerTable: function() {
+                const emailRows = document.querySelectorAll('.mailer-email-summary-table-row');
+
+                emailRows.forEach((emailRow) => {
+                    emailRow.addEventListener('click', () => {
+                        emailRow.addEventListener('click', () => {
+                            emailRows.forEach((row) => row.classList.remove('active'));
+                            emailRow.classList.add('active');
+
+                            document.querySelectorAll('.mailer-email-details').forEach((emailDetails) => emailDetails.style.display = 'none');
+                            document.querySelector(emailRow.getAttribute('data-target')).style.display = 'block';
+                        });
                     });
                 });
             },

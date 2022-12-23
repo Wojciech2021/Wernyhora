@@ -53,7 +53,7 @@ class __TwigTemplate_c93d6d922f86d7c290b567d0183af37e extends Template
         echo "\">
         ";
         // line 4
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/symfony.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/symfony.svg");
         echo "
     </button>
 </div>
@@ -65,7 +65,7 @@ class __TwigTemplate_c93d6d922f86d7c290b567d0183af37e extends Template
 <div id=\"sfToolbarMainContent-";
         // line 9
         echo twig_escape_filter($this->env, (isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 9, $this->source); })()), "html", null, true);
-        echo "\" class=\"sf-toolbarreset clear-fix\" data-no-turbolink>
+        echo "\" class=\"sf-toolbarreset notranslate clear-fix\" data-no-turbolink>
     ";
         // line 10
         $context['_parent'] = $context;
@@ -156,7 +156,7 @@ $context["name"], "profiler_markup_version" =>                 // line 17
         echo "\">
         ";
         // line 43
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/close.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/close.svg");
         echo "
     </button>
 </div>
@@ -190,12 +190,12 @@ $context["name"], "profiler_markup_version" =>                 // line 17
         return new Source("<!-- START of Symfony Web Debug Toolbar -->
 <div id=\"sfMiniToolbar-{{ token }}\" class=\"sf-minitoolbar\" data-no-turbolink>
     <button type=\"button\" title=\"Show Symfony toolbar\" id=\"sfToolbarMiniToggler-{{ token }}\" accesskey=\"D\" aria-expanded=\"false\" aria-controls=\"sfToolbarMainContent-{{ token }}\">
-        {{ include('@WebProfiler/Icon/symfony.svg') }}
+        {{ source('@WebProfiler/Icon/symfony.svg') }}
     </button>
 </div>
 <div id=\"sfToolbarClearer-{{ token }}\" class=\"sf-toolbar-clearer\"></div>
 
-<div id=\"sfToolbarMainContent-{{ token }}\" class=\"sf-toolbarreset clear-fix\" data-no-turbolink>
+<div id=\"sfToolbarMainContent-{{ token }}\" class=\"sf-toolbarreset notranslate clear-fix\" data-no-turbolink>
     {% for name, template in templates %}
         {% if block('toolbar', template) is defined %}
             {% with {
@@ -229,7 +229,7 @@ $context["name"], "profiler_markup_version" =>                 // line 17
     {% endif %}
 
     <button class=\"hide-button\" type=\"button\" id=\"sfToolbarHideButton-{{ token }}\" title=\"Close Toolbar\" accesskey=\"D\" aria-expanded=\"true\" aria-controls=\"sfToolbarMainContent-{{ token }}\">
-        {{ include('@WebProfiler/Icon/close.svg') }}
+        {{ source('@WebProfiler/Icon/close.svg') }}
     </button>
 </div>
 <!-- END of Symfony Web Debug Toolbar -->

@@ -88,7 +88,7 @@ class __TwigTemplate_8e4abba1c1cfa45073114003bdf5f0ad extends Template
         echo "<span class=\"label\">
     <span class=\"icon\">";
         // line 7
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/router.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/router.svg");
         echo "</span>
     <strong>Routing</strong>
 </span>
@@ -147,7 +147,7 @@ class __TwigTemplate_8e4abba1c1cfa45073114003bdf5f0ad extends Template
 
 {% block menu %}
 <span class=\"label\">
-    <span class=\"icon\">{{ include('@WebProfiler/Icon/router.svg') }}</span>
+    <span class=\"icon\">{{ source('@WebProfiler/Icon/router.svg') }}</span>
     <strong>Routing</strong>
 </span>
 {% endblock %}

@@ -40,7 +40,12 @@ class __TwigTemplate_400a3413103583acc20f556def2a98d8 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Icon/forward.svg"));
 
         // line 1
-        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#aaa\" d=\"M23.6 11l-6.5-6.6a1.2 1.2 0 0 0-2.1.9V9H1.4A1.8 1.8 0 0 0 0 10.8v2.6A1.6 1.6 0 0 0 1.4 15H15v3.7a1.2 1.2 0 0 0 2 1l6.7-6.8a1.3 1.3 0 0 0 0-1.8z\"/></svg>
+        echo "<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-arrow-narrow-right\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>
+    <line x1=\"15\" y1=\"16\" x2=\"19\" y2=\"12\"></line>
+    <line x1=\"15\" y1=\"8\" x2=\"19\" y2=\"12\"></line>
+</svg>
 ";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -62,7 +67,12 @@ class __TwigTemplate_400a3413103583acc20f556def2a98d8 extends Template
 
     public function getSourceContext()
     {
-        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"#aaa\" d=\"M23.6 11l-6.5-6.6a1.2 1.2 0 0 0-2.1.9V9H1.4A1.8 1.8 0 0 0 0 10.8v2.6A1.6 1.6 0 0 0 1.4 15H15v3.7a1.2 1.2 0 0 0 2 1l6.7-6.8a1.3 1.3 0 0 0 0-1.8z\"/></svg>
+        return new Source("<svg xmlns=\"http://www.w3.org/2000/svg\" data-icon-name=\"icon-tabler-arrow-narrow-right\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\">
+    <path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path>
+    <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>
+    <line x1=\"15\" y1=\"16\" x2=\"19\" y2=\"12\"></line>
+    <line x1=\"15\" y1=\"8\" x2=\"19\" y2=\"12\"></line>
+</svg>
 ", "@WebProfiler/Icon/forward.svg", "D:\\Studia\\Praca magisterska\\Projekt_Wernyhora\\Wernyhora\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\forward.svg");
     }
 }

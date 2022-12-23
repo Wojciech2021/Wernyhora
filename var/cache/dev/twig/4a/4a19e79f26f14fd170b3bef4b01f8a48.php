@@ -111,7 +111,7 @@ class __TwigTemplate_91e3a4193891a489ebf9e20c75cd1364 extends Template
         echo "\">
         <span class=\"icon\">";
         // line 15
-        echo twig_include($this->env, $context, "@WebProfiler/Icon/exception.svg");
+        echo twig_source($this->env, "@WebProfiler/Icon/exception.svg");
         echo "</span>
         <strong>Exception</strong>
         ";
@@ -145,22 +145,30 @@ class __TwigTemplate_91e3a4193891a489ebf9e20c75cd1364 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "panel"));
 
         // line 26
-        echo "    <h2>Exceptions</h2>
+        echo "    ";
+        // line 28
+        echo "    <style>
+        .tab-navigation li { background: none; border: 0; font-size: 14px; }
+        .tab-navigation li.active { border-radius: 6px; }
+        .tab-navigation li.active .badge { background-color: var(--selected-badge-background); color: var(--selected-badge-color); }
+    </style>
+
+    <h2>Exceptions</h2>
 
     ";
-        // line 28
-        if ( !twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 28, $this->source); })()), "hasexception", [], "any", false, false, false, 28)) {
-            // line 29
-            echo "        <div class=\"empty\">
+        // line 36
+        if ( !twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 36, $this->source); })()), "hasexception", [], "any", false, false, false, 36)) {
+            // line 37
+            echo "        <div class=\"empty empty-panel\">
             <p>No exception was thrown and caught during the request.</p>
         </div>
     ";
         } else {
-            // line 33
+            // line 41
             echo "        <div class=\"sf-reset\">
             ";
-            // line 34
-            echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("web_profiler.controller.exception_panel::body", ["token" => (isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 34, $this->source); })())]));
+            // line 42
+            echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("web_profiler.controller.exception_panel::body", ["token" => (isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 42, $this->source); })())]));
             echo "
         </div>
     ";
@@ -185,7 +193,7 @@ class __TwigTemplate_91e3a4193891a489ebf9e20c75cd1364 extends Template
 
     public function getDebugInfo()
     {
-        return array (  163 => 34,  160 => 33,  154 => 29,  152 => 28,  148 => 26,  138 => 25,  127 => 22,  121 => 18,  119 => 17,  114 => 15,  109 => 14,  99 => 13,  86 => 10,  80 => 7,  76 => 6,  73 => 5,  70 => 4,  60 => 3,  37 => 1,);
+        return array (  171 => 42,  168 => 41,  162 => 37,  160 => 36,  150 => 28,  148 => 26,  138 => 25,  127 => 22,  121 => 18,  119 => 17,  114 => 15,  109 => 14,  99 => 13,  86 => 10,  80 => 7,  76 => 6,  73 => 5,  70 => 4,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -204,7 +212,7 @@ class __TwigTemplate_91e3a4193891a489ebf9e20c75cd1364 extends Template
 
 {% block menu %}
     <span class=\"label {{ collector.hasexception ? 'label-status-error' : 'disabled' }}\">
-        <span class=\"icon\">{{ include('@WebProfiler/Icon/exception.svg') }}</span>
+        <span class=\"icon\">{{ source('@WebProfiler/Icon/exception.svg') }}</span>
         <strong>Exception</strong>
         {% if collector.hasexception %}
             <span class=\"count\">
@@ -215,10 +223,18 @@ class __TwigTemplate_91e3a4193891a489ebf9e20c75cd1364 extends Template
 {% endblock %}
 
 {% block panel %}
+    {# these styles are needed to override some styles from Exception page, which wasn't
+       updated yet to the new style of the Symfony Profiler #}
+    <style>
+        .tab-navigation li { background: none; border: 0; font-size: 14px; }
+        .tab-navigation li.active { border-radius: 6px; }
+        .tab-navigation li.active .badge { background-color: var(--selected-badge-background); color: var(--selected-badge-color); }
+    </style>
+
     <h2>Exceptions</h2>
 
     {% if not collector.hasexception %}
-        <div class=\"empty\">
+        <div class=\"empty empty-panel\">
             <p>No exception was thrown and caught during the request.</p>
         </div>
     {% else %}
