@@ -423,7 +423,6 @@ table {
 body {
     font-family: DejaVu Sans;
 }
-
 .page_break { page-break-before: always; }
 </style>
 EOF;
