@@ -562,6 +562,7 @@ class ComposerStaticInitae4e9ea3eb683076e40a1747df20cb1a
         'App\\Service\\ProjectsService' => __DIR__ . '/../..' . '/src/Service/ProjectsService.php',
         'App\\Service\\TheresholdService' => __DIR__ . '/../..' . '/src/Service/TheresholdService.php',
         'App\\Service\\UsersService' => __DIR__ . '/../..' . '/src/Service/UsersService.php',
+        'App\\Service\\VariantCriteryService' => __DIR__ . '/../..' . '/src/Service/VariantCriteryService.php',
         'App\\Service\\VariantProfilRelationService' => __DIR__ . '/../..' . '/src/Service/VariantProfilRelationService.php',
         'App\\Service\\VariantsKlasService' => __DIR__ . '/../..' . '/src/Service/VariantsKlasService.php',
         'App\\Service\\testAndIndexService' => __DIR__ . '/../..' . '/src/Service/testAndIndexService.php',

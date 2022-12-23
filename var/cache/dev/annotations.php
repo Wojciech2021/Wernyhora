@@ -480,6 +480,18 @@ return [[
 '[C]App%5CEntity%5CVariant%23addVariantValue' => 1,
 'App%5CEntity%5CVariant%23removeVariantValue' => 0,
 '[C]App%5CEntity%5CVariant%23removeVariantValue' => 1,
+'App%5CEntity%5CVariant%23getColorR' => 0,
+'[C]App%5CEntity%5CVariant%23getColorR' => 1,
+'App%5CEntity%5CVariant%23setColorR' => 0,
+'[C]App%5CEntity%5CVariant%23setColorR' => 1,
+'App%5CEntity%5CVariant%23getColorG' => 0,
+'[C]App%5CEntity%5CVariant%23getColorG' => 1,
+'App%5CEntity%5CVariant%23setColorG' => 0,
+'[C]App%5CEntity%5CVariant%23setColorG' => 1,
+'App%5CEntity%5CVariant%23getColorB' => 0,
+'[C]App%5CEntity%5CVariant%23getColorB' => 1,
+'App%5CEntity%5CVariant%23setColorB' => 0,
+'[C]App%5CEntity%5CVariant%23setColorB' => 1,
 'App%5CEntity%5CVariant%24id' => 0,
 '[C]App%5CEntity%5CVariant%24id' => 1,
 'App%5CEntity%5CVariant%24name' => 0,
@@ -488,6 +500,12 @@ return [[
 '[C]App%5CEntity%5CVariant%24Project' => 1,
 'App%5CEntity%5CVariant%24VariantValue' => 0,
 '[C]App%5CEntity%5CVariant%24VariantValue' => 1,
+'App%5CEntity%5CVariant%24colorR' => 0,
+'[C]App%5CEntity%5CVariant%24colorR' => 1,
+'App%5CEntity%5CVariant%24colorG' => 0,
+'[C]App%5CEntity%5CVariant%24colorG' => 1,
+'App%5CEntity%5CVariant%24colorB' => 0,
+'[C]App%5CEntity%5CVariant%24colorB' => 1,
 'App%5CEntity%5CVariantValue' => 0,
 '[C]App%5CEntity%5CVariantValue' => 1,
 'App%5CEntity%5CVariantValue%23getId' => 0,
@@ -1520,7 +1538,7 @@ return [[
 ], [
 
 0 => [],
-1 => 1671644126,
+1 => 1671817059,
 2 => static function () {
     return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
         $o = [

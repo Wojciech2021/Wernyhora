@@ -60,6 +60,7 @@ return array(
     'App\\Service\\ProjectsService' => $baseDir . '/src/Service/ProjectsService.php',
     'App\\Service\\TheresholdService' => $baseDir . '/src/Service/TheresholdService.php',
     'App\\Service\\UsersService' => $baseDir . '/src/Service/UsersService.php',
+    'App\\Service\\VariantCriteryService' => $baseDir . '/src/Service/VariantCriteryService.php',
     'App\\Service\\VariantProfilRelationService' => $baseDir . '/src/Service/VariantProfilRelationService.php',
     'App\\Service\\VariantsKlasService' => $baseDir . '/src/Service/VariantsKlasService.php',
     'App\\Service\\testAndIndexService' => $baseDir . '/src/Service/testAndIndexService.php',

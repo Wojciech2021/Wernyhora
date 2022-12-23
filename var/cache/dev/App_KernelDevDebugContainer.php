@@ -16,6 +16,6 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerNuXHFS5\App_KernelDevDebugContainer([
     'container.build_hash' => 'NuXHFS5',
-    'container.build_id' => '04d60675',
-    'container.build_time' => 1671733366,
+    'container.build_id' => '5eab3277',
+    'container.build_time' => 1671817057,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerNuXHFS5');
