@@ -92,6 +92,8 @@ jQuery(document).ready(function () {
 
     });
 
+
+
     $wrapperCriteries.on('click', '.js-criterry-remove', function (e) {
         e.preventDefault();
 
@@ -117,6 +119,8 @@ jQuery(document).ready(function () {
                 .remove();
         }
     });
+    
+    
 
     $wrapperKlas.on('click', '.js-klas-remove', function (e) {
         e.preventDefault();
