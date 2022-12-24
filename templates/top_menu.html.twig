@@ -1,10 +1,138 @@
 {% if app.user %}
-    <div class="d-flex container">
-        <div class="col-6 justify-content-start m">
-            <a href="{{ path('app_manage_projects') }}">WERNYHORA</a>
-        </div>
-        <div class="col-6 mb-3 text-end">
-            Jesteś zalogowany jako {{ app.user.getEmail }}, <a href="{{ path('app_logout') }}">Wyloguj</a>
+    <div style="background-color: #6c757d;">
+        <div class="d-flex container pt-1">
+            <div class="col-6 justify-content-start m">
+                <h2><a href="{{ path('app_manage_projects') }}" style="text-decoration: none; color: #FFFFFF;">WERNYHORA</a></h2>
+            </div>
+            {#        <div class="col-6 mb-3 text-end mr-1">#}
+            {#            Jesteś zalogowany jako {{ app.user.getEmail }}, <a href="{{ path('app_logout') }}">Wyloguj</a>#}
+            {#        </div>#}
+            <div class="dropdown col-6 mb-3 text-end mr-1">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="background-color: #6c757d">
+                    <li><a class="dropdown-item" href="/projects" style="color: #FFFFFF;">
+                            <div class="d-flex flex-row">
+                                <div style="padding-right: 2px;">
+                                    <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">person</span>
+                                </div>
+                                <div>
+                                    <span class="text-center">{{ app.user.getEmail }}</span>
+                                </div>
+                            </div>
+                            </a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_logout') }}" style="color: #FFFFFF;">
+                            <div class="d-flex flex-row">
+                                <div style="padding-right: 2px;">
+                                    <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">logout</span>
+                                </div>
+                                <div>
+                                    <span class="text-center">Wyloguj</span>
+                                </div>
+                            </div>
+
+                        </a></li>
+
+                    {% if project is defined %}
+                        <li><a class="dropdown-item" href="/projects/edit/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                <div class="d-flex flex-row">
+                                    <div style="padding-right: 2px;">
+                                        <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">emoji_objects</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-center">Projekt</span>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <li><a class="dropdown-item" href="/projects/edit/critery/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                <div class="d-flex flex-row">
+                                    <div style="padding-right: 2px;">
+                                        <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">sort</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-center">Kryteria</span>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <li><a class="dropdown-item" href="/projects/edit/variant/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                <div class="d-flex flex-row">
+                                    <div style="padding-right: 2px;">
+                                        <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">keyboard_option_key</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-center">Warianty</span>
+                                    </div>
+                                </div>
+                            </a></li>
+                        {% if project.critery|length and project.variant|length %}
+                            <li><a class="dropdown-item" href="/projects/edit/variants_values/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                    <div class="d-flex flex-row">
+                                        <div style="padding-right: 2px;">
+                                            <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">123</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-center">Wartości wariantów</span>
+                                        </div>
+                                    </div>
+                                </a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="/projects/edit/klas/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                <div class="d-flex flex-row">
+                                    <div style="padding-right: 2px;">
+                                        <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">category</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-center">Klasy</span>
+                                    </div>
+                                </div>
+                            </a></li>
+                        {% if project.klas|length %}
+                            <li><a class="dropdown-item" href="/projects/edit/profils_values/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                    <div class="d-flex flex-row">
+                                        <div style="padding-right: 2px;">
+                                            <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">filter_alt</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-center">Profile</span>
+                                        </div>
+                                    </div>
+                                </a></li>
+                        {% endif %}
+                        {% if project.critery|length %}
+                            <li><a class="dropdown-item" href="/projects/edit/threshold_values/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                    <div class="d-flex flex-row">
+                                        <div style="padding-right: 2px;">
+                                            <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">tune</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-center">Progi</span>
+                                        </div>
+                                    </div>
+                                </a></li>
+                        {% endif %}
+                        {% if
+                            project.critery|length and project.critery[0].VariantValue|length
+                            and project.critery[0].alfaQ and project.critery[0].betaQ
+                            and project.critery[0].alfaP and project.critery[0].betaP
+                            and project.critery[0].alfaV and project.critery[0].betaV
+                            and project.variant|length and project.klas|length
+                            and project.profil|length and project.profil[0].profilValue|length %}
+                            <li><a class="dropdown-item" href="/projects/raport/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                    <div class="d-flex flex-row">
+                                        <div style="padding-right: 2px;">
+                                            <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">quick_reference_all</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-center">Raport</span>
+                                        </div>
+                                    </div>
+                                </a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
+
 {% endif %}
