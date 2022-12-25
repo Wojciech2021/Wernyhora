@@ -8,25 +8,27 @@
 
     {{ form_start(form) }}
 <div class="d-flex justify-content-center mt-5">
-    <div class="flex-container col-3 justify-content-center col-1 form-group">
-        <div class="pt-3">
-            <div class="pb-1">
-                {{ form_label(form.name) }}
+    <div class="d-flex flex-container col-3 justify-content-center col-1 form-group">
+        <div>
+            <div class="pt-3">
+                <div class="pb-1">
+                    {{ form_label(form.name) }}
+                </div>
+                <div>
+                    {{ form_widget(form.name) }}
+                </div>
             </div>
-            <div>
-                {{ form_widget(form.name) }}
+            <div class="pt-3">
+                <div class="pb-1">
+                    {{ form_label(form.description) }}
+                </div>
+                <div style="width: 209px;">
+                    {{ form_widget(form.description) }}
+                </div>
             </div>
-        </div>
-        <div class="pt-3">
-            <div class="pb-1">
-                {{ form_label(form.description) }}
+            <div class="pt-3">
+                {{ form_widget(form.addProject) }}
             </div>
-            <div>
-                {{ form_widget(form.description) }}
-            </div>
-        </div>
-        <div class="pt-3">
-            {{ form_widget(form.addProject) }}
         </div>
     </div>
 </div>

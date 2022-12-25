@@ -8,28 +8,30 @@
     {{ form_start(form) }}
     <div class="d-flex justify-content-center mt-5">
         <div class="flex-container col-3 justify-content-center col-1 form-group">
-            <div class="pt-3">
-                <div class="pb-1">
-                    {{ form_label(form.name) }}
+            <div>
+                <div class="pt-3">
+                    <div class="pb-1">
+                        {{ form_label(form.name) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.name) }}
+                    </div>
                 </div>
-                <div>
-                    {{ form_widget(form.name) }}
+                <div class="pt-3">
+                    <div class="pb-1 input-group-prepend">
+                        {{ form_label(form.description, null,
+                            {'label_attr': {'class': 'input-group-text'}}
+                        ) }}
+                    </div>
+                    <div style="width: 209px;">
+                        {{ form_widget(form.description,
+                            {'attr': {'class': 'form-control'}}
+                        ) }}
+                    </div>
                 </div>
             </div>
-            <div class="pt-3 input-group">
-                <div class="pb-1 input-group-prepend">
-                    {{ form_label(form.description, null,
-                        {'label_attr': {'class': 'input-group-text'}}
-                    ) }}
-                </div>
-                <div>
-                    {{ form_widget(form.description,
-                        {'attr': {'class': 'form-control'}, 'aria-label': 'Opis:'}
-                    ) }}
-                </div>
-            </div>
-            <div class="pt-3">
-            </div>
+{#            <div class="pt-3">#}
+{#            </div>#}
         </div>
     </div>
 
@@ -73,8 +75,6 @@
                  data-prototype="<div class='js-variant-value-item col'>{{ form_widget(form.variantsValuesCollection.variantsValues.vars.prototype)|e('html_attr') }}</div>"
                  data-index="{{ form.variantsValuesCollection.variantsValues|length }}"
             >
-                {#        <table>#}
-
                 {% if form.variantsValuesCollection.variantsValues|length > 1 %}
 
                     {% for critery in form.criteriesCollection.criteries %}
@@ -92,9 +92,7 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-
                 {% else %}
-
                     <div class="row tr-{{ form.variantsValuesCollection.variantsValues|length }}" data-index="{{ form.variantsValuesCollection.variantsValues|length }}">
                         {% for variantsValues in form.variantsValuesCollection.variantsValues %}
                             <div class="js-variant-value-item col">
@@ -104,16 +102,9 @@
                     </div>
 
                 {% endif %}
-                {#        </table>#}
             </div>
         </div>
-
-
     </div>
-
-
-
-
     {{ form_widget(form.addProject) }}
     {{ form_end(form) }}
 

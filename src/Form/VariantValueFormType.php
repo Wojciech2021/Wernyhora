@@ -16,8 +16,6 @@ class VariantValueFormType extends AbstractType
             ->add('value', null, [
                 'label' => false
             ])
-//            ->add('Critery')
-//            ->add('Variant')
         ;
     }
 

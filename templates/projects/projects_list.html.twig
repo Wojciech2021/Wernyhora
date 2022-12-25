@@ -19,10 +19,10 @@
                 <td>{{ project.creationTime|date("Y-m-d H:i:s") }}</td>
                 <td>{{ project.updateTime|date("Y-m-d H:i:s") }}</td>
                 <td>
-                    <button type="button" class="btn btn-secondary"><a href="/projects/edit/{{ project.slug }}" class="text-white text-decoration-none">Edycja</a></button>
+                    <button type="button" class="btn btn-primary"><a href="/projects/edit/{{ project.slug }}" class="text-white text-decoration-none">Edycja</a></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-secondary" onclick="return confirm('Czy jesteś pewien że chcesz usunąć projekt?')"><a href="/projects/delete/{{ project.slug }}" class="text-white text-decoration-none">Usuń</a></button>
+                    <button type="button" class="btn btn-primary" onclick="return confirm('Czy jesteś pewien że chcesz usunąć projekt?')"><a href="/projects/delete/{{ project.slug }}" class="text-white text-decoration-none">Usuń</a></button>
                 </td>
                 {% if
                     project.critery|length and project.critery[0].VariantValue|length
@@ -32,7 +32,7 @@
                     and project.variant|length and project.klas|length
                     and project.profil|length and project.profil[0].profilValue|length %}
                 <td>
-                    <button type="button" class="btn btn-secondary"><a href="/projects/raport/{{ project.slug }}" class="text-white text-decoration-none">Raport</a></button>
+                    <button type="button" class="btn btn-primary"><a href="/projects/raport/{{ project.slug }}" class="text-white text-decoration-none">Raport</a></button>
                 </td>
                 {% endif %}
             </tr>

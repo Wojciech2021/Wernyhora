@@ -41,7 +41,7 @@ class CireriesCollectionType extends AbstractType
             ->add('addCritery', ButtonType::class, [
                 'label' => '+ dodaj kryterium',
                 'attr' => [
-                    'class' => 'js-criterry-add btn btn-secondary',
+                    'class' => 'js-criterry-add btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ])
@@ -49,7 +49,7 @@ class CireriesCollectionType extends AbstractType
             ->add('saveCriteries', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ]);

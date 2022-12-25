@@ -1,17 +1,14 @@
 {% if app.user %}
-    <div style="background-color: #6c757d;">
+    <div style="background-color: #0d6efd;">
         <div class="d-flex container pt-1">
             <div class="col-6 justify-content-start m">
                 <h2><a href="{{ path('app_manage_projects') }}" style="text-decoration: none; color: #FFFFFF;">WERNYHORA</a></h2>
             </div>
-            {#        <div class="col-6 mb-3 text-end mr-1">#}
-            {#            Jesteś zalogowany jako {{ app.user.getEmail }}, <a href="{{ path('app_logout') }}">Wyloguj</a>#}
-            {#        </div>#}
             <div class="dropdown col-6 mb-3 text-end mr-1">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="background-color: #6c757d">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="background-color: #0d6efd;">
                     <li><a class="dropdown-item" href="/projects" style="color: #FFFFFF;">
                             <div class="d-flex flex-row">
                                 <div style="padding-right: 2px;">
