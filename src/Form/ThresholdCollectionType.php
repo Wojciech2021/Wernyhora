@@ -55,7 +55,7 @@ class ThresholdCollectionType extends AbstractType
             ->add('addThreshold', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ])
@@ -63,7 +63,7 @@ class ThresholdCollectionType extends AbstractType
             ->add('raport', SubmitType::class,[
                 'label' => 'Raport',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ])

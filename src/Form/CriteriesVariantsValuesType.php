@@ -9,11 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-
-//use App\Entity\VariantValue;
-//use App\Form\CriteryFormType;
-//use App\Form\VariantFormType;
 use App\Form\CireriesCollectionType;
 use App\Form\VariantsCollectionType;
 
@@ -21,14 +16,6 @@ class CriteriesVariantsValuesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
-
-        //$variantsValues = new ArrayCollection();
-
-
-
-        //$variantsValues->add(new VariantValue());
-
 
         $builder
 

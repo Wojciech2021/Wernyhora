@@ -16,8 +16,6 @@ class ProfilValueType extends AbstractType
                     'label' => false,
                     'required' => true,
             ])
-//            ->add('Critery')
-//            ->add('Profil')
         ;
     }
 

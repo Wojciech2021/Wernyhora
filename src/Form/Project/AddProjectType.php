@@ -22,13 +22,17 @@ class AddProjectType extends AbstractType
             ])
 
             ->add('description', TextareaType::class,[
-                'label' => 'Opis:'
+                'label' => 'Opis:',
+                'attr' => [
+                    'style' => 'width: 209px;',
+                ]
             ])
 
             ->add('addProject', SubmitType::class,[
                 'label' => 'Dodaj projekt',
                 'attr' => [
-                    'class' => 'btn btn-secondary'
+                    'class' => 'btn btn-primary',
+                    'style' => 'width: 209px;',
                 ]
                 ])
         ;

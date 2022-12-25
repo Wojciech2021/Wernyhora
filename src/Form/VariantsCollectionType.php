@@ -42,7 +42,7 @@ class VariantsCollectionType extends AbstractType
             ->add('addVariant', ButtonType::class, [
                 'label' => '+ dodaj wariant',
                 'attr' => [
-                    'class' => 'js-variant-add btn btn-secondary',
+                    'class' => 'js-variant-add btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ])
@@ -50,7 +50,7 @@ class VariantsCollectionType extends AbstractType
             ->add('saveVariants', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
             ]);

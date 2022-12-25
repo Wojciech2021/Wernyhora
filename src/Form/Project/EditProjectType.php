@@ -37,7 +37,7 @@ class EditProjectType extends AbstractType
             ->add('saveProject', SubmitType::class,[
                 'label' => 'Zapisz',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
                 ]
                 ])
