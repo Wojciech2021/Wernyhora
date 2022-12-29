@@ -95,7 +95,7 @@ class CriteriesVariantsToCalculateType extends AbstractType
             ])
 
             ->add('getRaport', SubmitType::class,[
-                'label' => 'Generój raport',
+                'label' => 'Generuj raport',
                 'attr' => [
                     'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',
@@ -103,7 +103,7 @@ class CriteriesVariantsToCalculateType extends AbstractType
             ])
 
             ->add('getPDFRaport', SubmitType::class,[
-                'label' => 'Generój raport do pliku',
+                'label' => 'Generuj raport do pliku',
                 'attr' => [
                     'class' => 'btn btn-primary',
                     'style' => 'width: 209px;',

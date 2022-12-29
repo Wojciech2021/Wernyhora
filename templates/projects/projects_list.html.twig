@@ -30,7 +30,7 @@
                     and project.critery[0].alfaP and project.critery[0].betaP
                     and project.critery[0].alfaV and project.critery[0].betaV
                     and project.variant|length and project.klas|length
-                    and project.profil|length and project.profil[0].profilValue|length %}
+                    and project.profil|length and project.profil[0].profilValue|length and project.cutOffLevel is not null %}
                 <td>
                     <button type="button" class="btn btn-primary"><a href="/projects/raport/{{ project.slug }}" class="text-white text-decoration-none">Raport</a></button>
                 </td>
