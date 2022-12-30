@@ -29,15 +29,15 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path: '/main', name: 'app_main')]
-    public function main()
-    {
-        $user = $this->getUser();
-        $role = $user->getRoles();
-
-        if (in_array('ROLE_ADMIN',$role))
-        {
-            return $this->redirectToRoute('app_admin');
-        }
-    }
+//    #[Route(path: '/main', name: 'app_main')]
+//    public function main()
+//    {
+//        $user = $this->getUser();
+//        $role = $user->getRoles();
+//
+//        if (in_array('ROLE_ADMIN',$role))
+//        {
+//            return $this->redirectToRoute('app_admin');
+//        }
+//    }
 }
