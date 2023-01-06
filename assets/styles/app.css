@@ -4,7 +4,16 @@ body {
 
 canvas{
     transform: rotate(90deg);
-    margin-top: 250px;
+    height: 600px !important;
+    margin-top: 23rem !important;
+}
+
+.chart-margin-top{
+    margin-top: 9rem !important;
+}
+
+.start-42{
+    left: 42% !important;
 }
 
 .material-symbols-outlined {

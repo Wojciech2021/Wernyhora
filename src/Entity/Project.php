@@ -50,7 +50,7 @@ class Project
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Profil::class, orphanRemoval: true)]
     private Collection $Profil;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Assert\GreaterThan(0.5)]
     #[Assert\LessThanOrEqual(1)]
     private ?float $CutOffLevel = null;
