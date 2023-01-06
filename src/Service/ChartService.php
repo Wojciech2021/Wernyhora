@@ -2,10 +2,61 @@
 
 namespace App\Service;
 
+use App\Entity\Critery;
+use App\Entity\ProfilValue;
+use App\Entity\VariantValue;
 use App\Service\TheresholdService;
 
 class ChartService
 {
+
+    private function dataNormalisationVariant(VariantValue $variantValue)
+    {
+        return (($variantValue->getValue() *100)/ $this->sumValues($variantValue->getCritery()));
+    }
+
+    private function dataNormalisationProfil(ProfilValue $profilValue)
+    {
+        return (($profilValue->getValue() *100)/ $this->sumValues($profilValue->getCritery()));
+    }
+
+    private function dataNormalisationProfilTheresgold(ProfilValue $profilValue, TheresholdService $theresholdService)
+    {
+        return [
+            'profil' => (($profilValue->getValue() *100)/ $this->sumValues($profilValue->getCritery())),
+            'Q' => [
+                'minus' => (($theresholdService->calculateQTheresgold($profilValue)['minusQ'] *100)/ $this->sumValues($profilValue->getCritery())),
+                'plus' => (($theresholdService->calculateQTheresgold($profilValue)['plusQ'] *100)/ $this->sumValues($profilValue->getCritery())),
+            ],
+            'P' => [
+                'minus' => (($theresholdService->calculatePTheresgold($profilValue)['minusP'] *100)/ $this->sumValues($profilValue->getCritery())),
+                'plus' => (($theresholdService->calculatePTheresgold($profilValue)['plusP'] *100)/ $this->sumValues($profilValue->getCritery())),
+            ],
+            'V' => [
+                'minus' => (($theresholdService->calculateVTheresgold($profilValue)['minusV'] *100)/ $this->sumValues($profilValue->getCritery())),
+                'plus' => (($theresholdService->calculateVTheresgold($profilValue)['plusV'] *100)/ $this->sumValues($profilValue->getCritery())),
+            ],
+        ];
+    }
+
+    private function sumValues(Critery $critery)
+    {
+        $sumValues = 0;
+
+        foreach ($critery->getVariantValue() as $variantValue)
+        {
+            $sumValues += $variantValue->getValue();
+        }
+
+        foreach ($critery->getProfilValue() as $profilValue)
+        {
+            $sumValues += $profilValue->getValue();
+        }
+
+        return $sumValues;
+    }
+
+
 
     public function prepareChart($chart,
                                  $profiles,
@@ -33,64 +84,66 @@ class ChartService
             {
                 if (in_array($profilValue->getCritery(), $criteriesOnChart))
                 {
+                    $dataNormalisationProfilTheresgold = $this->dataNormalisationProfilTheresgold($profilValue, $theresholdService);
+
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfProfil += ['.'
-                        => $profilValue->getValue()];
+                        => $dataNormalisationProfilTheresgold['profil']];
 
                         $arrayOfMinusQ += ['.'
-                        => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                        => $dataNormalisationProfilTheresgold['Q']['minus']];
                         $arrayOfPlusQ += ['.'
-                        => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+                        => $dataNormalisationProfilTheresgold['Q']['plus']];
 
                         $arrayOfMinusP += ['.'
-                        => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                        => $dataNormalisationProfilTheresgold['P']['minus']];
                         $arrayOfPlusP += ['.'
-                        => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+                        => $dataNormalisationProfilTheresgold['P']['plus']];
 
                         $arrayOfMinusV += ['.'
-                        => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                        => $dataNormalisationProfilTheresgold['V']['minus']];
                         $arrayOfPlusV += ['.'
-                        => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                        => $dataNormalisationProfilTheresgold['V']['plus']];
                     }
 
                     $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $profilValue->getValue()];
+                    => $dataNormalisationProfilTheresgold['profil']];
 
                     $arrayOfMinusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                    => $dataNormalisationProfilTheresgold['Q']['minus']];
                     $arrayOfPlusQ += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+                    => $dataNormalisationProfilTheresgold['Q']['plus']];
 
                     $arrayOfMinusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                    => $dataNormalisationProfilTheresgold['P']['minus']];
                     $arrayOfPlusP += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+                    => $dataNormalisationProfilTheresgold['P']['plus']];
 
                     $arrayOfMinusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                    => $dataNormalisationProfilTheresgold['V']['minus']];
                     $arrayOfPlusV += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                    => $dataNormalisationProfilTheresgold['V']['plus']];
 
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfProfil += [','
-                        => $profilValue->getValue()];
+                        => $dataNormalisationProfilTheresgold['profil']];
 
                         $arrayOfMinusQ += [','
-                        => $theresholdService->calculateQTheresgold($profilValue)['minusQ']];
+                        => $dataNormalisationProfilTheresgold['Q']['minus']];
                         $arrayOfPlusQ += [','
-                        => $theresholdService->calculateQTheresgold($profilValue)['plusQ']];
+                        => $dataNormalisationProfilTheresgold['Q']['plus']];
 
                         $arrayOfMinusP += [','
-                        => $theresholdService->calculatePTheresgold($profilValue)['minusP']];
+                        => $dataNormalisationProfilTheresgold['P']['minus']];
                         $arrayOfPlusP += [','
-                        => $theresholdService->calculatePTheresgold($profilValue)['plusP']];
+                        => $dataNormalisationProfilTheresgold['P']['plus']];
 
                         $arrayOfMinusV += [','
-                        => $theresholdService->calculateVTheresgold($profilValue)['minusV']];
+                        => $dataNormalisationProfilTheresgold['V']['minus']];
                         $arrayOfPlusV += [','
-                        => $theresholdService->calculateVTheresgold($profilValue)['plusV']];
+                        => $dataNormalisationProfilTheresgold['V']['plus']];
                     }
                 }
             }
@@ -191,6 +244,7 @@ class ChartService
                 'y' => [
                     'min' => $min,
                     'max' => $max,
+                    'display' => false,
                 ],
                 'x' => [
                     'ticks' => [
@@ -230,20 +284,21 @@ class ChartService
             {
                 if (in_array($profilValue->getCritery(), $criteriesOnChart))
                 {
+
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfProfil += ['.'
-                        => $profilValue->getValue()];
+                        => $this->dataNormalisationProfil($profilValue)];
                     }
 
                     $arrayOfProfil += [$profilValue->getCritery()->getName().' ['.$profilValue->getCritery()->getUnit().']'
-                    => $profilValue->getValue()];
+                    => $this->dataNormalisationProfil($profilValue)];
 
 
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfProfil += [','
-                        => $profilValue->getValue()];
+                        => $this->dataNormalisationProfil($profilValue)];
                     }
                 }
             }
@@ -266,20 +321,21 @@ class ChartService
             {
                 if (in_array($variantValue->getCritery(), $criteriesOnChart))
                 {
+
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfVariant += ['.'
-                        => $variantValue->getValue()];
+                        => $this->dataNormalisationVariant($variantValue)];
                     }
 
                     $arrayOfVariant += [$variantValue->getCritery()->getName().' ['.$variantValue->getCritery()->getUnit().']'
-                    => $variantValue->getValue()];
+                    => $this->dataNormalisationVariant($variantValue)];
 
 
                     if (count($criteriesOnChart) == 1)
                     {
                         $arrayOfVariant += [','
-                        => $variantValue->getValue()];
+                        => $this->dataNormalisationVariant($variantValue)];
                     }
                 }
             }
@@ -325,6 +381,7 @@ class ChartService
                 'y' => [
                     'min' => $min,
                     'max' => $max,
+                    'display' => false,
                 ],
                 'x' => [
                     'ticks' => [
