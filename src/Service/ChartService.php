@@ -251,6 +251,9 @@ class ChartService
                         'autoSkip' => false,
                         'maxRotation' => 90,
                         'minRotation' => 90,
+                        'font' => [
+                          'size' => 16,
+                        ],
                     ]
                 ],
             ]
@@ -388,6 +391,9 @@ class ChartService
                         'autoSkip' => false,
                         'maxRotation' => 90,
                         'minRotation' => 90,
+                        'font' => [
+                            'size' => 16,
+                        ],
                     ]
                 ],
             ]

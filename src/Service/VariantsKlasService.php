@@ -102,13 +102,16 @@ class VariantsKlasService
     private function assignVariantKlas(variantKlas $variantKlas)
     {
         $klas = $this->klas;
-        $filteredVariantsProfilsCredibilityIndexRelation = $this->variantsProfilsCredibilityIndexRelation->filter(function ($element) use ($variantKlas)
+        $filteredVariantsProfilsCredibilityIndexRelation
+            = $this->variantsProfilsCredibilityIndexRelation->filter(function ($element) use ($variantKlas)
         {
             return $element->getVariant() == $variantKlas->getVariant();
         });
 
-        $orderedVariantsProfilsCredibilityIndexRelationASC = $this->orderByProfilOrderASC($filteredVariantsProfilsCredibilityIndexRelation);
-        $orderedVariantsProfilsCredibilityIndexRelationDESC = $this->orderByProfilOrderDESC($filteredVariantsProfilsCredibilityIndexRelation);
+        $orderedVariantsProfilsCredibilityIndexRelationASC
+            = $this->orderByProfilOrderASC($filteredVariantsProfilsCredibilityIndexRelation);
+        $orderedVariantsProfilsCredibilityIndexRelationDESC
+            = $this->orderByProfilOrderDESC($filteredVariantsProfilsCredibilityIndexRelation);
         $klasASC = $this->orderByKlasOrderASC($klas);
         $profilCounter =  count($orderedVariantsProfilsCredibilityIndexRelationDESC);
 

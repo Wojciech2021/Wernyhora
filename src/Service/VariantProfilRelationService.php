@@ -93,22 +93,28 @@ class VariantProfilRelationService
     private function calculateVariantProfilCredibilityIndexValue(
         variantProfilCredibilityIndexRelation $variantProfilCredibilityIndexRelation)
     {
-        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA'] >= $this->project->getCutOffLevel())
+        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA']
+            >= $this->project->getCutOffLevel())
         {
-            $variantCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['multiplyA'];
+            $variantCredibilityIndex
+                = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['multiplyA'];
         }
         else
         {
-            $variantCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA'];
+            $variantCredibilityIndex
+                = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageA'];
         }
 
-        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'] >= $this->project->getCutOffLevel())
+        if ($this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB']
+            >= $this->project->getCutOffLevel())
         {
-            $profilCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
+            $profilCredibilityIndex
+                = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
         }
         else
         {
-            $profilCredibilityIndex = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
+            $profilCredibilityIndex
+                = $this->calculateWeighedAverageAndMultipy($variantProfilCredibilityIndexRelation)['weighedAverageB'];
         }
 
         $variantProfilCredibilityIndexRelation->setVariantCredibilityIndex($variantCredibilityIndex);
