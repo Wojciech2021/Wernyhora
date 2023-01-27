@@ -30,8 +30,6 @@
                     </div>
                 </div>
             </div>
-{#            <div class="pt-3">#}
-{#            </div>#}
         </div>
     </div>
 
@@ -45,8 +43,6 @@
                 {% for criteriesForm in form.criteriesCollection.criteries %}
                     <div class="js-critery-item d-flex flex-row">
                         {{ form_row(criteriesForm.name) }}
-{#                        {{ form_row(criteriesForm.unit) }}#}
-{#                        {{ form_row(criteriesForm.weight) }}#}
                         {{ form_row(criteriesForm.removeCritery) }}
                     </div>
                 {% endfor %}

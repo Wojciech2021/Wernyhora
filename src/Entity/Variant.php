@@ -6,6 +6,7 @@ use App\Repository\VariantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VariantRepository::class)]
 class Variant
@@ -16,6 +17,7 @@ class Variant
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['group1'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'Variant')]
@@ -23,15 +25,19 @@ class Variant
     private ?Project $Project = null;
 
     #[ORM\OneToMany(mappedBy: 'Variant', targetEntity: VariantValue::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $VariantValue;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorR = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorG = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorB = null;
 
     public function __construct()

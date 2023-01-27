@@ -126,7 +126,27 @@
                                     </div>
                                 </a></li>
                         {% endif %}
+                        <li><a class="dropdown-item" href="/projects/export/{{ project.slug }}" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                                <div class="d-flex flex-row">
+                                    <div style="padding-right: 2px;">
+                                        <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">call_made</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-center">Eksport</span>
+                                    </div>
+                                </div>
+                            </a></li>
                     {% endif %}
+                    <li><a class="dropdown-item" href="/projects/import" class="text-white text-decoration-none" style="color: #FFFFFF;">
+                            <div class="d-flex flex-row">
+                                <div style="padding-right: 2px;">
+                                    <span class="material-symbols-outlined material-symbols-outlined-menu" style="color: #FFFFFF;">call_received</span>
+                                </div>
+                                <div>
+                                    <span class="text-center">Import</span>
+                                </div>
+                            </div>
+                        </a></li>
                 </ul>
             </div>
         </div>

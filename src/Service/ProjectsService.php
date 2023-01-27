@@ -3,10 +3,12 @@
 namespace App\Service;
 
 use App\Entity\Critery;
+use App\Entity\Klas;
 use App\Entity\Profil;
 use App\Entity\ProfilValue;
 use App\Entity\Project;
 use App\Entity\User;
+use App\Entity\Variant;
 use App\Entity\VariantValue;
 use App\Repository\CriteryRepository;
 use App\Repository\KlasRepository;
@@ -19,6 +21,7 @@ use App\Repository\VariantValueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ProjectsService
 {
@@ -96,5 +99,108 @@ class ProjectsService
     {
         $this->user->removeProject($project);
         $this->userRepository->save($this->user, true);
+    }
+
+    public function importProject($projectImported)
+    {
+        $now = new \DateTime();
+        $project = new Project();
+        $project->setUser($this->user);
+        $project->setName($projectImported->name);
+        $project->setDescription($projectImported->description);
+        $project->setCutOffLevel($projectImported->CutOffLevel);
+        $project->setCreationTime($now);
+        $project->setUpdateTime($now);
+
+        $criteries = new ArrayCollection();
+        $variants = new ArrayCollection();
+        $profils = new ArrayCollection();
+
+        $klases = new ArrayCollection();
+
+        foreach ($projectImported->Critery as $criteryImported)
+        {
+            $critery = new Critery();
+            $critery->setName($criteryImported->name);
+            $critery->setProject($project);
+            $critery->setUnit($criteryImported->unit);
+            $critery->setWeight($criteryImported->weight);
+            $critery->setAlfaQ($criteryImported->alfaQ);
+            $critery->setBetaQ($criteryImported->betaQ);
+            $critery->setAlfaP($criteryImported->alfaP);
+            $critery->setBetaP($criteryImported->betaP);
+            $critery->setAlfaV($criteryImported->alfaV);
+            $critery->setBetaV($criteryImported->betaV);
+            $critery->setCostGain($criteryImported->CostGain);
+            $criteries->add($critery);
+            $project->addCritery($critery);
+
+            $this->criteryRepository->save($critery, false);
+        }
+
+        foreach ($projectImported->Variant as $variantImported)
+        {
+            $variant = new Variant();
+            $variant->setName($variantImported->name);
+            $variant->setProject($project);
+            $variants->add($variant);
+            $project->addVariant($variant);
+
+            $this->variantRepository->save($variant, false);
+        }
+
+        foreach ($projectImported->Profil as $profilImported)
+        {
+            $profil = new Profil();
+            $profil->setProfilOrder($profilImported->profilOrder);
+            $profil->setProject($project);
+            $profils->add($profil);
+            $project->addProfil($profil);
+
+            $this->profilRepository->save($profil, false);
+        }
+
+        foreach ($projectImported->Critery as $keyCr=>$criteryImported)
+        {
+            foreach ($projectImported->Variant as $keyVr=>$variantImported)
+            {
+                $variantValue = new VariantValue();
+                $variantValue->setCritery($criteries[$keyCr]);
+                $variantValue->setVariant($variants[$keyVr]);
+                $variantValue->setValue($criteryImported->VariantValue[$keyVr]->value);
+                $criteries[$keyCr]->addVariantValue($variantValue);
+                $variants[$keyVr]->addVariantValue($variantValue);
+
+                $this->variantValueRepository->save($variantValue, false);
+            }
+
+            foreach ($projectImported->Profil as $keyPr=>$profilImported)
+            {
+                $profilValue = new ProfilValue();
+                $profilValue->setCritery($criteries[$keyCr]);
+                $profilValue->setProfil($profils[$keyPr]);
+                $profilValue->setValue($criteryImported->ProfilValue[$keyPr]->value);
+                $criteries[$keyCr]->addProfilValue($profilValue);
+                $profils[$keyPr]->addProfilValue($profilValue);
+
+                $this->profilValueRepository->save($profilValue, false);
+            }
+        }
+
+        foreach ($projectImported->Klas as $klasImported)
+        {
+            $klas = new Klas();
+            $klas->setName($klasImported->name);
+            $klas->setProject($project);
+            $klas->setKlasOrder($klasImported->klasOrder);
+            $project->addKlas($klas);
+
+            $this->klasRepository->save($klas, false);
+            $klases->add($klas);
+        }
+
+        $this->projectRepository->save($project, true);
+
+        return $project;
     }
 }

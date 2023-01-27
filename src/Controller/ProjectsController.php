@@ -9,6 +9,7 @@ use App\Form\ProfilesValuesCollectionType;
 use App\Form\Project\AddProjectType;
 use App\Form\Project\EditProjectType;
 use App\Form\CireriesCollectionType;
+use App\Form\Project\ImportProjectType;
 use App\Form\VariantsCollectionType;
 use App\Form\ThresholdCollectionType;
 use App\Form\VariantsValuesCollectionType;
@@ -28,6 +29,18 @@ use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 
 class ProjectsController extends AbstractController
 {
@@ -460,6 +473,65 @@ EOF;
         $projectsService->deleteProject($project);
 
         return $this->redirect('/projects');
+    }
+
+    #[Route('/projects/export/{slug}', name: 'app_export_project')]
+    public function exportProject(Project         $project)
+    {
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $serializer = new Serializer([$normalizer], $encoders);
+        $data = $serializer->normalize($project, 'json', ['groups' => 'group1']);
+        $jsonContent = $serializer->serialize($data, 'json');
+
+        $filesystem = new Filesystem();
+
+        try {
+            $filesystem->mkdir(
+                Path::normalize(sys_get_temp_dir().'/'.random_int(0, 1000)),
+            );
+        } catch (IOExceptionInterface $exception) {
+            echo "An error occurred while creating your directory at ".$exception->getPath();
+        }
+
+        $filesystem->remove(['symlink', '', $project->getName().'.json']);
+        $filesystem->appendToFile($project->getName().'.json', $jsonContent);
+
+        $file = $project->getName().'.json';
+        $response = new BinaryFileResponse($file);
+
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            $project->getName().'.json'
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
+    }
+
+    #[Route('/projects/import', name: 'app_import_project')]
+    public function importProject(Request               $request,
+                                  ProjectsService $projectsService)
+    {
+        $form = $this->createForm(ImportProjectType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $projectJson = file_get_contents($form->get('file')->getData());
+            $project = json_decode($projectJson);
+            $user = $this->getUser();
+            $projectsService->setUser($user);
+            $projectsService->importProject($project);
+
+            return $this->redirect('/projects');
+        }
+
+        return $this->render('/projects/project_import.html.twig',[
+            'form' => $form,
+        ]);
     }
 
 }
