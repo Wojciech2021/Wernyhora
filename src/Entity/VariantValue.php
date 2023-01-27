@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VariantValueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VariantValueRepository::class)]
 class VariantValue
@@ -14,6 +15,7 @@ class VariantValue
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'VariantValue')]

@@ -6,6 +6,7 @@ use App\Repository\CriteryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CriteryRepository::class)]
 class Critery
@@ -16,9 +17,11 @@ class Critery
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['group1'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['group1'])]
     private ?string $unit = null;
 
     #[ORM\ManyToOne(inversedBy: 'Critery')]
@@ -26,33 +29,43 @@ class Critery
     private ?Project $Project = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?float $weight = null;
 
     #[ORM\OneToMany(mappedBy: 'Critery', targetEntity: VariantValue::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $VariantValue;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $alfaQ = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $betaQ = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $alfaP = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $betaP = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $alfaV = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $betaV = null;
 
     #[ORM\OneToMany(mappedBy: 'Critery', targetEntity: ProfilValue::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $ProfilValue;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $CostGain = null;
 
     public function __construct()

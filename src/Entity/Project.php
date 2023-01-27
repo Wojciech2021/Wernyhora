@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
@@ -20,12 +22,15 @@ class Project
 
     #[ORM\Column(unique: true, length: 255)]
     #[Slug(fields: ['name'])]
+    #[Groups(['group1'])]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['group1'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 1024, nullable: true)]
+    #[Groups(['group1'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'Projects')]
@@ -39,20 +44,25 @@ class Project
     private ?\DateTimeInterface $updateTime = null;
 
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Critery::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $Critery;
 
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Variant::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $Variant;
 
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Klas::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $Klas;
 
     #[ORM\OneToMany(mappedBy: 'Project', targetEntity: Profil::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $Profil;
 
     #[ORM\Column(nullable: true)]
     #[Assert\GreaterThan(0.5)]
     #[Assert\LessThanOrEqual(1)]
+    #[Groups(['group1'])]
     private ?float $CutOffLevel = null;
 
     public function __construct()

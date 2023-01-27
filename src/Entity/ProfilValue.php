@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProfilValueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfilValueRepository::class)]
 class ProfilValue
@@ -14,6 +15,7 @@ class ProfilValue
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['group1'])]
     private ?float $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'ProfilValue')]

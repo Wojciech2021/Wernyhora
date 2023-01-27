@@ -24,7 +24,15 @@ jQuery( document ).ready(function() {
     }, 5000)
 });
 
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
 
+$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})
 
 
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\KlasRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: KlasRepository::class)]
 class Klas
@@ -14,6 +15,7 @@ class Klas
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['group1'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'Klas')]
@@ -21,6 +23,7 @@ class Klas
     private ?Project $Project = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $klasOrder = null;
 
     public function getId(): ?int

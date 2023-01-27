@@ -6,6 +6,7 @@ use App\Repository\ProfilRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfilRepository::class)]
 class Profil
@@ -20,45 +21,59 @@ class Profil
     private ?Project $Project = null;
 
     #[ORM\OneToMany(mappedBy: 'Profil', targetEntity: ProfilValue::class, orphanRemoval: true)]
+    #[Groups(['group1'])]
     private Collection $ProfilValue;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $profilOrder = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorR = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorG = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorB = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorRQ = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorGQ = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorBQ = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorRP = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorGP = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorBP = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorRV = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorGV = null;
 
     #[ORM\Column]
+    #[Groups(['group1'])]
     private ?int $colorBV = null;
 
     public function __construct()
