@@ -58,6 +58,7 @@ class ProjectsController extends AbstractController
         {
 
             $project = $form->getData();
+            $project->setCutOffLevel(1);
             $projectsService->addNewProject($project);
             $form = $this->createForm(AddProjectType::class);
             $this->addFlash('success', 'Dodano projekt '.$project->getName());
